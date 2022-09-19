@@ -1,18 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import Counter from './Component/Counter';
 import { useState } from 'react';
 import { Box, Button, Flex, SimpleGrid } from '@chakra-ui/react';
-import Todo from './Component/Todo';
+import { NavBar1 } from './Component/NavBar1';
+import { Navbar2 } from './Component/Navbar2';
 
 function App() {
 
-  const [t,sett] =useState(false)
   return (
     <div className="App">
 
 
-commit one
+<NavBar1/>
+<Navbar2/>
     </div>
   );
 }
