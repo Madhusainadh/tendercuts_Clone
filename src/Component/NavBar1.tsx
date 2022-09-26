@@ -1,7 +1,9 @@
 import React from 'react'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
-import and from "./and.png"
-import apple from "./apple.png";
+// import and from "./and.png"
+const and = require("./and.png")
+const apple= require("./apple.png")
+// import apple from "./apple.png";
 export const NavBar1 = () => {
   return (
     <Box bg={"white"} color={"black"}>
