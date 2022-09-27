@@ -2,9 +2,9 @@
 import './App.css';
 import { useState } from 'react';
 import { Box, Button, Flex, SimpleGrid } from '@chakra-ui/react';
-import { NavBar1 } from './Component/NavBar1';
-import { Navbar2 } from './Component/Navbar2';
-import { PlacementExample } from './Component/Drawer';
+import { NavBar1 } from './Navbar/NavBar1';
+import { Navbar2 } from './Navbar/Navbar2';
+import { PlacementExample } from './Navbar/Drawer';
 
 function App() {
 
