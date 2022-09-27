@@ -5,7 +5,7 @@ import ShopByCategoryCompo from "./ShopByCategoryCompo";
 function ShopByMain() {
   return (
     <Center>
-      <SimpleGrid columns={[1, 2,3, 4, 5]} spacing="12" >
+      <SimpleGrid columns={[1, 2, 3, 4, 5]} spacing="12">
         <ShopByCategoryCompo
           title={"Elite Offers"}
           image={
