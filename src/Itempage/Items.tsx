@@ -7,12 +7,9 @@ import {
   Heading,
   Image,
   SimpleGrid,
-  Stack,
   Text,
-  Container,
 } from "@chakra-ui/react";
 import axios from "axios";
-// import weight from "./weight.png"
 const weight = require("./weight.png");
 
 const getItems = async (type = "Chicken") => {
@@ -26,6 +23,7 @@ export const Items = () => {
   useEffect(() => {
     getItems().then((res) => setdata(res.data));
   }, []);
+
   //   "title": "Dindigul Chicken Biryani Kit",
   //   "details": "Serves: 2-3 | (Kit Contains:Seeraga Samba Rice 275 g + Chicken Biryani Cut 300 g Dindigul Biryani Paste 200 g)",
   //   "image": "https://assets.tendercuts.in/product/C/O/e1caaea4-f778-4def-a6cb-73aebab62eeb.jpg",
