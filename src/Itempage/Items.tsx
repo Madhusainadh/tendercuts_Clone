@@ -24,6 +24,9 @@ export const Items = () => {
     getItems().then((res) => setdata(res.data));
   }, []);
 
+  const Redirectonclickfun =(e:any)=>{
+console.log(e)
+  }
   //   "title": "Dindigul Chicken Biryani Kit",
   //   "details": "Serves: 2-3 | (Kit Contains:Seeraga Samba Rice 275 g + Chicken Biryani Cut 300 g Dindigul Biryani Paste 200 g)",
   //   "image": "https://assets.tendercuts.in/product/C/O/e1caaea4-f778-4def-a6cb-73aebab62eeb.jpg",
@@ -40,7 +43,7 @@ export const Items = () => {
     <Box maxW={"80%"}>
       <SimpleGrid columns={[1, 1,1, 3]}>
         {data.map((e: any) => (
-          <Box w={379} h={"407"} key={e.id}>
+          <Box w={379} h={"407"} key={e.id} onClick={()=>Redirectonclickfun(e)} >
             <>
               <Box>
                 <Image w={["1000px","1000px","1000px","377px"]} h={"210px"} src={e.image} />
