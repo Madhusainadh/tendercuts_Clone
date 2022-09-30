@@ -25,7 +25,7 @@ export const Items = () => {
   }, []);
 
   const Redirectonclickfun =(e:any)=>{
-console.log(e)
+// console.log(e)
   }
   //   "title": "Dindigul Chicken Biryani Kit",
   //   "details": "Serves: 2-3 | (Kit Contains:Seeraga Samba Rice 275 g + Chicken Biryani Cut 300 g Dindigul Biryani Paste 200 g)",
@@ -103,7 +103,7 @@ console.log(e)
                         textAlign={"left"}
                       >
                         ₹{e.price}
-                      </Text>{" "}
+                      </Text>
                       <Text
                         color={"#696969"}
                         textAlign={"left"}
@@ -123,7 +123,7 @@ console.log(e)
                       colorScheme={"#b71c1c"}
                     >
                       ADD TO CART
-                    </Button>{" "}
+                    </Button>
                   </Flex>
                 </Flex>
               </Box>
