@@ -1,3 +1,4 @@
+import { Box, Flex } from '@chakra-ui/react'
 import React from 'react'
 
 const SingleItem = () => {
@@ -15,7 +16,14 @@ const SingleItem = () => {
     // "id": 1
   return (
     <div>
-      
+      <Flex>
+        <Box>
+
+        </Box>
+        <Box>
+
+        </Box>
+      </Flex>
     </div>
   )
 }
