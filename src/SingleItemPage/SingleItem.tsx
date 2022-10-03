@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Image } from '@chakra-ui/react'
 import React from 'react'
 
 const SingleItem = () => {
@@ -18,6 +18,7 @@ const SingleItem = () => {
     <div>
       <Flex>
         <Box>
+          <Image src={""}/>
 
         </Box>
         <Box>
