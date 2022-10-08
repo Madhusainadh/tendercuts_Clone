@@ -5,6 +5,7 @@ import {
   Heading,
   Image,
   SimpleGrid,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
@@ -26,31 +27,54 @@ const SingleItem = () => {
     type: "Mutton",
     id: 21,
   };
+  let d = data.dis.split("&");
+  console.log(d);
   return (
     <div>
       <Box>
         <Heading>{data.title}</Heading>
         <Text>{data.details}</Text>
       </Box>
-      <Container maxW={"1000px"}>
-        <SimpleGrid gap={"10px"} columns={[1, 1, 1, 2]}>
-          <Flex justifyContent={"center"}>
-            {" "}
+      <Container maxW={"1300px"}>
+        <SimpleGrid maxW={"1300px"} gap={"10px"} columns={[1, 1, 1, 2]}>
+          <Box h={"400px"} w={"41.666667%"}>
+            <Image w={"100%"} verticalAlign={"middle"}  src={data.image} />
+          </Box>
+          <Box ml={"-200px"} >
             <Box>
-              <Image h={"400px"} w={"400px"} src={data.image} />
-            </Box>
-          </Flex>
-
-          <Box>
-            <Box>
-              <Text>{data.dis}</Text>
+              <Stack spacing={3}>
+                {d.map((e) => (
+                  <Text color={"#7e808c"} fontSize={"13px"}>
+                    {e}
+                  </Text>
+                ))}
+              </Stack>
             </Box>
             <Flex>
-            <Box display={"flex"} alignItems={"center"} fontSize={"14px"} bg={"#e9e3e3"} p={["6px","10px"]} color={"#414b4e"}  mr={"8px"} h={"32px"} left={"16px"}   >
-               
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                fontSize={"14px"}
+                bg={"#e9e3e3"}
+                p={["6px", "10px"]}
+                color={"#414b4e"}
+                mr={"8px"}
+                h={"32px"}
+                left={"16px"}
+              >
                 <Text>Weight :{data.weight}</Text>
               </Box>
-              <Box display={"flex"} alignItems={"center"} fontSize={"14px"} bg={"#e9e3e3"} p={["6px","10px"]} color={"#414b4e"}  mr={"8px"} h={"32px"} left={"16px"}   >
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                fontSize={"14px"}
+                bg={"#e9e3e3"}
+                p={["6px", "10px"]}
+                color={"#414b4e"}
+                mr={"8px"}
+                h={"32px"}
+                left={"16px"}
+              >
                 <Text>Serves :{data.Serves}</Text>
               </Box>
             </Flex>
