@@ -31,17 +31,21 @@ const SingleItem = () => {
   let d = data.dis.split("&");
   console.log(d);
   return (
-    <Box fontFamily={"sans-serif"} bg={"#f7f6f6"} >
+    <Box fontFamily={"sans-serif"} bg={"#f7f6f6"}>
       <Box>
-        <Text fontSize={"28px"} lineHeight={"33.6px"}  color={"#c2202f"} >{data.title}</Text>
-        <Text  color={"#666666"} lineHeight={"21.6px"} fontSize={"14.4px"} >{data.details}</Text>
+        <Text fontSize={"28px"} lineHeight={"33.6px"} color={"#c2202f"}>
+          {data.title}
+        </Text>
+        <Text color={"#666666"} lineHeight={"21.6px"} fontSize={"14.4px"}>
+          {data.details}
+        </Text>
       </Box>
       <Container maxW={"1300px"}>
         <SimpleGrid maxW={"1300px"} gap={"10px"} columns={[1, 1, 1, 2]}>
           <Box h={"400px"} w={"41.666667%"}>
-            <Image w={"100%"} verticalAlign={"middle"}  src={data.image} />
+            <Image w={"100%"} verticalAlign={"middle"} src={data.image} />
           </Box>
-          <Box ml={"-200px"} >
+          <Box ml={"-200px"}>
             <Box>
               <Stack spacing={3}>
                 {d.map((e) => (
@@ -79,13 +83,58 @@ const SingleItem = () => {
                 <Text>Serves :{data.Serves}</Text>
               </Box>
             </Flex>
-            <Flex gap={"50px"} >
-              {" "}
-              <Box w={"43px"} > <Text fontSize={"19.2px"} textAlign={"left"} color={"#000000"} >₹{data.price}</Text>
-              <Text h={"15px"} fontSize={"9px"} textAlign={"left"} color={"#696969"}  >ELITE</Text>
+            <Flex alignItems={"center"} gap={"50px"} mt={"9px"}>
+              <Box>
+                <Text
+                  color={"#7e808c"}
+                  fontSize={"20px"}
+                  lineHeight={"normal"}
+                  textAlign={"left"}
+                  textDecoration={"line-through"}
+                >
+                  ₹{data.mrp}
+                </Text>
+                <Text
+                  color={"#696969"}
+                  textAlign={"left"}
+                  fontSize={"9px"}
+                  h={"15px"}
+                  w={"42px"}
+                >
+                  MRP
+                </Text>
               </Box>
-             
-              <Button fontSize={"14px"} lineHeight={"30px"} textAlign={"center"} boxShadow={"rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"} borderRadius={"2px"} bg={"#b71c1c"} color={"#ffffff"} colorScheme={"#b71c1c"} >ADD TO CART</Button>
+              <Box w={"43px"}>
+                {" "}
+                <Text fontSize={"19.2px"} textAlign={"left"} color={"#000000"}>
+                  ₹{data.price}
+                </Text>
+                <Text
+                  h={"15px"}
+                  color={"#696969"}
+                  textAlign={"left"}
+                  fontSize={"9px"}
+                  w={"42px"}
+                 
+                >
+                  ELITE
+                </Text>
+              </Box>
+
+              <Button
+                fontSize={"14px"}
+                lineHeight={"30px"}
+                textAlign={"center"}
+                boxShadow={
+                  "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
+                }
+                borderRadius={"2px"}
+                bg={"#b71c1c"}
+                color={"#ffffff"}
+                colorScheme={"#b71c1c"}
+              >
+                ADD TO CART
+              </Button>
             </Flex>
           </Box>
         </SimpleGrid>

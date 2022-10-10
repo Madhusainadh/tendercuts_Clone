@@ -13,7 +13,7 @@ import axios from "axios";
 const weight = require("./weight.png");
 
 const getItems = async (type = "Chicken") => {
-  let res = await axios.get(`http://localhost:8080/items?type=${type}`);
+  let res = await axios.get(`https://shy-pink-seal-hem.cyclic.app/items?type=${type}`);
 
   return res;
 };
@@ -24,30 +24,27 @@ export const Items = () => {
     getItems().then((res) => setdata(res.data));
   }, []);
 
-  const Redirectonclickfun =(e:any)=>{
-console.log(e)
-  }
+  const Redirectonclickfun = (e: any) => {
+    console.log(e);
+  };
 
-    // "title": "Dindigul Chicken Biryani Kit",
-    // "details": "Serves: 2-3 | (Kit Contains:Seeraga Samba Rice 275 g + Chicken Biryani Cut 300 g Dindigul Biryani Paste 200 g)",
-    // "image": "https://assets.tendercuts.in/product/C/O/e1caaea4-f778-4def-a6cb-73aebab62eeb.jpg",
-    // "dis": "Do you remember the last time you prepared biryani and how long it took you to do it? It must have taken you somewhere around 2-3 hours, right? Dindigul chicken biryani kit can cut that time in more than half. The chicken pieces are there, the rice is part of the kit and the biryani paste too. It cooks in no time.",
-    // "weight": "775 Gms",
-    // "Serves": "2-3",
-    // "price": 225,
-    // "mrp": 267,
-    // "stoke": 3,
-    // "youtube": "https://youtu.be/x4ELWQRYkiA",
-    // "type": "Biryani",
-    // "id": 1
   return (
     <Box maxW={"80%"}>
-      <SimpleGrid columns={[1, 1,1, 3]}>
-        {data.map((e: any) => (
-          <Box w={379} h={"407"} key={e.id} onClick={()=>Redirectonclickfun(e)} >
+      <SimpleGrid columns={[1, 1, 1, 3]}>
+        {data?.map((e: any) => (
+          <Box
+            w={379}
+            h={"407"}
+            key={e.id}
+            onClick={() => Redirectonclickfun(e)}
+          >
             <>
               <Box>
-                <Image w={["1000px","1000px","1000px","377px"]} h={"210px"} src={e.image} />
+                <Image
+                  w={["1000px", "1000px", "1000px", "377px"]}
+                  h={"210px"}
+                  src={e.image}
+                />
               </Box>
               <Box>
                 <Heading
@@ -118,9 +115,15 @@ console.log(e)
                   </Flex>
                   <Flex justifyContent={"flex-start"} w={"40%"}>
                     <Button
-                      h={"30px"}
-                      w={"140px"}
+                      fontSize={"14px"}
+                      lineHeight={"30px"}
+                      textAlign={"center"}
+                      boxShadow={
+                        "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
+                      }
+                      borderRadius={"2px"}
                       bg={"#b71c1c"}
+                      color={"#ffffff"}
                       colorScheme={"#b71c1c"}
                     >
                       ADD TO CART
