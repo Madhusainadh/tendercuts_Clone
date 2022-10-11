@@ -7,6 +7,7 @@ import { Navbar2 } from './Navbar/Navbar2';
 import { PlacementExample } from './Navbar/Drawer';
 import { Items } from './Itempage/Items';
 import SingleItem from './SingleItemPage/SingleItem';
+import Topfooter from './Footer/Topfooter';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
 <Navbar2/>
 <SingleItem/>
 <Items/>
+<Topfooter/>
 
     </div>
   );
