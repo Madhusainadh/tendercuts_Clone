@@ -135,6 +135,17 @@ const SingleItem = () => {
               >
                 ADD TO CART
               </Button>
+              <Box alignSelf={"center"} bg={"#c11c2d"}  borderRadius={"50%"} h="24px" w={"24px"} color={"white"} >
+-
+                
+              </Box>
+              <Box h={"26px"} w={"33px"} fontSize={"18px"} lineHeight={"26px"}  textAlign={"center"} color={"000000"}   >
+1
+              </Box>
+              <Box bg={"#c11c2d"}  borderRadius={"50%"} h="24px" w={"24px"} color={"white"} >
++
+                
+              </Box>
             </Flex>
           </Box>
         </SimpleGrid>

@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-const weight = require("./weight.png");
+const weighticon = require("./weight.png");
 
 const getItems = async (type = "Chicken") => {
   let res = await axios.get(`https://shy-pink-seal-hem.cyclic.app/items?type=${type}`);
@@ -18,32 +18,32 @@ const getItems = async (type = "Chicken") => {
   return res;
 };
 
-export const Items = () => {
+export const Item = ({id,image,title,details,weight,mrp,price}:any) => {
   let [data, setdata] = useState([]);
   useEffect(() => {
     getItems().then((res) => setdata(res.data));
   }, []);
 
-  const Redirectonclickfun = (e: any) => {
-    console.log(e);
+  const Redirectonclickfun = ({id,image,title,details,weight,mrp,price}: any) => {
+    console.log(id,image,title,details,weight,mrp,price);
   };
 
   return (
-    <Box maxW={"80%"}>
-      <SimpleGrid columns={[1, 1, 1, 3]}>
-        {data?.map((e: any) => (
+    // <Box maxW={"80%"}>
+    //   <SimpleGrid columns={[1, 1, 1, 3]}>
+    //     {data?.map((e: any) => (
           <Box
             w={379}
             h={"407"}
-            key={e.id}
-            onClick={() => Redirectonclickfun(e)}
+            key={id}
+            onClick={() => Redirectonclickfun({id,image,title,details,weight,mrp,price})}
           >
             <>
               <Box>
                 <Image
                   w={["1000px", "1000px", "1000px", "377px"]}
                   h={"210px"}
-                  src={e.image}
+                  src={image}
                 />
               </Box>
               <Box>
@@ -52,10 +52,10 @@ export const Items = () => {
                   lineHeight={"21px"}
                   textAlign={"left"}
                 >
-                  {e.title}
+                  {title}
                 </Heading>
                 <Text fontSize={"12px"} lineHeight={"18px"} noOfLines={1}>
-                  {e.details}
+                  {details}
                 </Text>
               </Box>
               <Box>
@@ -67,7 +67,7 @@ export const Items = () => {
                   color={"#535665"}
                   bg={"#f2f2f2"}
                 >
-                  <Image w={"30px"} h={"30px"} src={weight} /> {e.weight}
+                  <Image w={"30px"} h={"30px"} src={weighticon} /> {weight}
                 </Flex>
               </Box>
               <Box>
@@ -81,7 +81,7 @@ export const Items = () => {
                         textAlign={"left"}
                         textDecoration={"line-through"}
                       >
-                        ₹{e.mrp}
+                        ₹{mrp}
                       </Text>
                       <Text
                         color={"#696969"}
@@ -100,7 +100,7 @@ export const Items = () => {
                         lineHeight={"normal"}
                         textAlign={"left"}
                       >
-                        ₹{e.price}
+                        ₹{price}
                       </Text>
                       <Text
                         color={"#696969"}
@@ -133,8 +133,8 @@ export const Items = () => {
               </Box>
             </>
           </Box>
-        ))}
-      </SimpleGrid>
-    </Box>
+    //     ))}
+    //   </SimpleGrid>
+    // </Box>
   );
 };

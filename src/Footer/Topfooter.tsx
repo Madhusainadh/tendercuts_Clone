@@ -9,7 +9,7 @@ const Topfooter = () => {
         "We introduced 'contactless retail' services to help maintain social distancing."
     ]
   return (
-    <Box bg={"#f7f6f6"}>
+    <Box borderColor={"000000"} bg={"#f7f6f6"}>
         <Text fontSize={"25px"}  color={"000000"}  lineHeight={"33px"} >"{text[t]}"</Text>
 <SimpleGrid justifyContent={"center"} columns={[1,1,2,3]} >
 
