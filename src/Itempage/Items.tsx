@@ -10,6 +10,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; 
+
+import {sendItemfun} from "../Store/SinglePage/Singleitem.Module";
 const weighticon = require("./weight.png");
 
 const getItems = async (type = "Chicken") => {
@@ -23,11 +27,20 @@ export const Item = ({id,image,title,details,weight,mrp,price}:any) => {
   useEffect(() => {
     getItems().then((res) => setdata(res.data));
   }, []);
-
+  const navigate = useNavigate();
+const dispatch = useDispatch<any>()
   const Redirectonclickfun = ({id,image,title,details,weight,mrp,price}: any) => {
     console.log(id,image,title,details,weight,mrp,price);
+    dispatch(sendItemfun(id))
+    // sendItemfun(id)
+    setTimeout(() => {
+      navigate("/Item")
+    }, 500);
+    
+   
   };
-
+ 
+  
   return (
     // <Box maxW={"80%"}>
     //   <SimpleGrid columns={[1, 1, 1, 3]}>
