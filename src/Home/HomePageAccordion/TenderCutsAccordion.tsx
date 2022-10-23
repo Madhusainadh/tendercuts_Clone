@@ -7,13 +7,21 @@ import {
   AccordionIcon,
   Box,
   Text,
+  Flex,
+  Heading,
 } from "@chakra-ui/react";
 function TenderCutsAccordion() {
   return (
-    <Box p={"20"}>
-      <Accordion >
+    <Flex mt={"10"} direction={"column"} align={"center"}>
+      <Heading size={"lg"}>TenderCuts Farm Fresh Meat & Fresh Fish </Heading>
+      <Accordion m={"auto"} w={["100%", "95%", "90%", "85%"]}>
         {/* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */}
-        <AccordionItem  mb={"4"}  borderColor={"gray"} borderRadius={"lg"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}>
+        <AccordionItem
+          mb={"4"}
+          borderColor={"gray"}
+          borderRadius={"lg"}
+          boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
+        >
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">
@@ -35,7 +43,12 @@ function TenderCutsAccordion() {
             </Text>
           </AccordionPanel>
         </AccordionItem>
-        <AccordionItem mb={"4"}  borderColor={"gray"} borderRadius={"lg"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}>
+        <AccordionItem
+          mb={"4"}
+          borderColor={"gray"}
+          borderRadius={"lg"}
+          boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
+        >
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">
@@ -57,7 +70,12 @@ function TenderCutsAccordion() {
             </Text>
           </AccordionPanel>
         </AccordionItem>
-        <AccordionItem mb={"4"}  borderColor={"gray"} borderRadius={"lg"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}>
+        <AccordionItem
+          mb={"4"}
+          borderColor={"gray"}
+          borderRadius={"lg"}
+          boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
+        >
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">
@@ -79,7 +97,12 @@ function TenderCutsAccordion() {
             </Text>
           </AccordionPanel>
         </AccordionItem>{" "}
-        <AccordionItem mb={"4"}  borderColor={"gray"} borderRadius={"lg"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}>
+        <AccordionItem
+          mb={"4"}
+          borderColor={"gray"}
+          borderRadius={"lg"}
+          boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
+        >
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">
@@ -102,7 +125,7 @@ function TenderCutsAccordion() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-    </Box>
+    </Flex>
   );
 }
 

@@ -7,7 +7,13 @@ type prop = {
 };
 function WTCCompo({ logo, first, second }: prop) {
   return (
-    <Box borderRadius={"lg"} border={"1px"} borderColor={"gray.400"} minW={"196px"} minH={"73px"}>
+    <Box
+      borderRadius={"lg"}
+      border={"1px"}
+      borderColor={"gray.400"}
+      minW={"196px"}
+      minH={"73px"}
+    >
       <Flex>
         <Image src={logo} w={"30%"} />
         <Flex direction={"column"} align={"flex-start"}>
