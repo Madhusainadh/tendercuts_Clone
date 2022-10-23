@@ -52,7 +52,7 @@ function OtpModal({ isOpen, setIsOpen, mainfun }: prop) {
                 >
                   Verify
                 </Button>
-                <Button color={"black"} w={"50%"} size={"lg"}>
+                <Button color={"black"} w={"50%"} size={"lg"} onClick={onClose}>
                   Cancel
                 </Button>
               </Flex>

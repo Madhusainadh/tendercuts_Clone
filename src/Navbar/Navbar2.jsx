@@ -32,30 +32,31 @@ const cart = require("./cart.png");
 export const Navbar2 = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [phnumber, setphnumber] = useState("");
-  const [flag, setflag] = useState(false)
+  const [error, seterror] = useState("")
   const [modalBool, setmodalBool] = useState(false)
-  const [otp, setotp] = useState("")
+
   const [result, setresult] = useState("")
   const { setupRecaptcha } = useUserAuth();
 
 
   const getOtp = async () => {
-    // try {
-    //   const res = await setupRecaptcha(phnumber);
-    //   setresult(res)
-      setmodalBool(!modalBool)
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    
+      try {
+        const res = await setupRecaptcha(phnumber);
+        setresult(res)
+        setmodalBool(!modalBool)
+      } catch (error) {
+        console.log(error);
+      }
   };
   const verifyOtp = async (main) => {
     console.log(main);
-    // try {
-    //   await result.confirm(main)
-    //   console.log("succes");
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await result.confirm(main)
+      console.log("succes");
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
