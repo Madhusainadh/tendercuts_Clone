@@ -3,12 +3,12 @@ import React from "react";
 import {
   Drawer,
   DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
   DrawerContent,
+  useDisclosure,
+  DrawerCloseButton,
+  Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
-
+import { useState, useRef } from "react";
 import {
   Button,
   Container,
@@ -16,25 +16,16 @@ import {
   Heading,
   Image,
   Input,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
 } from "@chakra-ui/react";
+import TenderSVG from "./TenderSVG";
 const pro = require("./pro.png");
 const loc = require("./loc.png");
 const ser = require("./ser.png");
 const cart = require("./cart.png");
 
 export const Navbar2 = () => {
-  const [isOpen, setisOpen] = useState(false);
-  const onOpen = () => {
-    setisOpen(!isOpen);
-  };
-  const onClose = () => {
-    setisOpen(!isOpen);
-  };
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
       <Flex gap={"40px"} w={["100%"]}>
@@ -73,60 +64,62 @@ export const Navbar2 = () => {
               md: "flex",
             }}
           >
-            <Button bg={"none"} onClick={onOpen}>
-              <Flex gap={"10px"}>
-                <Image w={"25px"} h={"25px"} src={ser} />
-                <Heading as="h4" size="sm">
-                  SEARCH
-                </Heading>
-                <>
-                  <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
-                    <DrawerOverlay />
-                    <DrawerContent>
-                      <DrawerHeader borderBottomWidth="1px">
-                        SEARCH
-                      </DrawerHeader>
-                      <DrawerBody>
-                        <Input placeholder="Search for product" />
-                      </DrawerBody>
-                    </DrawerContent>
-                  </Drawer>
-                </>
-              </Flex>{" "}
+            <Button
+              _hover={{ backgroundColor: "#CA2222" }}
+              bg={"#CA2222"}
+              color={"white"}
+              onClick={onOpen}
+            >
+              Login/Signup
             </Button>
-            {true ? (
-              <Button bg={"rgb(202, 34, 34)"}>
-                <Menu>
-                  <MenuButton
-                    px={4}
-                    py={2}
-                    transition="all 0.2s"
-                    borderRadius="md"
-                    borderWidth="1px"
-                    _hover={{ bg: "gray.400" }}
-                    _expanded={{ bg: "blue.400" }}
-                    _focus={{ boxShadow: "outline" }}
-                  >
-                    <Heading as="h4" size="sm">
-                      Profile
-                    </Heading>
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>New File</MenuItem>
-                    <MenuItem>New Window</MenuItem>
-                    <MenuDivider />
-                    <MenuItem>Open...</MenuItem>
-                    <MenuItem>Save File</MenuItem>
-                  </MenuList>
-                </Menu>
-              </Button>
-            ) : (
-              <Button>
-                <Heading as="h4" size="sm">
-                  Login/Signup
-                </Heading>{" "}
-              </Button>
-            )}
+            <Drawer
+              size={"sm"}
+              
+              isOpen={isOpen}
+              placement="left"
+              onClose={onClose}
+            >
+              <DrawerContent>
+                <Flex justify={"space-between"} align={"center"}>
+                  <DrawerCloseButton />
+                  <TenderSVG />
+                </Flex>
+
+                <DrawerBody>
+                  <Flex direction={"column"} align={"center"} gap={"5"}>
+                    <Text color={"#CA2222"} fontWeight={"bold"}>
+                      Log in / Create account to manage orders
+                    </Text>
+                    <Text>Mobile Number</Text>
+                    <Input width={"99%"} />
+                    <Button
+                      color={"white"}
+                      bg={"#CA2222"}
+                      width={"99%"}
+                      borderRadius={"none"}
+                      size={"md"}
+                    >
+                      Send OTP{" "}
+                    </Button>
+                    <Text>Shop from anywhere , Download our app now!</Text>
+                    <Flex align={"center"} w={"80%"}>
+                      <a
+                        target={"_blank"}
+                        href="https://apps.apple.com/in/app/tendercuts-farm-fresh-meat-and-fresh-fish/id1236186604"
+                      >
+                        <Image src="https://www.tendercuts.in/assets/app/app-store.png" />
+                      </a>
+                      <a
+                        target={"_blank"}
+                        href="https://play.google.com/store/apps/details?id=com.tendercuts.app"
+                      >
+                        <Image src="https://www.tendercuts.in/assets/app/play-store.png" />
+                      </a>
+                    </Flex>
+                  </Flex>
+                </DrawerBody>
+              </DrawerContent>
+            </Drawer>
 
             <Button bg={"none"}>
               <Flex gap={"20px"}>

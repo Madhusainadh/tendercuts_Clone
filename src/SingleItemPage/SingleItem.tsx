@@ -13,10 +13,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const SingleItem = () => {
-  const item = useSelector((state:any)=>state.single)
+  const item = useSelector((state: any) => state.single);
   // console.log(item.allClients[0])
-  let data=item.allClients[0]
-  console.log(data)
+  let data = item.allClients[0];
+  console.log(data);
   // let data = {
   //   title: "Premium Goat Curry Cut [1 KG]",
   //   details: "35 to 40 piece",
@@ -53,7 +53,7 @@ const SingleItem = () => {
           <Box ml={"-200px"}>
             <Box>
               <Stack spacing={3}>
-                {d?.map((e:any) => (
+                {d?.map((e: any) => (
                   <Text color={"#7e808c"} fontSize={"13px"}>
                     {e}
                   </Text>
@@ -120,7 +120,6 @@ const SingleItem = () => {
                   textAlign={"left"}
                   fontSize={"9px"}
                   w={"42px"}
-                 
                 >
                   ELITE
                 </Text>
@@ -140,16 +139,34 @@ const SingleItem = () => {
               >
                 ADD TO CART
               </Button>
-              <Box alignSelf={"center"} bg={"#c11c2d"}  borderRadius={"50%"} h="24px" w={"24px"} color={"white"} >
--
-                
+              <Box
+                alignSelf={"center"}
+                bg={"#c11c2d"}
+                borderRadius={"50%"}
+                h="24px"
+                w={"24px"}
+                color={"white"}
+              >
+                -
               </Box>
-              <Box h={"26px"} w={"33px"} fontSize={"18px"} lineHeight={"26px"}  textAlign={"center"} color={"000000"}   >
-1
+              <Box
+                h={"26px"}
+                w={"33px"}
+                fontSize={"18px"}
+                lineHeight={"26px"}
+                textAlign={"center"}
+                color={"000000"}
+              >
+                1
               </Box>
-              <Box bg={"#c11c2d"}  borderRadius={"50%"} h="24px" w={"24px"} color={"white"} >
-+
-                
+              <Box
+                bg={"#c11c2d"}
+                borderRadius={"50%"}
+                h="24px"
+                w={"24px"}
+                color={"white"}
+              >
+                +
               </Box>
             </Flex>
           </Box>
