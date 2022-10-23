@@ -10,16 +10,13 @@ import Allitems from "./Itempage/Allitems";
 
 import { Outlet, Link } from "react-router-dom";
 import AllRoutes from "./Allrouts/AllRoutes";
+import { UserAuthContextProvider } from "./Home/UserAuthContext";
 function App() {
   return (
     <div className="App">
-      {/* <SingleItem/>
-    <Allitems/>
-  <Topfooter/> */}
-    
-      <AllRoutes />
-      {/* <Link to={"/"}>all items</Link>
-      <Link to={"/Item"}>Single item</Link> */}
+      <UserAuthContextProvider>
+        <AllRoutes />
+      </UserAuthContextProvider>
     </div>
   );
 }

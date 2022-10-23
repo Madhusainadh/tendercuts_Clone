@@ -18,6 +18,12 @@ import {
   Input,
 } from "@chakra-ui/react";
 import TenderSVG from "./TenderSVG";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import { useUserAuth } from "../Home/UserAuthContext";
+
+import OtpModal from "./Modal";
+
 const pro = require("./pro.png");
 const loc = require("./loc.png");
 const ser = require("./ser.png");
@@ -25,7 +31,32 @@ const cart = require("./cart.png");
 
 export const Navbar2 = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [phnumber, setphnumber] = useState("");
+  const [flag, setflag] = useState(false)
+  const [modalBool, setmodalBool] = useState(false)
+  const [otp, setotp] = useState("")
+  const [result, setresult] = useState("")
+  const { setupRecaptcha } = useUserAuth();
 
+
+  const getOtp = async () => {
+    // try {
+    //   const res = await setupRecaptcha(phnumber);
+    //   setresult(res)
+      setmodalBool(!modalBool)
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
+  const verifyOtp = async (main) => {
+    console.log(main);
+    // try {
+    //   await result.confirm(main)
+    //   console.log("succes");
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  }
   return (
     <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
       <Flex gap={"40px"} w={["100%"]}>
@@ -74,7 +105,6 @@ export const Navbar2 = () => {
             </Button>
             <Drawer
               size={"sm"}
-              
               isOpen={isOpen}
               placement="left"
               onClose={onClose}
@@ -91,16 +121,29 @@ export const Navbar2 = () => {
                       Log in / Create account to manage orders
                     </Text>
                     <Text>Mobile Number</Text>
-                    <Input width={"99%"} />
+                    <PhoneInput
+                      style={{
+                        width: "95%",
+                        height: "50px",
+                        border: "1px solid black",
+                      }}
+                      defaultCountry="IN"
+                      value={phnumber}
+                      onChange={setphnumber}
+                      placeholder="Please enter your Phone number"
+                    />
+                    <div id="recaptcha-container" />
                     <Button
                       color={"white"}
                       bg={"#CA2222"}
                       width={"99%"}
                       borderRadius={"none"}
                       size={"md"}
+                      onClick={getOtp}
                     >
                       Send OTP{" "}
                     </Button>
+                    <OtpModal mainfun={verifyOtp} isOpen={modalBool} setIsOpen={setmodalBool} />
                     <Text>Shop from anywhere , Download our app now!</Text>
                     <Flex align={"center"} w={"80%"}>
                       <a

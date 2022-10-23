@@ -6,7 +6,7 @@ function TenderSVG() {
     <Box w={"90%"}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        enable-background="new 0 0 457.9 113.7"
+        enableBackground="new 0 0 457.9 113.7"
         viewBox="0 0 457.9 113.7"
       >
         <g fill="#be2130">
