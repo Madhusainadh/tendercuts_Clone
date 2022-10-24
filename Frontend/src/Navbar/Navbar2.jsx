@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Drawer,
@@ -33,26 +33,14 @@ const cart = require("./cart.png");
 export const Navbar2 = () => {
   const [render, setrender] = useState(false)
   const [data, setdata] = useState([])
+
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [phnumber, setphnumber] = useState("");
   const [error, seterror] = useState("")
   const [modalBool, setmodalBool] = useState(false)
-
   const [result, setresult] = useState("")
   const { setupRecaptcha } = useUserAuth();
-  const getData = (number) => {
-    axios.post("http://localhost:8080/address/find", number).then((res) => {
-       if (!res.data.isFound) {
-        setrender(false)
-      }
-      else {
-        setdata(res.data.data)
-        setrender(true)
-      }
-
-
-    }).catch((er) => seterror(er))
-  }
 
   const getOtp = async () => {
 
@@ -64,21 +52,39 @@ export const Navbar2 = () => {
       console.log(error);
     }
   };
+  const getData = async (number) => {
+    try {
+      let res = await axios.post("http://localhost:8080/address/find", number)
+      console.log(res);
+      if (!res.data.isFound) {
+        setrender(false)
+      }
+      else {
+        setdata(res.data.data)
+        setrender(true)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
   const verifyOtp = async (main) => {
 
     try {
       let data = await result.confirm(main)
-
-      const { user } = data
-      if (user.accessToken) {
-        getData(user.phoneNumber)
-      }
-
-      // console.log("succes");
+      console.log("succes" + data);
     } catch (error) {
-      console.log("error" + error);
+      console.log(error);
     }
   }
+  useEffect(() => {
+    getData(phnumber)
+
+
+  }, [result])
+
+
+
   return (
     <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
       <Flex gap={"40px"} w={["100%"]}>
@@ -165,7 +171,7 @@ export const Navbar2 = () => {
                     >
                       Send OTP{" "}
                     </Button>
-                    <OtpModal mainfun={verifyOtp} isOpen={modalBool} setIsOpen={setmodalBool} />
+                    <OtpModal mongo={render} secondfun={setrender} mainfun={verifyOtp} isOpen={modalBool} setIsOpen={setmodalBool} />
                     <Text>Shop from anywhere , Download our app now!</Text>
                     <Flex align={"center"} w={"80%"}>
                       <a
