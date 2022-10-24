@@ -23,6 +23,7 @@ import PhoneInput from "react-phone-number-input";
 import { useUserAuth } from "../Home/UserAuthContext";
 
 import OtpModal from "./Modal";
+import axios from "axios";
 
 const pro = require("./pro.png");
 const loc = require("./loc.png");
@@ -30,6 +31,8 @@ const ser = require("./ser.png");
 const cart = require("./cart.png");
 
 export const Navbar2 = () => {
+  const [render, setrender] = useState(false)
+  const [data, setdata] = useState([])
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [phnumber, setphnumber] = useState("");
   const [error, seterror] = useState("")
@@ -37,25 +40,43 @@ export const Navbar2 = () => {
 
   const [result, setresult] = useState("")
   const { setupRecaptcha } = useUserAuth();
+  const getData = (number) => {
+    axios.post("http://localhost:8080/address/find", number).then((res) => {
+       if (!res.data.isFound) {
+        setrender(false)
+      }
+      else {
+        setdata(res.data.data)
+        setrender(true)
+      }
 
+
+    }).catch((er) => seterror(er))
+  }
 
   const getOtp = async () => {
-    
-      try {
-        const res = await setupRecaptcha(phnumber);
-        setresult(res)
-        setmodalBool(!modalBool)
-      } catch (error) {
-        console.log(error);
-      }
-  };
-  const verifyOtp = async (main) => {
-    console.log(main);
+
     try {
-      await result.confirm(main)
-      console.log("succes");
+      const res = await setupRecaptcha(phnumber);
+      setresult(res)
+      setmodalBool(!modalBool)
     } catch (error) {
       console.log(error);
+    }
+  };
+  const verifyOtp = async (main) => {
+
+    try {
+      let data = await result.confirm(main)
+
+      const { user } = data
+      if (user.accessToken) {
+        getData(user.phoneNumber)
+      }
+
+      // console.log("succes");
+    } catch (error) {
+      console.log("error" + error);
     }
   }
   return (
