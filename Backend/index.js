@@ -1,19 +1,22 @@
 const express = require("express")
 const { default: mongoose } = require("mongoose")
+const Address = require("./Routes/Address.route")
+const AddressModel = require("./Schemas/Address")
 const cartModel = require("./Schemas/Cart.model")
 const ProdModel = require("./Schemas/Prods.model")
 const userModel = require("./Schemas/User.model")
 const app = express()
 app.use(express.json())
 app.post("/users", async (req, res) => {
-    const { name, phoneNumber, address } = req.body
+    const { phoneNumber } = req.body
     try {
-        const user = await userModel.create({ name: name, phoneNumber: phoneNumber, address: address })
-        res.send("user created")
+        const user = await userModel.create({ phoneNumber: phoneNumber })
+        res.send(user)
     } catch (error) {
         res.status(401).send("Something wrong")
     }
 })
+app.use("/address",Address)
 app.get("/allProds", async (req, res) => {
     try {
         const allprods = await ProdModel.find()

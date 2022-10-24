@@ -1,6 +1,6 @@
 const { Schema, model, default: mongoose } = require("mongoose")
 const cartSchema = new Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "carts", required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "Users", required: true },
     product: { type: mongoose.Schema.Types.ObjectId, ref: "allprods", required: true }
 }, {
     versionKey: false
