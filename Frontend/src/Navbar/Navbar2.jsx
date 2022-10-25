@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Drawer,
@@ -7,6 +7,8 @@ import {
   useDisclosure,
   DrawerCloseButton,
   Text,
+  DrawerFooter,
+  Box,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import {
@@ -23,6 +25,7 @@ import PhoneInput from "react-phone-number-input";
 import { useUserAuth } from "../Home/UserAuthContext";
 
 import OtpModal from "./Modal";
+import axios from "axios";
 
 const pro = require("./pro.png");
 const loc = require("./loc.png");
@@ -30,34 +33,51 @@ const ser = require("./ser.png");
 const cart = require("./cart.png");
 
 export const Navbar2 = () => {
+  const [render, setrender] = useState(false)
+  const [data, setdata] = useState([])
+
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [phnumber, setphnumber] = useState("");
   const [error, seterror] = useState("")
   const [modalBool, setmodalBool] = useState(false)
-
   const [result, setresult] = useState("")
-  const { setupRecaptcha } = useUserAuth();
+  const { setupRecaptcha, name } = useUserAuth();
 
 
   const getOtp = async () => {
-    
-      try {
-        const res = await setupRecaptcha(phnumber);
-        setresult(res)
-        setmodalBool(!modalBool)
-      } catch (error) {
-        console.log(error);
-      }
-  };
-  const verifyOtp = async (main) => {
-    console.log(main);
+
     try {
-      await result.confirm(main)
-      console.log("succes");
+      const res = await setupRecaptcha(phnumber);
+      setresult(res)
+      setmodalBool(!modalBool)
     } catch (error) {
-      console.log(error);
+      alert(error.message)
+    }
+  };
+  const getData = async (number) => {
+    try {
+      let res = await axios.post("http://localhost:8080/address/find", { number: number })
+      if (res.data.isFound) {
+        setdata(res.data.data)
+      }
+
+    } catch (error) {
+      alert(error.message)
+    }
+
+  }
+
+  const verifyOtp = async (main) => {
+
+    try {
+      let data = await result.confirm(main)
+      getData(phnumber)
+    } catch (error) {
+      alert(error.message)
     }
   }
+
   return (
     <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
       <Flex gap={"40px"} w={["100%"]}>
@@ -102,7 +122,7 @@ export const Navbar2 = () => {
               color={"white"}
               onClick={onOpen}
             >
-              Login/Signup
+              {name ? name : "Login/Signup"}
             </Button>
             <Drawer
               size={"sm"}
@@ -126,12 +146,12 @@ export const Navbar2 = () => {
                       style={{
                         width: "95%",
                         height: "50px",
-                        border: "1px solid black",
+
                       }}
                       defaultCountry="IN"
                       value={phnumber}
                       onChange={setphnumber}
-                      placeholder="Please enter your Phone number"
+                      placeholder="Please enter your 10-digit Phone number"
                     />
                     <div id="recaptcha-container" />
                     <Button
@@ -144,7 +164,7 @@ export const Navbar2 = () => {
                     >
                       Send OTP{" "}
                     </Button>
-                    <OtpModal mainfun={verifyOtp} isOpen={modalBool} setIsOpen={setmodalBool} />
+                    <OtpModal phnumber={phnumber} data={data} mainfun={verifyOtp} firstModalisOpen={modalBool} setIsOpen={setmodalBool} />
                     <Text>Shop from anywhere , Download our app now!</Text>
                     <Flex align={"center"} w={"80%"}>
                       <a
@@ -162,7 +182,9 @@ export const Navbar2 = () => {
                     </Flex>
                   </Flex>
                 </DrawerBody>
+
               </DrawerContent>
+
             </Drawer>
 
             <Button bg={"none"}>
