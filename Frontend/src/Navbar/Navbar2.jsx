@@ -7,6 +7,8 @@ import {
   useDisclosure,
   DrawerCloseButton,
   Text,
+  DrawerFooter,
+  Box,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import {
@@ -40,7 +42,8 @@ export const Navbar2 = () => {
   const [error, seterror] = useState("")
   const [modalBool, setmodalBool] = useState(false)
   const [result, setresult] = useState("")
-  const { setupRecaptcha } = useUserAuth();
+  const { setupRecaptcha, name } = useUserAuth();
+
 
   const getOtp = async () => {
 
@@ -74,7 +77,7 @@ export const Navbar2 = () => {
       alert(error.message)
     }
   }
- 
+
   return (
     <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
       <Flex gap={"40px"} w={["100%"]}>
@@ -119,7 +122,7 @@ export const Navbar2 = () => {
               color={"white"}
               onClick={onOpen}
             >
-              Login/Signup
+              {name ? name : "Login/Signup"}
             </Button>
             <Drawer
               size={"sm"}
@@ -161,7 +164,7 @@ export const Navbar2 = () => {
                     >
                       Send OTP{" "}
                     </Button>
-                    <OtpModal data={data} mainfun={verifyOtp} firstModalisOpen={modalBool} setIsOpen={setmodalBool} />
+                    <OtpModal phnumber={phnumber} data={data} mainfun={verifyOtp} firstModalisOpen={modalBool} setIsOpen={setmodalBool} />
                     <Text>Shop from anywhere , Download our app now!</Text>
                     <Flex align={"center"} w={"80%"}>
                       <a
@@ -179,7 +182,9 @@ export const Navbar2 = () => {
                     </Flex>
                   </Flex>
                 </DrawerBody>
+
               </DrawerContent>
+
             </Drawer>
 
             <Button bg={"none"}>

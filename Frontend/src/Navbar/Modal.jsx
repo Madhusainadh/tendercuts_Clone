@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -17,10 +17,13 @@ import {
   DrawerCloseButton,
   DrawerBody,
   Box,
+  Heading,
+  Image,
 
 
 } from "@chakra-ui/react";
 import axios from "axios";
+import { useUserAuth } from "../Home/UserAuthContext";
 // type prop = {
 //   firstModalisOpen: boolean;
 //   setIsOpen: Function;
@@ -34,14 +37,19 @@ import axios from "axios";
 //   pincode: string;
 //   number: Number;
 // };
-function OtpModal({ data, firstModalisOpen, setIsOpen, mainfun }) {
+function OtpModal({ phnumber, data, firstModalisOpen, setIsOpen, mainfun }) {
+
+
   const [formData, setformData] = useState({
+    name: "",
     address: "",
     flatNumber: "",
     landmark: "",
     pincode: "",
     number: ""
   })
+  const { setname, name } = useUserAuth();
+
   const [val, setval] = useState("");
 
   const [maindata, setmaindata] = useState([])
@@ -53,20 +61,26 @@ function OtpModal({ data, firstModalisOpen, setIsOpen, mainfun }) {
 
     mainfun(val)
     onOpen();
+    firstModalisOpen()
+    setname(formData.name)
+
   };
 
   const handleAddAddress = async () => {
     try {
+
       let data = await axios.post("http://localhost:8080/address/create", formData)
       console.log(data);
     } catch (error) {
-      console.log(error.message);
+      alert(error.message);
     }
   }
   useEffect(() => {
     setmaindata(data)
-  }, [data])
-return (
+
+  }, [data, phnumber])
+
+  return (
     <div>
       <Modal size={"xl"} isOpen={firstModalisOpen} onClose={firstModalonClose}>
         <ModalOverlay />
@@ -112,10 +126,11 @@ return (
                             no data
                           </Text>
                           <Text>Mobile Number</Text>
-                          <Input placeholder="Flat No." onChange={(e) => setformData((prev) => ({ ...prev, flatNumber: e.target.value }))} size={"md"} border="none" width={"99%"} />
+                          <Input placeholder="Name" onChange={(e) => setformData((prev) => ({ ...prev, name: e.target.value }))} size={"md"} border="none" width={"99%"} />
+                          <Input placeholder="Flat No." onChange={(e) => setformData((prev) => ({ ...prev, flatNumber: e.target.value, number: phnumber }))} size={"md"} border="none" width={"99%"} />
                           <Input placeholder="Street" onChange={(e) => setformData((prev) => ({ ...prev, landmark: e.target.value }))} size={"md"} border="none" width={"99%"} />
                           <Input placeholder="Landmark" onChange={(e) => setformData((prev) => ({ ...prev, pincode: e.target.value }))} size={"md"} border="none" width={"99%"} />
-                          <Input placeholder="Pincode" onChange={(e) => setformData((prev) => ({ ...prev, number: e.target.value }))} size={"md"} border="none" width={"99%"} />
+
                           <Button
                             color={"white"}
                             borderColor={"#CA2222"}
@@ -132,7 +147,7 @@ return (
                         </Flex>
                       </DrawerBody>
                     </DrawerContent>
-                  </Drawer> ) : (
+                  </Drawer>) : (
                   <Drawer
                     size={"sm"}
                     isOpen={isOpen}
@@ -145,15 +160,32 @@ return (
                       </Flex>
 
                       <DrawerBody>
+                        <Flex border={"2px"} minH={"82px"} align={"center"}>
+                          <Flex align={"center"} justify={"center"} minW={"20%"}>
+                            <Image src="./target.png" boxSize={"7"} />
+                          </Flex>
+                          <Box w={"80%"} >
+                            <Text size={"lg"}>
+                              Add New Address
+                            </Text>
+                          </Box>
+                        </Flex>
                         <Flex direction={"column"} align={"center"} gap={"5"}>
+                          <Heading>Addresses</Heading>
                           {maindata.map((el) => {
-                            return <Box key={el._id}>
-                              <Text>{el.address}</Text>
-                              <Text>{el.flatNumber}</Text>
-                              <Text>{el.landmark}</Text>
-                              <Text>{el.pincode}</Text>
+                            return <Flex key={el._id} w={"95%"} h={"130px"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}>
+                              <Flex Flex align={"center"} justify={"center"} minW={"20%"}>
+                                <Image src="./house-24.jpg" />
+                              </Flex>
+                              <Flex w={"80%"} align={"flex-start"} direction={"column"}>
 
-                            </Box>;
+                                <Text size={"lg"}>{el.address}</Text>
+                                <Text size={"lg"}>{el.flatNumber}</Text>
+                                <Text size={"lg"}>{el.landmark}</Text>
+                                <Text size={"lg"}>{el.pincode}</Text>
+                              </Flex>
+
+                            </Flex>;
                           })}
                         </Flex>
                       </DrawerBody>
