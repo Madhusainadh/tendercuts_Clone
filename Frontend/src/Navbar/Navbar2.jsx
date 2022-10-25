@@ -55,8 +55,6 @@ export const Navbar2 = () => {
   const getData = async (number) => {
     try {
       let res = await axios.post("http://localhost:8080/address/find", { number: number })
-
-      
       if (res.data.isFound) {
         setdata(res.data.data)
       }
@@ -71,13 +69,12 @@ export const Navbar2 = () => {
 
     try {
       let data = await result.confirm(main)
-
-
       getData(phnumber)
     } catch (error) {
       alert(error.message)
     }
   }
+ 
   return (
     <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
       <Flex gap={"40px"} w={["100%"]}>

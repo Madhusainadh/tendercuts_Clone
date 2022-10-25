@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -53,9 +53,8 @@ function OtpModal({ data, firstModalisOpen, setIsOpen, mainfun }) {
 
     mainfun(val)
     onOpen();
-    setmaindata(data)
   };
-  console.log(maindata);
+
   const handleAddAddress = async () => {
     try {
       let data = await axios.post("http://localhost:8080/address/create", formData)
@@ -64,7 +63,10 @@ function OtpModal({ data, firstModalisOpen, setIsOpen, mainfun }) {
       console.log(error.message);
     }
   }
-  return (
+  useEffect(() => {
+    setmaindata(data)
+  }, [data])
+return (
     <div>
       <Modal size={"xl"} isOpen={firstModalisOpen} onClose={firstModalonClose}>
         <ModalOverlay />
@@ -92,34 +94,7 @@ function OtpModal({ data, firstModalisOpen, setIsOpen, mainfun }) {
                 >
                   Verify
                 </Button>
-                {maindata.length > 0 ? (
-                  <Drawer
-                    size={"sm"}
-                    isOpen={isOpen}
-                    placement="left"
-                    onClose={onClose}
-                  >
-                    <DrawerContent>
-                      <Flex justify={"space-between"} align={"center"}>
-                        <DrawerCloseButton />
-                      </Flex>
-
-                      <DrawerBody>
-                        <Flex direction={"column"} align={"center"} gap={"5"}>
-                          {data.map((el) => {
-                            <Box>
-                              <Text>{el.address}</Text>
-                              <Text>{el.flatNumber}</Text>
-                              <Text>{el.landmark}</Text>
-                              <Text>{el.pincode}</Text>
-                              <Text>{el.number}</Text>
-                            </Box>;
-                          })}
-                        </Flex>
-                      </DrawerBody>
-                    </DrawerContent>
-                  </Drawer>
-                ) : (
+                {maindata.length === 0 ? (
                   <Drawer
                     size={"sm"}
                     isOpen={isOpen}
@@ -131,7 +106,6 @@ function OtpModal({ data, firstModalisOpen, setIsOpen, mainfun }) {
                         <Input placeholder="Enter your Area" onChange={(e) => setformData((prev) => ({ ...prev, address: e.target.value }))} />
                         <DrawerCloseButton />
                       </Flex>
-
                       <DrawerBody>
                         <Flex direction={"column"} align={"center"} gap={"5"}>
                           <Text color={"#CA2222"} fontWeight={"bold"}>
@@ -155,6 +129,32 @@ function OtpModal({ data, firstModalisOpen, setIsOpen, mainfun }) {
 
 
 
+                        </Flex>
+                      </DrawerBody>
+                    </DrawerContent>
+                  </Drawer> ) : (
+                  <Drawer
+                    size={"sm"}
+                    isOpen={isOpen}
+                    placement="left"
+                    onClose={onClose}
+                  >
+                    <DrawerContent>
+                      <Flex justify={"space-between"} align={"center"}>
+                        <DrawerCloseButton />
+                      </Flex>
+
+                      <DrawerBody>
+                        <Flex direction={"column"} align={"center"} gap={"5"}>
+                          {maindata.map((el) => {
+                            return <Box key={el._id}>
+                              <Text>{el.address}</Text>
+                              <Text>{el.flatNumber}</Text>
+                              <Text>{el.landmark}</Text>
+                              <Text>{el.pincode}</Text>
+
+                            </Box>;
+                          })}
                         </Flex>
                       </DrawerBody>
                     </DrawerContent>
