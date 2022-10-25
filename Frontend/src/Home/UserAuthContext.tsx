@@ -5,8 +5,13 @@ export const userAuthContext = createContext({});
 type prop = {
   children: String;
 };
+type huru = {
+  setupRecaptcha: Function;
+name: string;
+  setname: Function;
+};
 export function UserAuthContextProvider({ children }: prop) {
-  const [name, setname] = useState("")
+  const [name, setname] = useState("");
   function setupRecaptcha(number: any) {
     const recaptchaverifier = new RecaptchaVerifier(
       "recaptcha-container",
@@ -16,9 +21,9 @@ export function UserAuthContextProvider({ children }: prop) {
     recaptchaverifier.render();
     return signInWithPhoneNumber(auth, number, recaptchaverifier);
   }
-  
+
   return (
-    <userAuthContext.Provider value={{ setupRecaptcha,name,setname }}>
+    <userAuthContext.Provider value={{ setupRecaptcha, name, setname }}>
       {children}
     </userAuthContext.Provider>
   );

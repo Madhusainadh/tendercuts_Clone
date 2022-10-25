@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+
 
 import {
   Drawer,
@@ -7,17 +7,16 @@ import {
   useDisclosure,
   DrawerCloseButton,
   Text,
-  DrawerFooter,
-  Box,
+
 } from "@chakra-ui/react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   Button,
   Container,
   Flex,
   Heading,
   Image,
-  Input,
+
 } from "@chakra-ui/react";
 import TenderSVG from "./TenderSVG";
 import "react-phone-number-input/style.css";
@@ -29,11 +28,11 @@ import axios from "axios";
 
 const pro = require("./pro.png");
 const loc = require("./loc.png");
-const ser = require("./ser.png");
+
 const cart = require("./cart.png");
 
 export const Navbar2 = () => {
-  const [render, setrender] = useState(false)
+
   const [data, setdata] = useState([])
 
 
