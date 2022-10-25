@@ -49,42 +49,35 @@ export const Navbar2 = () => {
       setresult(res)
       setmodalBool(!modalBool)
     } catch (error) {
-      console.log(error);
+      alert(error.message)
     }
   };
   const getData = async (number) => {
     try {
-      let res = await axios.post("http://localhost:8080/address/find", number)
-      console.log(res);
-      if (!res.data.isFound) {
-        setrender(false)
-      }
-      else {
+      let res = await axios.post("http://localhost:8080/address/find", { number: number })
+
+      
+      if (res.data.isFound) {
         setdata(res.data.data)
-        setrender(true)
       }
+
     } catch (error) {
-      console.log(error);
+      alert(error.message)
     }
 
   }
+
   const verifyOtp = async (main) => {
 
     try {
       let data = await result.confirm(main)
-      console.log("succes" + data);
+
+
+      getData(phnumber)
     } catch (error) {
-      console.log(error);
+      alert(error.message)
     }
   }
-  useEffect(() => {
-    getData(phnumber)
-
-
-  }, [result])
-
-
-
   return (
     <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
       <Flex gap={"40px"} w={["100%"]}>
@@ -153,12 +146,12 @@ export const Navbar2 = () => {
                       style={{
                         width: "95%",
                         height: "50px",
-                        border: "1px solid black",
+
                       }}
                       defaultCountry="IN"
                       value={phnumber}
                       onChange={setphnumber}
-                      placeholder="Please enter your Phone number"
+                      placeholder="Please enter your 10-digit Phone number"
                     />
                     <div id="recaptcha-container" />
                     <Button
@@ -171,7 +164,7 @@ export const Navbar2 = () => {
                     >
                       Send OTP{" "}
                     </Button>
-                    <OtpModal mongo={render} secondfun={setrender} mainfun={verifyOtp} isOpen={modalBool} setIsOpen={setmodalBool} />
+                    <OtpModal data={data} mainfun={verifyOtp} firstModalisOpen={modalBool} setIsOpen={setmodalBool} />
                     <Text>Shop from anywhere , Download our app now!</Text>
                     <Flex align={"center"} w={"80%"}>
                       <a
