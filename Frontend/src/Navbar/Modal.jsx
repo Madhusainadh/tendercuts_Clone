@@ -48,7 +48,8 @@ function OtpModal({ phnumber, data, firstModalisOpen, setIsOpen, mainfun }) {
     pincode: "",
     number: ""
   })
-  const { setname, name } = useUserAuth();
+
+  const { setname } = useUserAuth();
 
   const [val, setval] = useState("");
 
@@ -61,7 +62,7 @@ function OtpModal({ phnumber, data, firstModalisOpen, setIsOpen, mainfun }) {
 
     mainfun(val)
     onOpen();
-    firstModalisOpen()
+    // firstModalisOpen()
     setname(formData.name)
 
   };
@@ -77,7 +78,6 @@ function OtpModal({ phnumber, data, firstModalisOpen, setIsOpen, mainfun }) {
   }
   useEffect(() => {
     setmaindata(data)
-
   }, [data, phnumber])
 
   return (
@@ -108,7 +108,7 @@ function OtpModal({ phnumber, data, firstModalisOpen, setIsOpen, mainfun }) {
                 >
                   Verify
                 </Button>
-                {maindata.length === 0 ? (
+                {maindata.length == 0 ? (
                   <Drawer
                     size={"sm"}
                     isOpen={isOpen}
