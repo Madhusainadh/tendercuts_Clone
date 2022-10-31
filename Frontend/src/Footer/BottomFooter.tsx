@@ -1,6 +1,11 @@
 import { Box, Container, Flex, Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
+import call from "./call.png"
+import mail from "./mail.png";
+import facebook from "./facebook.png";
+import contact from "./contact.png"
 import "./Buttonstyle.css"
+
 const BottomFooter = () => {
   return (
     <Box bg={"#f7f6f6"}> 
@@ -18,12 +23,12 @@ const BottomFooter = () => {
         <Heading color={"#666666"} fontSize={"16px"}>
           STAY CONNECTED
         </Heading>
-        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" >cs@tendercuts.in</Text>
-        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" >Chennai - 9543754375</Text>
-        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" >Hyderabad - 8282888855</Text>
-        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" >Bangalore - 8939091091</Text>
-        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" >Facebook</Text>
-        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" >Contact Us</Text>
+        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer"  display={"flex"} ><Image  m={"5px"} h={"20px"} src={mail} color={"#aaaaaa"}/>cs@tendercuts.in</Text>
+        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" display={"flex"}  ><Image m={"5px"} h={"20px"} src={call}  />Chennai - 9543754375</Text>
+        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" display={"flex"} ><Image  m={"5px"} h={"20px"} src={call}/>Hyderabad - 8282888855</Text>
+        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" display={"flex"} ><Image m={"5px"} h={"20px"} src={call}/>Bangalore - 8939091091</Text>
+        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" display={"flex"} ><Image m={"5px"} h={"20px"} src={facebook} />Facebook</Text>
+        <Text fontSize={"16px"} color={"#aaaaaa"} cursor="pointer" display={"flex"} ><Image m={"5px"} h={"20px"} src={contact}/>Contact Us</Text>
       </Stack>
       <Stack>
         <Heading color={"#666666"} fontSize={"16px"}>

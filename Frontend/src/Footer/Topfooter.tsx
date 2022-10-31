@@ -1,4 +1,4 @@
-import { Box, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Heading, Image, Progress, SimpleGrid, Text } from "@chakra-ui/react";
 import { randomFillSync } from "crypto";
 import React, { useState } from "react";
 
@@ -11,11 +11,12 @@ export const Topfooter = () => {
     "We introduced 'contactless retail' services to help maintain social distancing.",
   ];
   return (
-    <Box borderColor={"000000"} bg={"#f7f6f6"}>
-      <Text fontSize={"25px"} color={"000000"} lineHeight={"33px"}>
+    <Box  borderColor={"000000"} bg={"#f7f6f6"}>
+      <Progress size='xs' isIndeterminate />
+      <Heading p={"30px"}  textAlign={"center"} fontSize={"28px"}  color={"000000"} lineHeight={"33px"}>
         "{text[t]}"
-      </Text>
-      <SimpleGrid justifyContent={"center"} columns={[1, 1, 2, 3]}>
+      </Heading>
+      <SimpleGrid mb={"40px"} gap={"20px"} placeItems={"center"}  justifyContent={"space-around"} columns={[1, 1, 2, 3]}>
         <Box h={"80px"} w={"180px"} onMouseEnter={() => sett(0)}>
           <Image
             src={
@@ -27,6 +28,7 @@ export const Topfooter = () => {
           <Image src="https://cdn2.tendercuts.in/news_article/588c1812-43f2-476f-8809-bb4f952a1799.png" />
         </Box>
         <Box
+        placeItems={"center"}
           h={"80px"}
           w={"180px"}
           display={"flex"}
@@ -36,6 +38,7 @@ export const Topfooter = () => {
           <Image src="https://cdn2.tendercuts.in/news_article/8a9bba70-12b3-4784-b8a9-4f6d92a861e4.png" />
         </Box>
       </SimpleGrid>
+      <Progress size='xs' isIndeterminate />
     </Box>
   );
 };
