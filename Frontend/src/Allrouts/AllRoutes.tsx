@@ -12,7 +12,7 @@ const AllRoutes = ()=> {
       <Route path={"/Item"} element={<SingleItem />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/phone" element={<PhoneSignup />} />
-      {/* <Route path={"/"} element={<Allitems />} /> */}
+      <Route path={"/Allitems"} element={<Allitems />} /> 
     </Routes>
   );
 };

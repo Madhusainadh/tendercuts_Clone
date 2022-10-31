@@ -1,7 +1,9 @@
 import { Box, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { randomFillSync } from "crypto";
 import React, { useState } from "react";
 
-const Topfooter = () => {
+export const Topfooter = () => {
+
   const [t, sett] = useState<number>(0);
   let text = [
     "How TenderCuts is rebooting meat business in India with its Omnichannel Play",
@@ -38,4 +40,9 @@ const Topfooter = () => {
   );
 };
 
-export default Topfooter;
+
+
+
+// export default {Topfooter ,BottomFooter};
+
+

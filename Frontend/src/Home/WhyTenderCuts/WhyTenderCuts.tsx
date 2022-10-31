@@ -4,15 +4,18 @@ import WTCCompo from "./WTCCompo";
 
 function WhyTenderCuts() {
   return (
-    <Flex  direction={"column"} gap={"3"}>
+    <Flex  pt={"25px"}   direction={"column"} gap={"3"}>
+             
+ 
       <Flex
        
-        align={"flex-start"}
+        align={"center"}
         direction={"column"}
         m={"auto"}
         w={["100%", "95%", "90%", "85%"]}
       >
-        <Heading size={"md"}>Why TenderCuts?</Heading>
+                     <Heading pb="15px" size={"md"}>Why TenderCuts?</Heading>
+
         <Center>
           <SimpleGrid
             border={"black"}
