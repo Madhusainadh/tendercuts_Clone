@@ -15,6 +15,8 @@ function App() {
   return (
     <div className="App">
       <UserAuthContextProvider>
+      <NavBar1/>
+      <Navbar2/>
         <AllRoutes />
         <Topfooter/>
         <BottomFooter/>

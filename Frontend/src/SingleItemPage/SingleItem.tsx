@@ -9,14 +9,18 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const SingleItem = () => {
+  // const [data,setdata]=useState<any>()
+  // const [d,setd] = useState([])
+
   const item = useSelector((state: any) => state.single);
   // console.log(item.allClients[0])
   let data = item.allClients[0];
-  console.log(data);
+  // setdata(val)
+
   // let data = {
   //   title: "Premium Goat Curry Cut [1 KG]",
   //   details: "35 to 40 piece",
@@ -34,23 +38,34 @@ const SingleItem = () => {
   //   id: 21,
   // };
   let d = data.dis.split("&");
-  console.log(d);
+  // setd(arr)
   return (
     <Box fontFamily={"sans-serif"} bg={"#f7f6f6"}>
-      <Box>
-        <Text fontSize={"28px"} lineHeight={"33.6px"} color={"#c2202f"}>
-          {data.title}
-        </Text>
-        <Text color={"#666666"} lineHeight={"21.6px"} fontSize={"14.4px"}>
-          {data.details}
-        </Text>
-      </Box>
-      <Container maxW={"1300px"}>
-        <SimpleGrid maxW={"1300px"} gap={"10px"} columns={[1, 1, 1, 2]}>
-          <Box h={"400px"} w={"41.666667%"}>
-            <Image w={"100%"} verticalAlign={"middle"} src={data.image} />
-          </Box>
-          <Box ml={"-200px"}>
+      <Container maxW={"1000px"}>
+        <Box>
+          <Text
+            textAlign={"center"}
+            fontSize={"28px"}
+            lineHeight={"33.6px"}
+            color={"#c2202f"}
+          >
+            {data.title}
+          </Text>
+          <Text
+            textAlign={"center"}
+            color={"#666666"}
+            lineHeight={"21.6px"}
+            fontSize={"14.4px"}
+          >
+            {data.details}
+          </Text>
+        </Box>
+        <SimpleGrid gap={"10px"} columns={[1, 1, 1, 2]}>
+           {/**<Box h={"400px"}>
+                 <Image src="https://www.tendercuts.in/assets/products/antibiotic_small.png" /> */}
+            <Image w={"70%"} verticalAlign={"middle"} src={data.image} />
+         {/**  </Box> */}
+          <Box>
             <Box>
               <Stack spacing={3}>
                 {d?.map((e: any) => (
@@ -126,6 +141,7 @@ const SingleItem = () => {
               </Box>
 
               <Button
+                w={"170px"}
                 fontSize={"14px"}
                 lineHeight={"30px"}
                 textAlign={"center"}

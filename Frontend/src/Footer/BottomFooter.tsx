@@ -8,9 +8,9 @@ import "./Buttonstyle.css"
 
 const BottomFooter = () => {
   return (
-    <Box bg={"#f7f6f6"}> 
+    <Box  bg={"#f7f6f6"}> 
     <Container p={"100px"} minH={256} maxWidth={"1200"}>
-    <SimpleGrid  gap={"50px"} columns={[1,2,2,4]}  >
+    <SimpleGrid  gap={"50px"} columns={[1,1,2,4]}  >
       <Stack>
         <Heading color={"#666666"} fontSize={"16px"}>
           COMPANY

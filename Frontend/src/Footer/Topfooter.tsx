@@ -12,8 +12,7 @@ export const Topfooter = () => {
   ];
   return (
     <Box  borderColor={"000000"} bg={"#f7f6f6"}>
-      <Progress size='xs' isIndeterminate />
-      <Heading p={"30px"}  textAlign={"center"} fontSize={"28px"}  color={"000000"} lineHeight={"33px"}>
+<Progress value={100}  height={"1px"}  colorScheme={"red"} />      <Heading p={"30px"}  textAlign={"center"} fontSize={"28px"}  color={"000000"} lineHeight={"33px"}>
         "{text[t]}"
       </Heading>
       <SimpleGrid mb={"40px"} gap={"20px"} placeItems={"center"}  justifyContent={"space-around"} columns={[1, 1, 2, 3]}>
@@ -38,8 +37,7 @@ export const Topfooter = () => {
           <Image src="https://cdn2.tendercuts.in/news_article/8a9bba70-12b3-4784-b8a9-4f6d92a861e4.png" />
         </Box>
       </SimpleGrid>
-      <Progress size='xs' isIndeterminate />
-    </Box>
+      <Progress value={100}  height={"1px"}  colorScheme={"red"} />    </Box>
   );
 };
 

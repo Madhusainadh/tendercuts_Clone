@@ -17,12 +17,7 @@ import { sendItemfun } from "../Store/SinglePage/Singleitem.Module";
 
 const weighticon = require("./weight.png");
 
-const getItems = async (type = "Chicken") => {
-  let res = await axios.get(
-    `https://shy-pink-seal-hem.cyclic.app/items?type=${type}`
-  );
-  return res;
-};
+
 
 export const Item = ({
   id,
@@ -33,10 +28,10 @@ export const Item = ({
   mrp,
   price,
 }: any) => {
-  let [data, setdata] = useState([]);
+
   useEffect(() => {
-    getItems().then((res) => setdata(res.data));
   }, []);
+
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
   const Redirectonclickfun = ({
@@ -50,19 +45,16 @@ export const Item = ({
   }: any) => {
     console.log(id, image, title, details, weight, mrp, price);
     dispatch(sendItemfun(id));
-    // sendItemfun(id)
+
     setTimeout(() => {
       navigate("/Item");
     }, 500);
   };
 
   return (
-    // <Box maxW={"80%"}>
-    //   <SimpleGrid columns={[1, 1, 1, 3]}>
-    //     {data?.map((e: any) => (
+ 
     <Box
-      w={379}
-      h={"407"}
+      p={"20px"}
       key={id}
       onClick={() =>
         Redirectonclickfun({ id, image, title, details, weight, mrp, price })
@@ -74,7 +66,9 @@ export const Item = ({
             w={["1000px", "1000px", "1000px", "377px"]}
             h={"210px"}
             src={image}
-          />
+          
+          ></Image>
+
         </Box>
         <Box>
           <Heading fontSize={"14px"} lineHeight={"21px"} textAlign={"left"}>
@@ -92,6 +86,7 @@ export const Item = ({
             h={"36px"}
             color={"#535665"}
             bg={"#f2f2f2"}
+            
           >
             <Image w={"30px"} h={"30px"} src={weighticon} /> {weight}
           </Flex>

@@ -79,7 +79,7 @@ export const Navbar2 = () => {
   }
 
   return (
-    <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"}>
+    <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"} top="0px"   position="relative"  >
       <Flex gap={"40px"} w={["100%"]}>
         <Flex w={"50%"}>
           <Image
