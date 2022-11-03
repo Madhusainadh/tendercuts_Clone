@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 
 import { sendItemfun } from "../Store/SinglePage/Singleitem.Module";
 
@@ -28,13 +28,14 @@ export const Item = ({
   mrp,
   price,
 }: any) => {
+  let [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
   }, []);
 
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
-  const Redirectonclickfun = ({
+  const Redirectonclickfun =async ({
     id,
     image,
     title,
@@ -44,11 +45,13 @@ export const Item = ({
     price,
   }: any) => {
     console.log(id, image, title, details, weight, mrp, price);
-    dispatch(sendItemfun(id));
+ await  dispatch(sendItemfun(id));
 
-    setTimeout(() => {
+    // setTimeout(() => {
       navigate("/Item");
-    }, 500);
+  
+    // }, 0);
+    
   };
 
   return (
