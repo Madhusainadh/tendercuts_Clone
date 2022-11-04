@@ -48,7 +48,7 @@ export const Item = ({
  await  dispatch(sendItemfun(id));
 
     // setTimeout(() => {
-      navigate("/Item");
+      navigate(`/Item/${id}`);
   
     // }, 0);
     

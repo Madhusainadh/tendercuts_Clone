@@ -9,7 +9,7 @@ import PhoneSignup from "../Home/PhoneSignup";
 const AllRoutes = ()=> {
   return (
     <Routes>
-      <Route path={"/Item"} element={<SingleItem />} />
+      <Route path={"/Item/:id"} element={<SingleItem />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/phone" element={<PhoneSignup />} />
       <Route path={"/Allitems"} element={<Allitems />} /> 

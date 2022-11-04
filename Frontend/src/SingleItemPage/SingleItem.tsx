@@ -13,70 +13,55 @@ import { async } from "@firebase/util";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createSearchParams, useSearchParams } from "react-router-dom";
+import {
+  createSearchParams,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { sendItemfun } from "../Store/SinglePage/Singleitem.Module";
 const SingleItem = () => {
-  const [object,setobject]=useState<any>({})
+  // const [object, setobject] = useState<any>();
   // const [d,setd] = useState([])
-  let [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useDispatch<any>();
-  let i = searchParams.get("title");
-  let idparam = searchParams.get("id");
-  let item
-  const renderone = async ({ i, idparam }: any) => {
-    console.log(i, idparam);
-    await dispatch(sendItemfun(idparam));
-  };
-
-   item = useSelector((state: any) => state.single);
-
-  // console.log(item.allClients[0])
-  // console.log(item)
-  let data = item.allClients[0];
-  // console.log(data)
-  // setSearchParams(createSearchParams({title:data.title}))
-  // let title = data.title;
-  // console.log(title)
-  const callfun=async(id:any)=>{
-    let res =await axios.get(`https://shy-pink-seal-hem.cyclic.app/items?id=${id}`).then((res)=>console.log(res.data[0]))
-  console.log(res)
-  }
- 
-  // console.log(data)
-
-if(!data){
-  // console.log(idparam)
- callfun(idparam)
-}
-
-  // console.log(data.id)
-  let id = data.id;
-  // console.log(i)
-  // dispatch(sendItemfun(data.id))
-  useEffect(() => {
-    setSearchParams({ title: data.title, id: id });
-  }, []);
-  const clinked = () => {
-    console.log("clicked");
-  };
-
-  //   details: "35 to 40 piece",
-  //   image:
-  //     "https://assets.tendercuts.in/product/P/R/44e5fc66-bd7b-437c-aa09-c6873382bd09.webp",
-  //   dis: "Tender and lean meat from the choicest cuts of goat - the front leg, shoulder and back are expertly cut and trimmed for our goat curry cut. Bursting with delicate earthy flavors and with fall-off-the-bone succulence, our goat curry cut can take you to gastronomic paradise.& Ideal for: Kerala mutton curry, Chettinadu mutton fry, Rogan josh, Rajasthanilalmaas& No of Pieces:35 to 40 & Freshness Indicator: The meat should be moist, brownish-red in color and cold to touch. When you press a finger into the fresh meat, the dentshould quickly disappear and the meat should bounce back to its original shape.",
-  //   tip: "Tips: Most mutton curries require slow cooking on low heat to retain their moisture, juices and tenderness. The mutton should first be cooked over high heat to seal the juices and then cooked till tender on low heat.",
-  //   weight: "960 - 980 Gms",
-  //   Serves: "4 - 6",
-  //   price: 809,
-  //   mrp: 839,
-  //   Pieces: " 35 to 40 piece ",
-  //   youtube: "",
-  //   type: "Mutton",
-  //   id: 21,
+  // let [searchParams, setSearchParams] = useSearchParams();
+  let { id } = useParams();
+  console.log(id);
+  // const dispatch = useDispatch<any>();
+  // let i = searchParams.get("title");
+  // let idparam = searchParams.get("id");
+  // const callfun = async (id: any) => {
+  // console.log("load")
+  // await  dispatch(sendItemfun(id));
   // };
-  let d = data.dis.split("&");
+  // callfun(id);
+  // useEffect(()=>{
+  //   console.log("object")
+  //   callfun(id)
+  // },[])
 
-  // console.log(i)
+  // let item
+
+  let item = useSelector((state: any) => state.single);
+  // setobject(item.allClients[0]);
+     let singleitem = item.allClients[0];
+    // let object = item.allClients[0]
+    // console.log(item)
+  // useEffect(()=>{
+  //   setobject(singleitem)
+  // },[])
+
+  // console.log(object);
+
+  // const callfun=async(id:any)=>{
+  //     let res =await axios.get(`https://shy-pink-seal-hem.cyclic.app/items?id=${id}`).then((res)=>setobject(res.object[0]))
+  //   // console.log(res)
+  //   console.log(object)
+  //   }
+
+  console.log(singleitem.dis);
+  console.log(singleitem.dis.split("&"));
+
+  let d = singleitem.dis.split("&");
+console.log("loadjinvnv")
   return (
     <Box
       display={"flex"}
@@ -84,7 +69,7 @@ if(!data){
       fontFamily={"sans-serif"}
       bg={"#f7f6f6"}
     >
-      <Container maxW={"80%"} m={"50px"} onClick={() => clinked()}>
+      <Container maxW={"80%"} m={"50px"}>
         <Box p={"20px"}>
           <Text
             textAlign={"center"}
@@ -92,7 +77,7 @@ if(!data){
             lineHeight={"33.6px"}
             color={"#c2202f"}
           >
-            {data.title}
+            {singleitem.title}
           </Text>
           <Text
             textAlign={"center"}
@@ -100,12 +85,12 @@ if(!data){
             lineHeight={"21.6px"}
             fontSize={"14.4px"}
           >
-            {data.details}
+            {singleitem.details}
           </Text>
         </Box>
         <SimpleGrid gap={"10px"} columns={[1, 1, 1, 2]}>
           <Box display={"flex"} justifyContent={"center"}>
-            <Image w={"70%"} verticalAlign={"middle"} src={data.image} />
+            <Image w={"70%"} verticalAlign={"middle"} src={singleitem.image} />
           </Box>
           <Box display={"flex"} justifyContent="center" alignItems={"center"}>
             <Container>
@@ -130,7 +115,7 @@ if(!data){
                   h={"32px"}
                   left={"16px"}
                 >
-                  <Text>Weight :{data.weight}</Text>
+                  <Text>Weight :{singleitem.weight}</Text>
                 </Box>
                 <Box
                   display={"flex"}
@@ -143,10 +128,15 @@ if(!data){
                   h={"32px"}
                   left={"16px"}
                 >
-                  <Text>Serves :{data.Serves}</Text>
+                  <Text>Serves :{singleitem.Serves}</Text>
                 </Box>
               </Flex>
-              <SimpleGrid columns={[2,2,2,4]} alignItems={"center"} gap={"50px"} mt={"9px"}>
+              <SimpleGrid
+                columns={[2, 2, 2, 4]}
+                alignItems={"center"}
+                gap={"50px"}
+                mt={"9px"}
+              >
                 <Box>
                   <Text
                     color={"#7e808c"}
@@ -155,7 +145,7 @@ if(!data){
                     textAlign={"left"}
                     textDecoration={"line-through"}
                   >
-                    ₹{data.mrp}
+                    ₹{singleitem.mrp}
                   </Text>
                   <Text
                     color={"#696969"}
@@ -174,7 +164,7 @@ if(!data){
                     textAlign={"left"}
                     color={"#000000"}
                   >
-                    ₹{data.price}
+                    ₹{singleitem.price}
                   </Text>
                   <Text
                     h={"15px"}
@@ -203,35 +193,35 @@ if(!data){
                   ADD TO CART
                 </Button>
                 <Flex w={"170px"} justifyContent="space-around">
-                <Box
-                  alignSelf={"center"}
-                  bg={"#c11c2d"}
-                  borderRadius={"50%"}
-                  h="24px"
-                  w={"24px"}
-                  color={"white"}
-                >
-                  -
-                </Box>
-                <Box
-                  h={"26px"}
-                  w={"33px"}
-                  fontSize={"18px"}
-                  lineHeight={"26px"}
-                  textAlign={"center"}
-                  color={"000000"}
-                >
-                  1
-                </Box>
-                <Box
-                  bg={"#c11c2d"}
-                  borderRadius={"50%"}
-                  h="24px"
-                  w={"24px"}
-                  color={"white"}
-                >
-                  +
-                </Box>
+                  <Box
+                    alignSelf={"center"}
+                    bg={"#c11c2d"}
+                    borderRadius={"50%"}
+                    h="24px"
+                    w={"24px"}
+                    color={"white"}
+                  >
+                    -
+                  </Box>
+                  <Box
+                    h={"26px"}
+                    w={"33px"}
+                    fontSize={"18px"}
+                    lineHeight={"26px"}
+                    textAlign={"center"}
+                    color={"000000"}
+                  >
+                    1
+                  </Box>
+                  <Box
+                    bg={"#c11c2d"}
+                    borderRadius={"50%"}
+                    h="24px"
+                    w={"24px"}
+                    color={"white"}
+                  >
+                    +
+                  </Box>
                 </Flex>
               </SimpleGrid>
             </Container>
