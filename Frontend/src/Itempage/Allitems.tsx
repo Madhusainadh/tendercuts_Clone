@@ -1,26 +1,36 @@
-import { Box, Container, Image, SimpleGrid } from "@chakra-ui/react";
+import { Box, Container, Image, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Item } from "./Items";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useSearchParams } from "react-router-dom";
+import { ItemCategoryfun } from "../Store/ItemCategory/ItemCategory.Module";
 const React = require("react");
 const weight = require("./weight.png");
 
 const Allitems = () => {
+  let [searchParams, setSearchParams] = useSearchParams()
 
   const {Category} = useSelector((state: any) => state.Category);
-  // const getItems = async (type = "Chicken") => {
-  //   let res = await axios.get(
-  //     `https://shy-pink-seal-hem.cyclic.app/items?type=${type}`
-  //   );
 
-  //   return res;
-  // };
-  let [data, setdata] = useState([]);
+  let [data, setdata] = useState<any>([]);
+  const dispatch = useDispatch<any>()
+  var urltitle = useParams();
+  var title = urltitle.type;
+  useEffect(()=>{
+    // console.log(title)
+    dispatch(ItemCategoryfun(title))
+    
+  },[])
+
   useEffect(() => {
-    console.log(Category)
+    // console.log(Category)
     setdata(Category)
   }, [Category]);
+
+ 
+
+
   return (
     <Container maxW={"90%"}>
     <Box >

@@ -14,7 +14,7 @@ const dispatch = useDispatch<any>()
   const functionClick=(title:String)=>{
     dispatch(ItemCategoryfun(title))
 setTimeout(() => {
-  navigate("/Allitems")
+  navigate(`/Allitems/${title}`)
 }, 500);
 
   }

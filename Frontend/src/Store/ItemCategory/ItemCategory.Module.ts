@@ -6,7 +6,7 @@ import axios from "axios";
 
 export const Item_Category = "Item_Category";
 
-export const ItemCategoryfun = (name: String) => async (dispatch: any) => {
+export const ItemCategoryfun = (name: any) => async (dispatch: any) => {
   console.log(name)
   let res = await axios(`https://shy-pink-seal-hem.cyclic.app/items?q=${name}`)
     // dispatch({ type: Item_Category, payload: res });
