@@ -21,35 +21,32 @@ const SingleItem = () => {
 
   var id = useParams();
   let num = id.id;
- 
+
   useEffect(() => {
     console.log(num);
     try {
       axios
         .get(`https://shy-pink-seal-hem.cyclic.app/items?id=${num}`)
-        .then((res) => setdata(res.data[0])   );
+        .then((res) => setdata(res.data[0]));
     } catch (err: any) {
       console.log(err.message);
     }
-    
   }, []);
-  useEffect(()=>{
-    try{
-      console.log(data)
-      
-      let {dis} = data;
-      let temp = dis.split("&")
+  useEffect(() => {
+    try {
+      console.log(data);
 
-   setarr(temp)
- 
-    }catch(err:any){
-      console.log(err.message)
+      let { dis } = data;
+      let temp = dis.split("&");
+
+      setarr(temp);
+    } catch (err: any) {
+      console.log(err.message);
     }
-   
-  },[data])
-  console.log(data)
-  
-  console.log(arr)
+  }, [data]);
+  console.log(data);
+
+  console.log(arr);
 
   return (
     <Box
@@ -58,7 +55,7 @@ const SingleItem = () => {
       fontFamily={"sans-serif"}
       bg={"#f7f6f6"}
     >
-    <Container maxW={"80%"} m={"50px"}>
+      <Container maxW={"80%"} m={"50px"}>
         <Box p={"20px"}>
           <Text
             textAlign={"center"}
@@ -85,11 +82,11 @@ const SingleItem = () => {
             <Container>
               <Box>
                 <Stack spacing={3}>
-               {arr?.map((e: any) => (
+                  {arr?.map((e: any) => (
                     <Text color={"#7e808c"} fontSize={"16px"}>
                       {e}
                     </Text>
-                  ))} 
+                  ))}
                 </Stack>
               </Box>
               <Flex>
@@ -216,7 +213,7 @@ const SingleItem = () => {
             </Container>
           </Box>
         </SimpleGrid>
-      </Container>     
+      </Container>
     </Box>
   );
 };

@@ -26,6 +26,7 @@ import { useUserAuth } from "../Home/UserAuthContext";
 
 import OtpModal from "./Modal";
 import axios from "axios";
+import DrawerExample from "../Cart/CartDrawer";
 
 const pro = require("./pro.png");
 const loc = require("./loc.png");
@@ -33,53 +34,55 @@ const ser = require("./ser.png");
 const cart = require("./cart.png");
 
 export const Navbar2 = () => {
-  const [render, setrender] = useState(false)
-  const [data, setdata] = useState([])
-
+  const [render, setrender] = useState(false);
+  const [data, setdata] = useState([]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [phnumber, setphnumber] = useState("");
-  const [error, seterror] = useState("")
-  const [modalBool, setmodalBool] = useState(false)
-  const [result, setresult] = useState("")
+  const [error, seterror] = useState("");
+  const [modalBool, setmodalBool] = useState(false);
+  const [result, setresult] = useState("");
   const { setupRecaptcha, name } = useUserAuth();
 
-
   const getOtp = async () => {
-
     try {
       const res = await setupRecaptcha(phnumber);
-      setresult(res)
-      setmodalBool(!modalBool)
+      setresult(res);
+      setmodalBool(!modalBool);
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
   };
   const getData = async (number) => {
     try {
-      let res = await axios.post("http://localhost:8080/address/find", { number: number })
+      let res = await axios.post("http://localhost:8080/address/find", {
+        number: number,
+      });
       if (res.data.isFound) {
-        setdata(res.data.data)
+        setdata(res.data.data);
       }
-
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-
-  }
+  };
 
   const verifyOtp = async (main) => {
-
     try {
-      let data = await result.confirm(main)
-      getData(phnumber)
+      let data = await result.confirm(main);
+      getData(phnumber);
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
+  };
 
   return (
-    <Container maxW={"100%"} h={"50px"} bg={"rgb(202, 34, 34)"} top="0px"   position="relative"  >
+    <Container
+      maxW={"100%"}
+      h={"50px"}
+      bg={"rgb(202, 34, 34)"}
+      top="0px"
+      position="relative"
+    >
       <Flex gap={"40px"} w={["100%"]}>
         <Flex w={"50%"}>
           <Image
@@ -146,7 +149,6 @@ export const Navbar2 = () => {
                       style={{
                         width: "95%",
                         height: "50px",
-
                       }}
                       defaultCountry="IN"
                       value={phnumber}
@@ -164,7 +166,13 @@ export const Navbar2 = () => {
                     >
                       Send OTP{" "}
                     </Button>
-                    <OtpModal phnumber={phnumber} data={data} mainfun={verifyOtp} firstModalisOpen={modalBool} setIsOpen={setmodalBool} />
+                    <OtpModal
+                      phnumber={phnumber}
+                      data={data}
+                      mainfun={verifyOtp}
+                      firstModalisOpen={modalBool}
+                      setIsOpen={setmodalBool}
+                    />
                     <Text>Shop from anywhere , Download our app now!</Text>
                     <Flex align={"center"} w={"80%"}>
                       <a
@@ -182,19 +190,10 @@ export const Navbar2 = () => {
                     </Flex>
                   </Flex>
                 </DrawerBody>
-
               </DrawerContent>
-
             </Drawer>
-
-            <Button bg={"none"}>
-              <Flex gap={"20px"}>
-                <Image w={"25px"} h={"25px"} src={cart} />
-                <Heading as="h4" size="sm">
-                  Cart
-                </Heading>
-              </Flex>
-            </Button>
+            <DrawerExample/>
+            
           </Flex>
           <Image
             mt={"5px"}

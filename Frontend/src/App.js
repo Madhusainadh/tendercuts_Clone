@@ -11,10 +11,12 @@ import AllRoutes from "./Allrouts/AllRoutes";
 import { UserAuthContextProvider } from "./Home/UserAuthContext";
 import BottomFooter from "./Footer/BottomFooter";
 import { Topfooter } from "./Footer/Topfooter";
+import DrawerExample from "./Cart/CartDrawer";
 function App() {
   return (
     <div className="App">
       <UserAuthContextProvider>
+      
       <NavBar1/>
       <Navbar2/>
         <AllRoutes />
