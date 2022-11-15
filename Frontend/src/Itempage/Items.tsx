@@ -44,7 +44,7 @@ export const Item = ({
     mrp,
     price,
   }: any) => {
-    // console.log(id, image, title, details, weight, mrp, price);
+    console.log(id, image, title, details, weight, mrp, price);
  await  dispatch(sendItemfun(id));
 
     // setTimeout(() => {
