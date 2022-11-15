@@ -17,6 +17,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -33,6 +34,7 @@ export default function DrawerExample() {
   const { Category } = useSelector((state: any) => state.Category);
 
   let [data, setdata] = useState<any>([]);
+  let [cartdata,setcartdata]=useState<any>([]);
   const dispatch = useDispatch<any>();
   // var urltitle = useParams();
   var title = "chicken";
@@ -41,11 +43,23 @@ export default function DrawerExample() {
     dispatch(ItemCategoryfun(title));
   }, []);
 
+  
+
   useEffect(() => {
     // console.log(Category)
     setdata(Category);
   }, [Category]);
-  console.log(data);
+
+useEffect(()=>{
+  try{
+     axios.get(`http://localhost:8080/cart/6373173c25b2bb95b32bfd6f`).then((res)=>setcartdata(res.data))
+
+  }catch(err:any){
+    console.log(err.message)
+  }
+},[])
+
+  console.log(cartdata);
   return (
     <Box>
       <Button

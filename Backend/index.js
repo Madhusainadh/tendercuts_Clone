@@ -4,26 +4,14 @@ const Address = require("./Routes/Address.route")
 const AddressModel = require("./Schemas/Address")
 const cartModel = require("./Schemas/Cart.model")
 const ProdModel = require("./Schemas/Prods.model")
+const Cartroute = require("./Routes/Cart.route")
+const Productsroute = require("./Routes/Productrouter")
 const cors=require("cors")
 const app = express()
 app.use(express.json())
 app.use(cors())
 app.use("/address",Address)
-app.get("/allProds", async (req, res) => {
-    try {
-        const allprods = await ProdModel.find()
-        res.send(allprods)
-    } catch (error) {
-        res.status(401).send("request invalid")
-    }
-})
-app.post("/cart", async (req, res) => {
-    const { userID, prodID } = req.body
-    try {
-        const cartItem = await cartModel.create({ user: userID, product: prodID })
-        res.send(cartItem)
-    } catch (error) {
-        res.status(401).send("unauthorized requiest")
-    }
-})
+app.use("/cart",Cartroute)
+app.use("/products",Productsroute)
+
 mongoose.connect("mongodb+srv://tendercuts:tendercuts@cluster0.hyunvkz.mongodb.net/TenderCutsMain").then(() => app.listen(8080, () => console.log("server satrted"))).catch(er => console.log(er))

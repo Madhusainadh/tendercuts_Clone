@@ -8,8 +8,9 @@ export const Item_Category = "Item_Category";
 
 export const ItemCategoryfun = (name: any) => async (dispatch: any) => {
   console.log(name)
-  let res = await axios(`https://shy-pink-seal-hem.cyclic.app/items?q=${name}`)
-    // dispatch({ type: Item_Category, payload: res });
+  // let res = await axios(`https://shy-pink-seal-hem.cyclic.app/items?q=${name}`)
+  let res = await axios.get(`http://localhost:8080/products?search=${name}`)  
+  // dispatch({ type: Item_Category, payload: res });
   console.log(res.data);
   dispatch({ type: Item_Category, payload: res.data });
 // dispatch()

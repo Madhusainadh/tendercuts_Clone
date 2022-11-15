@@ -28,6 +28,10 @@ const Allitems = () => {
     setdata(Category)
   }, [Category]);
 
+
+  // console.log(data)
+
+
  
 
 
@@ -36,10 +40,10 @@ const Allitems = () => {
     <Box >
       <SimpleGrid columns={[1, 1, 2, 3]}>
         {data?.map((e: any) => (
-          <Box key={e.id}   position="relative" >
+          <Box key={e._id}   position="relative" >
             <Image top={"10"} left="30px" position={"absolute"} src="https://www.tendercuts.in/assets/products/antibiotic_small.png" alt="" />
             <Item
-              id={e.id}
+              id={e._id}
               details={e.details}
               weight={e.weight}
               mrp={e.mrp}

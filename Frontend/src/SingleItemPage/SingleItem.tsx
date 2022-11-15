@@ -26,12 +26,13 @@ const SingleItem = () => {
     console.log(num);
     try {
       axios
-        .get(`https://shy-pink-seal-hem.cyclic.app/items?id=${num}`)
-        .then((res) => setdata(res.data[0]));
+        .get(`http://localhost:8080/products/${num}`)
+        .then((res) => setdata(res.data));
     } catch (err: any) {
       console.log(err.message);
     }
   }, []);
+
   useEffect(() => {
     try {
       console.log(data);
@@ -44,9 +45,15 @@ const SingleItem = () => {
       console.log(err.message);
     }
   }, [data]);
+
   console.log(data);
 
   console.log(arr);
+
+  const Addtocart=async(id:String)=>{ 
+   let gt= await axios.post("http://localhost:8080/cart",{ "user":"6373173c25b2bb95b32bfd6f", "product":num})
+    console.log(gt)
+  }
 
   return (
     <Box
@@ -175,6 +182,7 @@ const SingleItem = () => {
                   bg={"#b71c1c"}
                   color={"#ffffff"}
                   colorScheme={"#b71c1c"}
+                  onClick={()=>Addtocart(data._id)}
                 >
                   ADD TO CART
                 </Button>
