@@ -10,6 +10,7 @@ const cors=require("cors")
 const app = express()
 app.use(express.json())
 app.use(cors())
+// Note: added routes and end points
 app.use("/address",Address)
 app.use("/cart",Cartroute)
 app.use("/products",Productsroute)
