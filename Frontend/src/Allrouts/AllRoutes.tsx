@@ -14,6 +14,7 @@ const AllRoutes = ()=> {
       <Route path="/phone" element={<PhoneSignup />} />
       <Route path={"/Allitems/:type"} element={<Allitems />} /> 
     </Routes>
+    //madhu
   );
 };
 
