@@ -6,14 +6,11 @@ import HomeSlider from "../Home/HomeSlider/HomeSlider";
 import ShopByMain from "../Home/ShopbyCategory/ShopByMain";
 import TopPickMain from "../Home/TopPicksForYou/TopPickMain";
 import WhyTenderCuts from "../Home/WhyTenderCuts/WhyTenderCuts";
-import { NavBar1 } from "../Navbar/NavBar1";
-import { Navbar2 } from "../Navbar/Navbar2";
+
 
 function HomePage() {
   return (
     <>
-      <NavBar1 />
-      <Navbar2 />
       <HomeSlider />
       <WhyTenderCuts />
       <ShopByMain />

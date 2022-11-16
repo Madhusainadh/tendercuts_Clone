@@ -3,7 +3,7 @@ const and = require("./and.png");
 const apple = require("./apple.png");
 export const NavBar1 = () => {
   return (
-    <Box bg={"white"} color={"black"}>
+    <Box bg={"white"} color={"black"}  >
       <Flex
         justifyContent={"space-around"}
         display={{
