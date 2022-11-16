@@ -43,7 +43,7 @@ export const Navbar2 = () => {
   const [modalBool, setmodalBool] = useState(false)
   const [result, setresult] = useState("")
   const { setupRecaptcha } = useUserAuth();
-  const [name, setname] = useState("")
+
 
 
   const getOtp = async () => {
@@ -74,11 +74,11 @@ export const Navbar2 = () => {
   // useEffect(() => {
 
   // }, [])
-  useEffect(() => {
-    data.length == 0 ? setdata(JSON.parse(localStorage.getItem("data"))) : setdata(data)
+  // useEffect(() => {
+  //   data.length == 0 ? setdata(JSON.parse(localStorage.getItem("data"))) : setdata(data)
 
 
-  }, [])
+  // }, [])
   // setname(data[0].name)
   // console.log(data[0].name)
 
@@ -137,7 +137,7 @@ export const Navbar2 = () => {
               color={"white"}
               onClick={onOpen}
             >
-            
+
               {data.length == 0 ? "Login" : data[0].name}
               {/* {data[0].name == undefined ? "Login/Signup" : data[0].name} */}
             </Button>
@@ -247,8 +247,6 @@ export const Navbar2 = () => {
                 </DrawerContent>
               </Drawer>)
             }
-
-
             <Button bg={"none"}>
               <Flex gap={"20px"}>
                 <Image w={"25px"} h={"25px"} src={cart} />

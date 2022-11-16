@@ -59,7 +59,6 @@ function OtpModal({ phnumber, data, firstModalisOpen, setIsOpen, mainfun }) {
     setIsOpen(false);
   };
   const handleeverything = () => {
-
     mainfun(val)
     onOpen();
     // firstModalisOpen()
