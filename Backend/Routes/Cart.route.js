@@ -1,64 +1,87 @@
 const express = require("express");
-// const Carts = require("./cart.model");
-const Carts = require("../Schemas/Cart.model")
+// const CartModel = require("./cart.model");
+const CartModel = require("../Schemas/Cart.model");
 
 const app = express.Router();
 
 app.get("/", async (req, res) => {
-  let cart = await Carts.find();
+  let cart = await CartModel.find();
   res.send(cart);
 });
 
-
-app.get("/:id", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     let id = req.params.id;
-    let cart = await Carts.find({ user: id });
+    let cart = await CartModel.find({ user: id }).populate([
+      "userID",
+      "productID",
+    ]);
     res.send(cart);
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
-app.post("/", async (req, res) => {
-  try {
-    await Carts.create(req.body);
-    return res.status(200).send("Product Added to the cart!");
-  } catch (e) {
-    res.status(500).send(e.message);
-  }
-});
-
-// app.post("/cart", async (req, res) => {
-//     const { userID, prodID } = req.body
-//     try {
-//         console.log(req.body)
-//         const cartItem = await cartModel.create({ user: userID, product: prodID })
-//         res.send(cartItem)
-//     } catch (error) {
-//         res.status(401).send("unauthorized requiest")
-//     }
-// })
-app.patch("/:id", async (req, res) => {
-  try {
-    let id = req.params.id;
-    await Carts.findByIdAndUpdate({ _id: id }, { ...req.body });
-    res.send("Updated!");
-  } catch (e) {
-    res.status(500).send(e);
-  }
-});
-
-app.delete("/:id", async (req, res) => {
-  try {
-    let id = req.params.id;
-    let cart = await Carts.findByIdAndDelete(id);
-    if (!cart) {
-      res.send("Product not found!");
+app.post("/create", async (req, res) => {
+  const { productID, quantity } = req.body;
+  const userID = req.userID;
+  let existingProduct = await CartModel.findOne({ userID, productID });
+  if (existingProduct) {
+    try {
+      let updateProduct = await CartModel.findByIdAndUpdate(
+        existingProduct._id,
+        { $set: { quantity: existingProduct.quantity + 1 } }
+      );
+      res.send({ message: "item updated successfully" });
+    } catch (error) {
+      res.status(404).send(e.message);
     }
-    res.send("Deleted Successfully!");
-  } catch (e) {
-    res.status(500).send(e);
+  } else {
+    try {
+      let data = await CartModel.create({ productID, quantity, userID });
+      res.status(200).send("item created successfully");
+    } catch (error) {
+      res.status(401).send(error.message);
+    }
+  }
+});
+
+app.post("/update", async (req, res) => {
+  const { type, productID } = req.body;
+  const userID = req.headers.userID;
+  const existingProduct = await CartModel.findOne({ userID, productID });
+  try {
+    if (type === "desc") {
+      let updateProduct = await CartModel.findByIdAndUpdate(
+        existingProduct._id,
+        { $set: { quantity: existingProduct.quantity - 1 } }
+      );
+      res.send({ message: "item updated successfully" });
+    } else {
+      let updateProduct = await CartModel.findByIdAndUpdate(
+        existingProduct._id,
+        { $set: { quantity: existingProduct.quantity + 1 } }
+      );
+      res.send({ message: "item updated successfully updated" });
+    }
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+});
+
+app.post("/remove", async (req, res) => {
+  const { productID } = req.body;
+  const userID = req.headers.userid;
+  const existingProduct = await CartModel.findOne({ userID, productID });
+  if (existingProduct) {
+    try {
+      await CartModel.findByIdAndDelete(existingProduct._id);
+      res.send({ message: "item deleted successfully" });
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  } else {
+    res.status(500).send({ message: error.message });
   }
 });
 
