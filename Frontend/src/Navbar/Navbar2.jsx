@@ -30,20 +30,34 @@ import DrawerExample from "../Cart/CartDrawer";
 
 const pro = require("./pro.png");
 const loc = require("./loc.png");
-const ser = require("./ser.png");
-const cart = require("./cart.png");
 
 export const Navbar2 = () => {
-  const [render, setrender] = useState(false);
   const [data, setdata] = useState([]);
-
+  const [formdata, setformdata] = useState({
+    email: "",
+    password: "",
+  });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [phnumber, setphnumber] = useState("");
-  const [error, seterror] = useState("");
+  const [fetch, setfetch] = useState("");
   const [modalBool, setmodalBool] = useState(false);
   const [result, setresult] = useState("");
   const { setupRecaptcha, name } = useUserAuth();
-
+  const postuser = async () => {
+    const { email, password } = formdata;
+    if (!email || !password) {
+      alert("please enter all the credentials");
+    }
+    try {
+      const res = await axios.post("http://localhost:8080/login", {
+        email: email,
+        password: password,
+      });
+      const { _id } = res;
+      localStorage.setItem("email", _id);
+      setfetch(_id);
+    } catch (error) {}
+  };
   const getOtp = async () => {
     try {
       const res = await setupRecaptcha(phnumber);
@@ -74,7 +88,15 @@ export const Navbar2 = () => {
       alert(error.message);
     }
   };
-
+  const handleChange = (e) => {
+    const { name, value } = e.target.value;
+    setformdata({ ...formdata, [name]: value });
+  };
+  const handleSubmit = async () => {
+    await getOtp();
+    await verifyOtp(phnumber);
+    await postuser();
+  };
   return (
     <Container
       maxW={"100%"}
@@ -140,10 +162,23 @@ export const Navbar2 = () => {
                 </Flex>
 
                 <DrawerBody>
-                  <Flex direction={"column"} align={"center"} gap={"5"}>
+                  <Flex direction={"column"} align={"flex-start"} gap={"5"}>
                     <Text color={"#CA2222"} fontWeight={"bold"}>
                       Log in / Create account to manage orders
                     </Text>
+                    <Input
+                      placeholder="please enter the email"
+                      onChange={handleChange}
+                      name={"email"}
+                      type={"text"}
+                    />
+                    <Text>Password</Text>
+                    <Input
+                      placeholder="Enter the password"
+                      onChange={handleChange}
+                      name={"password"}
+                      type={"text"}
+                    />
                     <Text>Mobile Number</Text>
                     <PhoneInput
                       style={{
@@ -162,17 +197,17 @@ export const Navbar2 = () => {
                       width={"99%"}
                       borderRadius={"none"}
                       size={"md"}
-                      onClick={getOtp}
+                      onClick={handleSubmit}
                     >
                       Send OTP{" "}
                     </Button>
-                    <OtpModal
+                    {/* <OtpModal
                       phnumber={phnumber}
                       data={data}
                       mainfun={verifyOtp}
                       firstModalisOpen={modalBool}
                       setIsOpen={setmodalBool}
-                    />
+                    /> */}
                     <Text>Shop from anywhere , Download our app now!</Text>
                     <Flex align={"center"} w={"80%"}>
                       <a
@@ -192,8 +227,7 @@ export const Navbar2 = () => {
                 </DrawerBody>
               </DrawerContent>
             </Drawer>
-            <DrawerExample/>
-            
+            <DrawerExample />
           </Flex>
           <Image
             mt={"5px"}

@@ -7,6 +7,7 @@ import { Singleitemreducer } from "./SinglePage/Singleitem.reducer"
 const rootReducer = combineReducers({
          single:Singleitemreducer,
          Category:ItemCategoryreducer,
+       
 })
 
 export const store = legacy_createStore(rootReducer,applyMiddleware(thunk))

@@ -1,9 +1,10 @@
 const express = require("express");
+const authmiddleware = require("../middlewares/AuthMiddlewares");
 // const CartModel = require("./cart.model");
 const CartModel = require("../Schemas/Cart.model");
 
 const app = express.Router();
-
+app.use(authmiddleware)
 app.get("/", async (req, res) => {
   let cart = await CartModel.find();
   res.send(cart);
