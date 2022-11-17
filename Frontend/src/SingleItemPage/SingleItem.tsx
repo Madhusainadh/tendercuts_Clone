@@ -50,10 +50,13 @@ const SingleItem = () => {
 
   console.log(arr);
 
-  const Addtocart=async(id:String)=>{ 
-   let gt= await axios.post("http://localhost:8080/cart",{ "user":"6373173c25b2bb95b32bfd6f", "product":num})
-    console.log(gt)
-  }
+  const Addtocart = async (id: String) => {
+    let gt = await axios.post("http://localhost:8080/cart", {
+      user: "6373173c25b2bb95b32bfd6f",
+      product: num,
+    });
+    console.log(gt);
+  };
 
   return (
     <Box
@@ -182,7 +185,7 @@ const SingleItem = () => {
                   bg={"#b71c1c"}
                   color={"#ffffff"}
                   colorScheme={"#b71c1c"}
-                  onClick={()=>Addtocart(data._id)}
+                  onClick={() => Addtocart(data._id)}
                 >
                   ADD TO CART
                 </Button>

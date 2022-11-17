@@ -22,6 +22,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { ItemCategoryfun } from "../Store/ItemCategory/ItemCategory.Module";
+import AllcartItems from "./AllcartItems";
 const cart = require("./cart.png");
 
 export default function DrawerExample() {
@@ -34,7 +35,6 @@ export default function DrawerExample() {
   const { Category } = useSelector((state: any) => state.Category);
 
   let [data, setdata] = useState<any>([]);
-  let [cartdata,setcartdata]=useState<any>([]);
   const dispatch = useDispatch<any>();
   // var urltitle = useParams();
   var title = "chicken";
@@ -50,16 +50,7 @@ export default function DrawerExample() {
     setdata(Category);
   }, [Category]);
 
-useEffect(()=>{
-  try{
-     axios.get(`http://localhost:8080/cart/6373173c25b2bb95b32bfd6f`).then((res)=>setcartdata(res.data))
 
-  }catch(err:any){
-    console.log(err.message)
-  }
-},[])
-
-  console.log(cartdata);
   return (
     <Box>
       <Button
@@ -190,6 +181,9 @@ useEffect(()=>{
               >
                 TenderCuts Elite Plan has been added to your cart, now enjoy
                 Free delivery + product discounts.
+              </Box>
+              <Box>
+              <AllcartItems/>
               </Box>
             </DrawerBody>
 
