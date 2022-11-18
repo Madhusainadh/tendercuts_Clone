@@ -6,6 +6,7 @@ const initState = {
   data: {},
 };
 export const AuthReducer = (state = initState, { type, payload }) => {
+
   switch (type) {
     case LOGIN_SUCCESS: {
       return {
@@ -15,7 +16,7 @@ export const AuthReducer = (state = initState, { type, payload }) => {
         data: payload
       }
     }
-default: {
+    default: {
       return state
     }
 

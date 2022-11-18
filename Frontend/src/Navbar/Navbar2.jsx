@@ -27,24 +27,66 @@ import { useUserAuth } from "../Home/UserAuthContext";
 import OtpModal from "./Modal";
 import axios from "axios";
 import DrawerExample from "../Cart/CartDrawer";
+import { useDispatch, useSelector } from "react-redux";
+import { Loginactions } from "../Store/auth/AuthActions";
 
 const pro = require("./pro.png");
 const loc = require("./loc.png");
 
 export const Navbar2 = () => {
+  const prop = useSelector((store) => store.Auth);
+
+  const dispatch = useDispatch();
   const [data, setdata] = useState([]);
-  const [formdata, setformdata] = useState({
+  const [Loginformdata, setLoginformdata] = useState({
     email: "",
     password: "",
   });
+  const [SignupformData, setsignupformData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    address: "",
+    flatNumber: "",
+    landmark: "",
+    pincode: "",
+    number: "",
+  });
+  const handleAddAddress = async () => {
+    try {
+      let res = await axios.post(
+        "http://localhost:8080/address/create",
+        SignupformData
+      );
+      const { data } = res;
+      const { _id } = data;
+      localStorage.setItem("email", _id);
+      setfetch(_id);
+      setsignupformData({
+        name: "",
+        email: "",
+        password: "",
+        address: "",
+        flatNumber: "",
+        landmark: "",
+        pincode: "",
+        number: "",
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [signup, setsignup] = useState(false);
   const [phnumber, setphnumber] = useState("");
   const [fetch, setfetch] = useState("");
   const [modalBool, setmodalBool] = useState(false);
   const [result, setresult] = useState("");
   const { setupRecaptcha, name } = useUserAuth();
+
   const postuser = async () => {
-    const { email, password } = formdata;
+    const { email, password } = Loginformdata;
     if (!email || !password) {
       alert("please enter all the credentials");
     }
@@ -53,11 +95,20 @@ export const Navbar2 = () => {
         email: email,
         password: password,
       });
-      const { _id } = res;
+
+      const { data } = res;
+      const { _id } = data;
+
       localStorage.setItem("email", _id);
       setfetch(_id);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message);
+    }
   };
+  useEffect(() => {
+    dispatch(Loginactions());
+  }, [fetch]);
+
   const getOtp = async () => {
     try {
       const res = await setupRecaptcha(phnumber);
@@ -67,34 +118,30 @@ export const Navbar2 = () => {
       alert(error.message);
     }
   };
-  const getData = async (number) => {
-    try {
-      let res = await axios.post("http://localhost:8080/address/find", {
-        number: number,
-      });
-      if (res.data.isFound) {
-        setdata(res.data.data);
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+  // const getData = async (number) => {
+  //   try {
+  //     let res = await axios.post("http://localhost:8080/address/find", {
+  //       number: number,
+  //     });
+  //     if (res.data.isFound) {
+  //       setdata(res.data.data);
+  //     }
+  //   } catch (error) {
+  //     alert(error.message);
+  //   }
+  // };
 
   const verifyOtp = async (main) => {
     try {
       let data = await result.confirm(main);
-      getData(phnumber);
+      // getData(phnumber);
     } catch (error) {
       alert(error.message);
     }
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target.value;
-    setformdata({ ...formdata, [name]: value });
-  };
   const handleSubmit = async () => {
-    await getOtp();
-    await verifyOtp(phnumber);
+    // await getOtp();
+    // await verifyOtp(phnumber);
     await postuser();
   };
   return (
@@ -149,84 +196,228 @@ export const Navbar2 = () => {
             >
               {name ? name : "Login/Signup"}
             </Button>
-            <Drawer
-              size={"sm"}
-              isOpen={isOpen}
-              placement="left"
-              onClose={onClose}
-            >
-              <DrawerContent>
-                <Flex justify={"space-between"} align={"center"}>
-                  <DrawerCloseButton />
-                  <TenderSVG />
-                </Flex>
+            {!signup ? (
+              <Drawer
+                size={"sm"}
+                isOpen={isOpen}
+                placement="left"
+                onClose={onClose}
+              >
+                <DrawerContent>
+                  <Flex justify={"space-between"} align={"center"}>
+                    <DrawerCloseButton />
+                    <TenderSVG />
+                  </Flex>
 
-                <DrawerBody>
-                  <Flex direction={"column"} align={"flex-start"} gap={"5"}>
-                    <Text color={"#CA2222"} fontWeight={"bold"}>
-                      Log in / Create account to manage orders
-                    </Text>
-                    <Input
-                      placeholder="please enter the email"
-                      onChange={handleChange}
-                      name={"email"}
-                      type={"text"}
-                    />
-                    <Text>Password</Text>
-                    <Input
-                      placeholder="Enter the password"
-                      onChange={handleChange}
-                      name={"password"}
-                      type={"text"}
-                    />
-                    <Text>Mobile Number</Text>
-                    <PhoneInput
-                      style={{
-                        width: "95%",
-                        height: "50px",
-                      }}
-                      defaultCountry="IN"
-                      value={phnumber}
-                      onChange={setphnumber}
-                      placeholder="Please enter your 10-digit Phone number"
-                    />
-                    <div id="recaptcha-container" />
-                    <Button
-                      color={"white"}
-                      bg={"#CA2222"}
-                      width={"99%"}
-                      borderRadius={"none"}
-                      size={"md"}
-                      onClick={handleSubmit}
-                    >
-                      Send OTP{" "}
-                    </Button>
-                    {/* <OtpModal
+                  <DrawerBody>
+                    <Flex direction={"column"} align={"flex-start"} gap={"5"}>
+                      <Text color={"#CA2222"} fontWeight={"bold"}>
+                        Log in / Create account to manage orders
+                      </Text>
+                      <Input
+                        placeholder="Please enter the email"
+                        onChange={(e) =>
+                          setLoginformdata((prev) => ({
+                            ...prev,
+                            email: e.target.value,
+                          }))
+                        }
+                        name={"email"}
+                        type={"text"}
+                      />
+                      <Text>Password</Text>
+                      <Input
+                        placeholder="Enter the password"
+                        onChange={(e) =>
+                          setLoginformdata((prev) => ({
+                            ...prev,
+                            password: e.target.value,
+                          }))
+                        }
+                        name={"password"}
+                        type={"text"}
+                      />
+                      <Text>Mobile Number</Text>
+                      <PhoneInput
+                        style={{
+                          width: "95%",
+                          height: "50px",
+                        }}
+                        defaultCountry="IN"
+                        value={phnumber}
+                        onChange={setphnumber}
+                        placeholder="Please enter your 10-digit Phone number"
+                      />
+                      <div id="recaptcha-container" />
+                      <Button
+                        color={"white"}
+                        bg={"#CA2222"}
+                        width={"99%"}
+                        borderRadius={"none"}
+                        size={"md"}
+                        onClick={handleSubmit}
+                      >
+                        Send OTP{" "}
+                      </Button>
+                      <Text
+                        cursor={"pointer"}
+                        onClick={() => setsignup(!signup)}
+                        color={"red"}
+                      >
+                        Dont have an account? Signup Click here
+                      </Text>
+                      {/* <OtpModal
                       phnumber={phnumber}
                       data={data}
                       mainfun={verifyOtp}
                       firstModalisOpen={modalBool}
                       setIsOpen={setmodalBool}
                     /> */}
-                    <Text>Shop from anywhere , Download our app now!</Text>
-                    <Flex align={"center"} w={"80%"}>
-                      <a
-                        target={"_blank"}
-                        href="https://apps.apple.com/in/app/tendercuts-farm-fresh-meat-and-fresh-fish/id1236186604"
-                      >
-                        <Image src="https://www.tendercuts.in/assets/app/app-store.png" />
-                      </a>
-                      <a
-                        target={"_blank"}
-                        href="https://play.google.com/store/apps/details?id=com.tendercuts.app"
-                      >
-                        <Image src="https://www.tendercuts.in/assets/app/play-store.png" />
-                      </a>
+                      <Text>Shop from anywhere , Download our app now!</Text>
+                      <Flex align={"center"} w={"80%"}>
+                        <a
+                          target={"_blank"}
+                          href="https://apps.apple.com/in/app/tendercuts-farm-fresh-meat-and-fresh-fish/id1236186604"
+                        >
+                          <Image src="https://www.tendercuts.in/assets/app/app-store.png" />
+                        </a>
+                        <a
+                          target={"_blank"}
+                          href="https://play.google.com/store/apps/details?id=com.tendercuts.app"
+                        >
+                          <Image src="https://www.tendercuts.in/assets/app/play-store.png" />
+                        </a>
+                      </Flex>
                     </Flex>
+                  </DrawerBody>
+                </DrawerContent>
+              </Drawer>
+            ) : (
+              <Drawer
+                size={"sm"}
+                isOpen={isOpen}
+                placement="left"
+                onClose={onClose}
+              >
+                <DrawerContent>
+                  <Flex justify={"space-between"} align={"center"}>
+                    <Input
+                      placeholder="Enter your Area"
+                      onChange={(e) =>
+                        setsignupformData((prev) => ({
+                          ...prev,
+                          address: e.target.value,
+                        }))
+                      }
+                    />
+                    <DrawerCloseButton />
                   </Flex>
-                </DrawerBody>
-              </DrawerContent>
-            </Drawer>
+                  <DrawerBody>
+                    <Flex direction={"column"} align={"center"} gap={"5"}>
+                      <Text color={"#CA2222"} fontWeight={"bold"}>
+                        no data
+                      </Text>
+                      <Text>Name</Text>
+                      <Input
+                        placeholder="Name"
+                        onChange={(e) =>
+                          setsignupformData((prev) => ({
+                            ...prev,
+                            name: e.target.value,
+                          }))
+                        }
+                        size={"md"}
+                        border="none"
+                        width={"99%"}
+                      />
+                      <Text>Email</Text>
+                      <Input
+                        onChange={(e) =>
+                          setsignupformData((prev) => ({
+                            ...prev,
+                            email: e.target.value,
+                          }))
+                        }
+                      ></Input>
+                      <Text>Password</Text>
+                      <Input
+                        onChange={(e) =>
+                          setsignupformData((prev) => ({
+                            ...prev,
+                            password: e.target.value,
+                          }))
+                        }
+                      ></Input>
+
+                      <Text>Flat Number</Text>
+                      <Input
+                        placeholder="Flat No."
+                        onChange={(e) =>
+                          setsignupformData((prev) => ({
+                            ...prev,
+                            flatNumber: e.target.value,
+                            number: phnumber,
+                          }))
+                        }
+                        size={"md"}
+                        border="none"
+                        width={"99%"}
+                      />
+                      <Text>Landmark</Text>
+                      <Input
+                        placeholder="Landmark"
+                        onChange={(e) =>
+                          setsignupformData((prev) => ({
+                            ...prev,
+                            landmark: e.target.value,
+                          }))
+                        }
+                        size={"md"}
+                        border="none"
+                        width={"99%"}
+                      />
+                      <Text>Pincode</Text>
+                      <Input
+                        placeholder="Pincode"
+                        onChange={(e) =>
+                          setsignupformData((prev) => ({
+                            ...prev,
+                            pincode: e.target.value,
+                          }))
+                        }
+                        size={"md"}
+                        border="none"
+                        width={"99%"}
+                      />
+                      <Text>Number</Text>
+                      <Input
+                        placeholder="Pincode"
+                        onChange={(e) =>
+                          setsignupformData((prev) => ({
+                            ...prev,
+                            number: e.target.value,
+                          }))
+                        }
+                        size={"md"}
+                        border="none"
+                        width={"99%"}
+                      />
+                      <Button
+                        color={"white"}
+                        borderColor={"#CA2222"}
+                        onClick={handleAddAddress}
+                        width={"99%"}
+                        borderRadius={"sm"}
+                        size={"md"}
+                      >
+                        Save Address
+                      </Button>
+                    </Flex>
+                  </DrawerBody>
+                </DrawerContent>
+              </Drawer>
+            )}
+
             <DrawerExample />
           </Flex>
           <Image

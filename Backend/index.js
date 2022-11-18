@@ -20,6 +20,7 @@ app.post("/login", async (req, res) => {
         res.status(500).send("invalid email or password");
     }
     const data = await AddressModel.findOne({ email, password });
+    console.log('data:', data)
     if (!data) {
         res.status(404).send("no user found");
     }

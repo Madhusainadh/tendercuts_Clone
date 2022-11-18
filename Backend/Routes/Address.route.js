@@ -16,11 +16,9 @@ Address.post("/find", async (req, res) => {
     }
 })
 Address.post("/create", async (req, res) => {
-    console.log(req.body);
-    const {name, address, flatNumber, landmark, pincode, number } = req.body
-
+    
     try {
-        const add = await AddressModel.create({ address: address, flatNumber: flatNumber, landmark: landmark, pincode: pincode, number: number })
+        const add = await AddressModel.create(req.body)
         res.send(add)
     } catch (error) {
         res.status(401).send(error.message)

@@ -59,7 +59,7 @@ useEffect(()=>{
   }
 },[])
 
-  console.log(cartdata);
+
   return (
     <Box>
       <Button

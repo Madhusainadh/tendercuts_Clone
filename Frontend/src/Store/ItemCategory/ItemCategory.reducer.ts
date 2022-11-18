@@ -6,7 +6,7 @@
 //   console.log(payload)
      switch (type) {
          case "Item_Category": {
-             console.log(payload)
+    
              return { ...state, Category:payload } 
          }
          default: {
