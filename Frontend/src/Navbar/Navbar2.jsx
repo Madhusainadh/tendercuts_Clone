@@ -313,13 +313,10 @@ export const Navbar2 = () => {
                     <DrawerCloseButton />
                   </Flex>
                   <DrawerBody>
-                    <Flex direction={"column"} align={"center"} gap={"5"}>
-                      <Text color={"#CA2222"} fontWeight={"bold"}>
-                        no data
-                      </Text>
+                    <Flex direction={"column"} align={"flex-start"} gap={"3"}>
                       <Text>Name</Text>
                       <Input
-                        placeholder="Name"
+                        placeholder=" Please enter your Name"
                         onChange={(e) =>
                           setsignupformData((prev) => ({
                             ...prev,
@@ -332,6 +329,7 @@ export const Navbar2 = () => {
                       />
                       <Text>Email</Text>
                       <Input
+                        placeholder="Please enter you email"
                         onChange={(e) =>
                           setsignupformData((prev) => ({
                             ...prev,
@@ -341,6 +339,7 @@ export const Navbar2 = () => {
                       ></Input>
                       <Text>Password</Text>
                       <Input
+                        placeholder="Please enter your password"
                         onChange={(e) =>
                           setsignupformData((prev) => ({
                             ...prev,
@@ -351,7 +350,7 @@ export const Navbar2 = () => {
 
                       <Text>Flat Number</Text>
                       <Input
-                        placeholder="Flat No."
+                        placeholder={"Enter your flat Number (Optional)"}
                         onChange={(e) =>
                           setsignupformData((prev) => ({
                             ...prev,
@@ -365,7 +364,7 @@ export const Navbar2 = () => {
                       />
                       <Text>Landmark</Text>
                       <Input
-                        placeholder="Landmark"
+                        placeholder={"Enter your landmark"}
                         onChange={(e) =>
                           setsignupformData((prev) => ({
                             ...prev,
@@ -377,21 +376,23 @@ export const Navbar2 = () => {
                         width={"99%"}
                       />
                       <Text>Pincode</Text>
+
                       <Input
-                        placeholder="Pincode"
+                        placeholder=" Enter your Pincode"
                         onChange={(e) =>
                           setsignupformData((prev) => ({
                             ...prev,
                             pincode: e.target.value,
                           }))
                         }
+                        type="number"
                         size={"md"}
                         border="none"
                         width={"99%"}
                       />
                       <Text>Number</Text>
                       <Input
-                        placeholder="Pincode"
+                        placeholder="Enter your phone number"
                         onChange={(e) =>
                           setsignupformData((prev) => ({
                             ...prev,
@@ -403,11 +404,11 @@ export const Navbar2 = () => {
                         width={"99%"}
                       />
                       <Button
+                        bg={"red.600"}
                         color={"white"}
-                        borderColor={"#CA2222"}
                         onClick={handleAddAddress}
                         width={"99%"}
-                        borderRadius={"sm"}
+                        borderRadius={"md"}
                         size={"md"}
                       >
                         Save Address
