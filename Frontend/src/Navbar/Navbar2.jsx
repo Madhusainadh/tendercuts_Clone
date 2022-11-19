@@ -11,6 +11,7 @@ import {
   Box,
   PinInput,
   PinInputField,
+  useToast,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import {
@@ -76,11 +77,18 @@ export const Navbar2 = () => {
         pincode: "",
         number: "",
       });
+      toast({
+        title: "Signup successfull",
+
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
       alert(error.message);
     }
   };
-
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [signup, setsignup] = useState(false);
   const [phnumber, setphnumber] = useState("");
@@ -91,8 +99,14 @@ export const Navbar2 = () => {
   const [otp, setotp] = useState("");
   const postuser = async () => {
     const { email, password, phonenumber } = Loginformdata;
-    if (!email || !password) {
-      alert("please enter all the credentials");
+    if (!email || !password || !phonenumber) {
+      toast({
+        title: "Please enter all the credentials",
+
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+      });
     }
     try {
       const res = await axios.post("http://localhost:8080/login", {
@@ -106,8 +120,21 @@ export const Navbar2 = () => {
 
       localStorage.setItem("email", _id);
       setfetch(_id);
+      toast({
+        title: "Login successfull",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
       console.log(error.message);
+      toast({
+        title: "User not found",
+        description: "please try again with valid credentials",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
   useEffect(() => {
@@ -153,6 +180,13 @@ export const Navbar2 = () => {
       localStorage.removeItem("email");
 
       window.location.reload();
+      toast({
+        title: "Logout successfull",
+
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
       console.log(error);
     }

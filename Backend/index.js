@@ -16,11 +16,11 @@ app.use("/cart", Cartroute);
 app.use("/products", Productsroute);
 app.post("/login", async (req, res) => {
   const { email, password, number } = req.body;
-  if (!email || !password) {
+  if (!email || !password || !number) {
     res.status(500).send("invalid email or password");
   }
   const data = await AddressModel.findOne({ email, password, number });
-  console.log("data:", data);
+  
 
   if (!data) {
     res.status(404).send("no user found");
