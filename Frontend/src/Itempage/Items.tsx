@@ -10,14 +10,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useDispatch, } from "react-redux";
+import {
+
+  useNavigate,
+
+} from "react-router-dom";
 
 import { sendItemfun } from "../Store/SinglePage/Singleitem.Module";
 
 const weighticon = require("./weight.png");
-
-
 
 export const Item = ({
   id,
@@ -28,14 +30,13 @@ export const Item = ({
   mrp,
   price,
 }: any) => {
-  let [searchParams, setSearchParams] = useSearchParams()
 
-  useEffect(() => {
-  }, []);
+
+  useEffect(() => {}, []);
 
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
-  const Redirectonclickfun =async ({
+  const Redirectonclickfun = async ({
     id,
     image,
     title,
@@ -45,17 +46,15 @@ export const Item = ({
     price,
   }: any) => {
     console.log(id, image, title, details, weight, mrp, price);
- await  dispatch(sendItemfun(id));
+    await dispatch(sendItemfun(id));
 
     // setTimeout(() => {
-      navigate(`/Item/${id}`);
-  
+    navigate(`/Item/${id}`);
+
     // }, 0);
-    
   };
 
   return (
- 
     <Box
       p={"20px"}
       key={id}
@@ -69,9 +68,7 @@ export const Item = ({
             w={["1000px", "1000px", "1000px", "377px"]}
             h={"210px"}
             src={image}
-          
           ></Image>
-
         </Box>
         <Box>
           <Heading fontSize={"14px"} lineHeight={"21px"} textAlign={"left"}>
@@ -89,7 +86,6 @@ export const Item = ({
             h={"36px"}
             color={"#535665"}
             bg={"#f2f2f2"}
-            
           >
             <Image w={"30px"} h={"30px"} src={weighticon} /> {weight}
           </Flex>

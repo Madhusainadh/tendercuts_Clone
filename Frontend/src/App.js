@@ -8,36 +8,28 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 function App() {
-  const [userdata, setuserdata] = useState([])
+  const [userdata, setuserdata] = useState([]);
   let str = useSelector((store) => store.Auth);
 
-
-
-
-
   useEffect(() => {
-    const { data } = str
-    setuserdata(data)
-
-
-  }, [str, userdata])
+    const { data } = str;
+    setuserdata(data);
+  }, [str, userdata]);
 
   axios.interceptors.request.use(
     function (config) {
-      const { headers } = config
+      const { headers } = config;
 
-      const id = localStorage.getItem("email")
+      const id = localStorage.getItem("email");
 
-
-      headers.userid = id
-      console.log('headers:', headers)
+  headers.userid = id;
 
       return config;
     },
     function (err) {
       return Promise.reject(err);
     }
-  )
+  );
 
   return (
     <div className="App">

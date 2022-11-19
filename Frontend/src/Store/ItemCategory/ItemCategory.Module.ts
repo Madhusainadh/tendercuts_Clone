@@ -13,5 +13,5 @@ export const ItemCategoryfun = (name: any) => async (dispatch: any) => {
   // dispatch({ type: Item_Category, payload: res });
  
   dispatch({ type: Item_Category, payload: res.data });
-// dispatch()
+
 };

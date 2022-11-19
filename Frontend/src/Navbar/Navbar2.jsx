@@ -34,10 +34,10 @@ const pro = require("./pro.png");
 const loc = require("./loc.png");
 
 export const Navbar2 = () => {
-  const prop = useSelector((store) => store.Auth);
+  const { data } = useSelector((store) => store.Auth);
 
   const dispatch = useDispatch();
-  const [data, setdata] = useState([]);
+
   const [Loginformdata, setLoginformdata] = useState({
     email: "",
     password: "",
@@ -134,15 +134,23 @@ export const Navbar2 = () => {
   const verifyOtp = async (main) => {
     try {
       let data = await result.confirm(main);
-      // getData(phnumber);
     } catch (error) {
       alert(error.message);
     }
   };
   const handleSubmit = async () => {
-    // await getOtp();
-    // await verifyOtp(phnumber);
+    await getOtp();
+    await verifyOtp(phnumber);
     await postuser();
+  };
+  const handleLogout = async () => {
+    try {
+      localStorage.removeItem("email");
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Container
@@ -194,9 +202,74 @@ export const Navbar2 = () => {
               color={"white"}
               onClick={onOpen}
             >
-              {name ? name : "Login/Signup"}
+              {data.name ? data.name : "Login/Signup"}
             </Button>
-            {!signup ? (
+            {data.name ? (
+              <Drawer
+                size={"sm"}
+                isOpen={isOpen}
+                placement="left"
+                onClose={onClose}
+              >
+                <DrawerContent>
+                  <Flex justify={"space-between"} align={"center"}>
+                    <DrawerCloseButton />
+                  </Flex>
+
+                  <DrawerBody>
+                    <Flex minH={"82px"} align={"center"}>
+                      <Flex align={"center"} justify={"center"} minW={"20%"}>
+                        <Image src="./target.png" boxSize={"7"} />
+                      </Flex>
+                      <Box w={"80%"}>
+                        <Text size={"lg"}>Add New Address</Text>
+                      </Box>
+                    </Flex>
+                    <Flex direction={"column"} align={"center"} gap={"5"}>
+                      <Heading>Addresses</Heading>
+                      {/* {data.map((el) => {
+                        return ( */}
+                      <Flex
+                        w={"95%"}
+                        h={"130px"}
+                        boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
+                      >
+                        <Flex
+                          Flex
+                          align={"center"}
+                          justify={"center"}
+                          minW={"20%"}
+                        >
+                          <Image src="./house-24.jpg" />
+                        </Flex>
+                        <Flex
+                          w={"80%"}
+                          align={"flex-start"}
+                          direction={"column"}
+                        >
+                          <Text size={"lg"}>{data.address}</Text>
+                          <Text size={"lg"}>{data.flatNumber}</Text>
+                          <Text size={"lg"}>{data.landmark}</Text>
+                          <Text size={"lg"}>{data.pincode}</Text>
+                        </Flex>
+                      </Flex>
+                      {/* );
+                      })} */}
+                      <Button
+                        bg={"red.600"}
+                        color={"white"}
+                        width={"99%"}
+                        borderRadius={"md"}
+                        size={"md"}
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </Button>
+                    </Flex>
+                  </DrawerBody>
+                </DrawerContent>
+              </Drawer>
+            ) : !signup ? (
               <Drawer
                 size={"sm"}
                 isOpen={isOpen}
@@ -301,19 +374,21 @@ export const Navbar2 = () => {
               >
                 <DrawerContent>
                   <Flex justify={"space-between"} align={"center"}>
-                    <Input
-                      placeholder="Enter your Area"
-                      onChange={(e) =>
-                        setsignupformData((prev) => ({
-                          ...prev,
-                          address: e.target.value,
-                        }))
-                      }
-                    />
+                    <Heading fontSize={"lg"}>Sigup form</Heading>
                     <DrawerCloseButton />
                   </Flex>
                   <DrawerBody>
                     <Flex direction={"column"} align={"flex-start"} gap={"3"}>
+                      <Text>Address</Text>
+                      <Input
+                        placeholder="Enter your Area"
+                        onChange={(e) =>
+                          setsignupformData((prev) => ({
+                            ...prev,
+                            address: e.target.value,
+                          }))
+                        }
+                      />
                       <Text>Name</Text>
                       <Input
                         placeholder=" Please enter your Name"

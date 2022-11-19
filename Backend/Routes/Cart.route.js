@@ -4,7 +4,7 @@ const authmiddleware = require("../middlewares/AuthMiddlewares");
 const CartModel = require("../Schemas/Cart.model");
 
 const app = express.Router();
-app.use(authmiddleware)
+app.use(authmiddleware);
 app.get("/", async (req, res) => {
   let cart = await CartModel.find();
   res.send(cart);
@@ -13,6 +13,7 @@ app.get("/", async (req, res) => {
 app.get("/", async (req, res) => {
   try {
     let id = req.params.id;
+    console.log('id:', id)
     let cart = await CartModel.find({ user: id }).populate([
       "userID",
       "productID",
