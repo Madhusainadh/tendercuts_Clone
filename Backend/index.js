@@ -15,36 +15,34 @@ app.use("/address", Address);
 app.use("/cart", Cartroute);
 app.use("/products", Productsroute);
 app.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        res.status(500).send("invalid email or password");
-    }
-    const data = await AddressModel.findOne({ email, password });
-    console.log('data:', data)
-    if (!data) {
-        res.status(404).send("no user found");
-    }
-    res.send(data);
+  const { email, password, number } = req.body;
+  if (!email || !password) {
+    res.status(500).send("invalid email or password");
+  }
+  const data = await AddressModel.findOne({ email, password, number });
+  console.log("data:", data);
+
+  if (!data) {
+    res.status(404).send("no user found");
+  }
+  res.send(data);
 });
 app.post("/getuser", async (req, res) => {
-    const { userid } = req.body
-    if (userid) {
-        try {
-            const data = await AddressModel.findOne({ _id: userid })
-            res.send(data)
-
-        } catch (error) {
-            res.status(404).send("something went wrong")
-        }
+  const { userid } = req.body;
+  if (userid) {
+    try {
+      const data = await AddressModel.findOne({ _id: userid });
+      res.send(data);
+    } catch (error) {
+      res.status(404).send("something went wrong");
     }
-    else {
-        res.status(500).send("invalid address")
-    }
-
-})
+  } else {
+    res.status(500).send("invalid address");
+  }
+});
 mongoose
-    .connect(
-        "mongodb+srv://tendercuts:tendercuts@cluster0.hyunvkz.mongodb.net/TenderCutsMain"
-    )
-    .then(() => app.listen(8080, () => console.log("server satrted")))
-    .catch((er) => console.log(er));
+  .connect(
+    "mongodb+srv://tendercuts:tendercuts@cluster0.hyunvkz.mongodb.net/TenderCutsMain"
+  )
+  .then(() => app.listen(8080, () => console.log("server satrted")))
+  .catch((er) => console.log(er));

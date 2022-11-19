@@ -10,7 +10,14 @@ import { useEffect, useState } from "react";
 function App() {
   const [userdata, setuserdata] = useState([]);
   let str = useSelector((store) => store.Auth);
-
+  // const getdata = async () => {
+  //   try {
+  //     const res = await axios.get("http://localhost:8080/cart");
+  //     console.log("res:", res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   useEffect(() => {
     const { data } = str;
     setuserdata(data);
@@ -22,7 +29,7 @@ function App() {
 
       const id = localStorage.getItem("email");
 
-  headers.userid = id;
+      headers.userid = id;
 
       return config;
     },
@@ -34,6 +41,7 @@ function App() {
   return (
     <div className="App">
       <UserAuthContextProvider>
+       
         <NavBar1 />
         <Navbar2 />
         <AllRoutes />

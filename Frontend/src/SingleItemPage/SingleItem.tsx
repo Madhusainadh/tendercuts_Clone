@@ -23,7 +23,7 @@ const SingleItem = () => {
   let num = id.id;
 
   useEffect(() => {
-    console.log(num);
+    // console.log(num);
     try {
       axios
         .get(`http://localhost:8080/products/${num}`)
@@ -35,7 +35,7 @@ const SingleItem = () => {
 
   useEffect(() => {
     try {
-      console.log(data);
+      // console.log(data);
 
       let { dis } = data;
       let temp = dis.split("&");
@@ -46,15 +46,31 @@ const SingleItem = () => {
     }
   }, [data]);
 
-  console.log(data);
+  // console.log(data);
 
-  console.log(arr);
+  // console.log(arr);
 
-  const Addtocart=async(id:String)=>{ 
-   let gt= await axios.post("http://localhost:8080/cart",{ "user":"6373173c25b2bb95b32bfd6f", "product":num})
-    console.log(gt)
-  }
+  const Addtocart = async (id: String) => {
+    try {
+      let data = await axios.post("http://localhost:8080/cart/create", {
+        product: num,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  const updateProd = async (type: String) => {
+    try {
+      let data = await axios.post("http://localhost:8080/cart/update", {
+        type: type,
+        product: num,
+      });
+      console.log("data:", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Box
       display={"flex"}
@@ -90,7 +106,7 @@ const SingleItem = () => {
               <Box>
                 <Stack spacing={3}>
                   {arr?.map((e: any) => (
-                    <Text color={"#7e808c"} fontSize={"16px"}>
+                    <Text key={e} color={"#7e808c"} fontSize={"16px"}>
                       {e}
                     </Text>
                   ))}
@@ -182,12 +198,13 @@ const SingleItem = () => {
                   bg={"#b71c1c"}
                   color={"#ffffff"}
                   colorScheme={"#b71c1c"}
-                  onClick={()=>Addtocart(data._id)}
+                  onClick={() => Addtocart(data._id)}
                 >
                   ADD TO CART
                 </Button>
                 <Flex w={"170px"} justifyContent="space-around">
-                  <Box
+                  <Button
+                    onClick={() => updateProd("asc")}
                     alignSelf={"center"}
                     bg={"#c11c2d"}
                     borderRadius={"50%"}
@@ -196,7 +213,7 @@ const SingleItem = () => {
                     color={"white"}
                   >
                     -
-                  </Box>
+                  </Button>
                   <Box
                     h={"26px"}
                     w={"33px"}
@@ -207,7 +224,8 @@ const SingleItem = () => {
                   >
                     1
                   </Box>
-                  <Box
+                  <Button
+                    onClick={() => updateProd("desc")}
                     bg={"#c11c2d"}
                     borderRadius={"50%"}
                     h="24px"
@@ -215,7 +233,7 @@ const SingleItem = () => {
                     color={"white"}
                   >
                     +
-                  </Box>
+                  </Button>
                 </Flex>
               </SimpleGrid>
             </Container>

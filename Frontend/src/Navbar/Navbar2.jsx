@@ -9,6 +9,8 @@ import {
   Text,
   DrawerFooter,
   Box,
+  PinInput,
+  PinInputField,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import {
@@ -29,6 +31,7 @@ import axios from "axios";
 import DrawerExample from "../Cart/CartDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { Loginactions } from "../Store/auth/AuthActions";
+import { useNavigate } from "react-router-dom";
 
 const pro = require("./pro.png");
 const loc = require("./loc.png");
@@ -41,6 +44,7 @@ export const Navbar2 = () => {
   const [Loginformdata, setLoginformdata] = useState({
     email: "",
     password: "",
+    phonenumber: "",
   });
   const [SignupformData, setsignupformData] = useState({
     name: "",
@@ -84,9 +88,9 @@ export const Navbar2 = () => {
   const [modalBool, setmodalBool] = useState(false);
   const [result, setresult] = useState("");
   const { setupRecaptcha, name } = useUserAuth();
-
+  const [otp, setotp] = useState("");
   const postuser = async () => {
-    const { email, password } = Loginformdata;
+    const { email, password, phonenumber } = Loginformdata;
     if (!email || !password) {
       alert("please enter all the credentials");
     }
@@ -94,6 +98,7 @@ export const Navbar2 = () => {
       const res = await axios.post("http://localhost:8080/login", {
         email: email,
         password: password,
+        number: phonenumber,
       });
 
       const { data } = res;
@@ -115,7 +120,7 @@ export const Navbar2 = () => {
       setresult(res);
       setmodalBool(!modalBool);
     } catch (error) {
-      alert(error.message);
+      console.log(error.message);
     }
   };
   // const getData = async (number) => {
@@ -135,13 +140,13 @@ export const Navbar2 = () => {
     try {
       let data = await result.confirm(main);
     } catch (error) {
-      alert(error.message);
+      console.log(error.message);
     }
   };
   const handleSubmit = async () => {
-    await getOtp();
-    await verifyOtp(phnumber);
-    await postuser();
+    // await getOtp();
+    // (verifyOtp(otp))
+    postuser();
   };
   const handleLogout = async () => {
     try {
@@ -152,6 +157,8 @@ export const Navbar2 = () => {
       console.log(error);
     }
   };
+
+  const navigate = useNavigate();
   return (
     <Container
       maxW={"100%"}
@@ -163,6 +170,7 @@ export const Navbar2 = () => {
       <Flex gap={"40px"} w={["100%"]}>
         <Flex w={"50%"}>
           <Image
+            onClick={() => navigate("/")}
             h={"50px"}
             src="https://www.tendercuts.in/assets/logo-white.png"
           />
@@ -219,7 +227,10 @@ export const Navbar2 = () => {
                   <DrawerBody>
                     <Flex minH={"82px"} align={"center"}>
                       <Flex align={"center"} justify={"center"} minW={"20%"}>
-                        <Image src="./target.png" boxSize={"7"} />
+                        <Image
+                          src="https://user-images.githubusercontent.com/40628582/202860786-937f5989-1ba9-4237-a6a4-d0437f73a3e6.png"
+                          boxSize={"7"}
+                        />
                       </Flex>
                       <Box w={"80%"}>
                         <Text size={"lg"}>Add New Address</Text>
@@ -240,7 +251,10 @@ export const Navbar2 = () => {
                           justify={"center"}
                           minW={"20%"}
                         >
-                          <Image src="./house-24.jpg" />
+                          <Image
+                            boxSize={"10"}
+                            src="https://user-images.githubusercontent.com/40628582/202860747-d9fa3c82-41ed-471f-a744-3603a14de341.png"
+                          />
                         </Flex>
                         <Flex
                           w={"80%"}
@@ -311,7 +325,18 @@ export const Navbar2 = () => {
                         type={"text"}
                       />
                       <Text>Mobile Number</Text>
-                      <PhoneInput
+                      <Input
+                        placeholder="Enter the phone number"
+                        onChange={(e) =>
+                          setLoginformdata((prev) => ({
+                            ...prev,
+                            phonenumber: e.target.value,
+                          }))
+                        }
+                        name={"password"}
+                        type={"number"}
+                      />
+                      {/* <PhoneInput
                         style={{
                           width: "95%",
                           height: "50px",
@@ -320,17 +345,34 @@ export const Navbar2 = () => {
                         value={phnumber}
                         onChange={setphnumber}
                         placeholder="Please enter your 10-digit Phone number"
-                      />
-                      <div id="recaptcha-container" />
+                      /> */}
+                      {/* <div id="recaptcha-container" />
+                      <Text>Please enter your 6 digit OTP</Text>
+                      <Flex gap={["2", "3", "4", "4"]}>
+                        <PinInput
+                          otp
+                          size={"lg"}
+                          placeholder={"."}
+                          onChange={setotp}
+                        >
+                          <PinInputField />
+                          <PinInputField />
+                          <PinInputField />
+                          <PinInputField />
+                          <PinInputField />
+                          <PinInputField />
+                        </PinInput>
+                      </Flex> */}
+
                       <Button
+                        bg={"red.600"}
                         color={"white"}
-                        bg={"#CA2222"}
-                        width={"99%"}
-                        borderRadius={"none"}
-                        size={"md"}
                         onClick={handleSubmit}
+                        width={"99%"}
+                        borderRadius={"md"}
+                        size={"md"}
                       >
-                        Send OTP{" "}
+                        Login
                       </Button>
                       <Text
                         cursor={"pointer"}
@@ -339,13 +381,7 @@ export const Navbar2 = () => {
                       >
                         Dont have an account? Signup Click here
                       </Text>
-                      {/* <OtpModal
-                      phnumber={phnumber}
-                      data={data}
-                      mainfun={verifyOtp}
-                      firstModalisOpen={modalBool}
-                      setIsOpen={setmodalBool}
-                    /> */}
+
                       <Text>Shop from anywhere , Download our app now!</Text>
                       <Flex align={"center"} w={"80%"}>
                         <a
@@ -374,10 +410,10 @@ export const Navbar2 = () => {
               >
                 <DrawerContent>
                   <Flex justify={"space-between"} align={"center"}>
-                    <Heading fontSize={"lg"}>Sigup form</Heading>
                     <DrawerCloseButton />
                   </Flex>
                   <DrawerBody>
+                    <Heading fontSize={"lg"}>Sigup form</Heading>
                     <Flex direction={"column"} align={"flex-start"} gap={"3"}>
                       <Text>Address</Text>
                       <Input
@@ -474,6 +510,7 @@ export const Navbar2 = () => {
                             number: e.target.value,
                           }))
                         }
+                        type="number"
                         size={"md"}
                         border="none"
                         width={"99%"}

@@ -5,19 +5,11 @@ const CartModel = require("../Schemas/Cart.model");
 
 const app = express.Router();
 app.use(authmiddleware);
-app.get("/", async (req, res) => {
-  let cart = await CartModel.find();
-  res.send(cart);
-});
 
 app.get("/", async (req, res) => {
   try {
-    let id = req.params.id;
-    console.log('id:', id)
-    let cart = await CartModel.find({ user: id }).populate([
-      "userID",
-      "productID",
-    ]);
+    let id = req.userID;
+    let cart = await CartModel.find({ user: id }).populate(["user", "product"]);
     res.send(cart);
   } catch (e) {
     res.status(500).send(e);
@@ -25,9 +17,11 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/create", async (req, res) => {
-  const { productID, quantity } = req.body;
-  const userID = req.userID;
-  let existingProduct = await CartModel.findOne({ userID, productID });
+  const { product, quantity } = req.body;
+
+  const user = req.userID;
+
+  let existingProduct = await CartModel.findOne({ user, product });
   if (existingProduct) {
     try {
       let updateProduct = await CartModel.findByIdAndUpdate(
@@ -40,7 +34,7 @@ app.post("/create", async (req, res) => {
     }
   } else {
     try {
-      let data = await CartModel.create({ productID, quantity, userID });
+      let data = await CartModel.create({ product, quantity, user });
       res.status(200).send("item created successfully");
     } catch (error) {
       res.status(401).send(error.message);
@@ -48,10 +42,14 @@ app.post("/create", async (req, res) => {
   }
 });
 
+
+
 app.post("/update", async (req, res) => {
-  const { type, productID } = req.body;
-  const userID = req.headers.userID;
-  const existingProduct = await CartModel.findOne({ userID, productID });
+   
+  const { type, product } = req.body;
+   
+  const user = req.userID;
+  const existingProduct = await CartModel.findOne({ user, product });
   try {
     if (type === "desc") {
       let updateProduct = await CartModel.findByIdAndUpdate(
@@ -72,9 +70,9 @@ app.post("/update", async (req, res) => {
 });
 
 app.post("/remove", async (req, res) => {
-  const { productID } = req.body;
-  const userID = req.headers.userid;
-  const existingProduct = await CartModel.findOne({ userID, productID });
+  const { product } = req.body;
+  const user = req.userID;
+  const existingProduct = await CartModel.findOne({ user, product });
   if (existingProduct) {
     try {
       await CartModel.findByIdAndDelete(existingProduct._id);

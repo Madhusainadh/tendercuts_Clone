@@ -10,12 +10,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useDispatch, } from "react-redux";
-import {
-
-  useNavigate,
-
-} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { sendItemfun } from "../Store/SinglePage/Singleitem.Module";
 
@@ -30,8 +26,6 @@ export const Item = ({
   mrp,
   price,
 }: any) => {
-
-
   useEffect(() => {}, []);
 
   const navigate = useNavigate();
@@ -53,24 +47,50 @@ export const Item = ({
 
     // }, 0);
   };
-
+  const handleGetId = async () => {
+    try {
+      let data = await axios.post("http://localhost:8080/cart/create", {
+        product: id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <Box
-      p={"20px"}
-      key={id}
-      onClick={() =>
-        Redirectonclickfun({ id, image, title, details, weight, mrp, price })
-      }
-    >
+    <Box p={"20px"} key={id}>
       <>
-        <Box>
+        <Box
+          onClick={() =>
+            Redirectonclickfun({
+              id,
+              image,
+              title,
+              details,
+              weight,
+              mrp,
+              price,
+            })
+          }
+        >
           <Image
             w={["1000px", "1000px", "1000px", "377px"]}
             h={"210px"}
             src={image}
           ></Image>
         </Box>
-        <Box>
+        <Box
+          onClick={() =>
+            Redirectonclickfun({
+              id,
+              image,
+              title,
+              details,
+              weight,
+              mrp,
+              price,
+            })
+          }
+        >
           <Heading fontSize={"14px"} lineHeight={"21px"} textAlign={"left"}>
             {title}
           </Heading>
@@ -135,6 +155,7 @@ export const Item = ({
             </Flex>
             <Flex justifyContent={"flex-start"} w={"40%"}>
               <Button
+                onClick={handleGetId}
                 fontSize={"14px"}
                 lineHeight={"30px"}
                 textAlign={"center"}
