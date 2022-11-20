@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   Box,
@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { sendItemfun } from "../Store/SinglePage/Singleitem.Module";
+import { CartContext } from "../Store/AuthContext";
 
 const weighticon = require("./weight.png");
 
@@ -27,7 +28,7 @@ export const Item = ({
   price,
 }: any) => {
   useEffect(() => {}, []);
-
+  const { cartcono, setcartcono } = useContext(CartContext);
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
   const Redirectonclickfun = async ({
@@ -52,6 +53,7 @@ export const Item = ({
       let data = await axios.post("http://localhost:8080/cart/create", {
         product: id,
       });
+      setcartcono(!cartcono);
     } catch (error) {
       console.log(error);
     }
@@ -174,8 +176,5 @@ export const Item = ({
         </Box>
       </>
     </Box>
-    //     ))}
-    //   </SimpleGrid>
-    // </Box>
   );
 };

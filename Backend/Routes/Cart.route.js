@@ -7,8 +7,9 @@ const app = express.Router();
 app.use(authmiddleware);
 
 app.get("/", async (req, res) => {
+  let id = req.userID;
+  
   try {
-    let id = req.userID;
     let cart = await CartModel.find({ user: id }).populate(["user", "product"]);
     res.send(cart);
   } catch (e) {

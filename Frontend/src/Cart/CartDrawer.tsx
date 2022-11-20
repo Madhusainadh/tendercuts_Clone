@@ -16,49 +16,62 @@ import {
   Stack,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { CartContext } from "../Store/AuthContext";
 import { ItemCategoryfun } from "../Store/ItemCategory/ItemCategory.Module";
 const cart = require("./cart.png");
 
 export default function DrawerExample() {
+  const { cartcono } = useContext(CartContext);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<any>();
   const Onopenfun = () => {
     onOpen();
   };
-
+  const toast = useToast();
   const { Category } = useSelector((state: any) => state.Category);
 
   let [data, setdata] = useState<any>([]);
-  let [cartdata,setcartdata]=useState<any>([]);
+  let [cartdata, setcartdata] = useState<any>([]);
+
   const dispatch = useDispatch<any>();
-  // var urltitle = useParams();
   var title = "chicken";
   useEffect(() => {
-    // console.log(title)
     dispatch(ItemCategoryfun(title));
   }, []);
 
-  
-
   useEffect(() => {
-    // console.log(Category)
     setdata(Category);
   }, [Category]);
-
-useEffect(()=>{
-  try{
-     axios.get(`http://localhost:8080/cart/6373173c25b2bb95b32bfd6f`).then((res)=>setcartdata(res.data))
-
-  }catch(err:any){
-    console.log(err.message)
-  }
-},[])
-
+  const getCart = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8080/cart`);
+      const { data } = res;
+      setcartdata(data);
+      toast({
+        title: "Item added successfully",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        status: "error",
+        duration: 1000,
+        isClosable: true,
+      });
+    }
+  };
+  useEffect(() => {
+    getCart();
+  }, [cartcono]);
 
   return (
     <Box>
@@ -101,8 +114,9 @@ useEffect(()=>{
             </DrawerHeader>
 
             <DrawerBody>
-              <Box bg={"#fff5f5"} h={"181"}>
+              <Box bg={"#fff5f5"}>
                 <Flex
+                  direction={"column"}
                   gap={"20px"}
                   alignItems="center"
                   justifyContent="space-between"
@@ -110,17 +124,17 @@ useEffect(()=>{
                   borderWidth={0}
                   overflowX="auto"
                 >
-                  {data.map((e: any) => (
-                    <Box>
+                  {cartdata.map((e: any) => (
+                    <Box key={e.product._id}>
                       <Box
-                        h={"83px"}
-                        width={"288px"}
+                        // h={"83px"}
+                        minW={"288px"}
                         bg={"#ffffff"}
                         boxShadow={"rgb(170, 170, 170) 0px 1px 5px 0.25px"}
                         borderRadius={"9.6px"}
                       >
                         <Flex>
-                          <Image h={"70px"} w={"70px"} src={e.image} />
+                          <Image h={"70px"} w={"70px"} src={e.product.image} />
 
                           <Box pl={"20px"}>
                             <Text
@@ -130,7 +144,7 @@ useEffect(()=>{
                               color={"#000000"}
                               noOfLines={1}
                             >
-                              {e.title}
+                              {e.product.title}
                             </Text>
                             <Text
                               fontSize={"16px"}
@@ -138,7 +152,7 @@ useEffect(()=>{
                               textAlign={"left"}
                               color={"#000000"}
                             >
-                              {e.weight}
+                              {e.product.weight}
                             </Text>
                             <Flex justifyContent={"space-between"}>
                               <Box>
@@ -148,7 +162,7 @@ useEffect(()=>{
                                   textAlign={"left"}
                                   color={"#000000"}
                                 >
-                                  ₹{e.price}
+                                  ₹{e.product.price}
                                 </Text>
                               </Box>
                               <Box

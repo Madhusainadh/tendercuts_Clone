@@ -11,13 +11,15 @@ import {
 } from "@chakra-ui/react";
 import { async } from "@firebase/util";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { CartContext } from "../Store/AuthContext";
 // import { sendItemfun } from "../Store/SinglePage/Singleitem.Module";
 const SingleItem = () => {
   const [data, setdata] = useState<any>({});
   const [arr, setarr] = useState<any>([]);
+  const { cartcono, setcartcono } = useContext(CartContext);
 
   var id = useParams();
   let num = id.id;
@@ -55,6 +57,7 @@ const SingleItem = () => {
       let data = await axios.post("http://localhost:8080/cart/create", {
         product: num,
       });
+      setcartcono(!cartcono);
     } catch (error) {
       console.log(error);
     }
