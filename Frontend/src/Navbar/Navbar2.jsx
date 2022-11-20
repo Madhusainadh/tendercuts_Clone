@@ -33,6 +33,7 @@ import DrawerExample from "../Cart/CartDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import { Loginactions } from "../Store/auth/AuthActions";
 import { useNavigate } from "react-router-dom";
+import Add from "./Add";
 
 const pro = require("./pro.png");
 const loc = require("./loc.png");
@@ -41,7 +42,10 @@ export const Navbar2 = () => {
   const { data } = useSelector((store) => store.Auth);
 
   const dispatch = useDispatch();
-
+  const [modal, setmodal] = useState(false);
+  const modo = () => {
+    setmodal(!modal);
+  };
   const [Loginformdata, setLoginformdata] = useState({
     email: "",
     password: "",
@@ -267,11 +271,14 @@ export const Navbar2 = () => {
                         />
                       </Flex>
                       <Box w={"80%"}>
-                        <Text size={"lg"}>Add New Address</Text>
+                        <Button onClick={()=>setmodal(true)} variant={"outline"} w={"90%"} size={"lg"}>
+                          Add New Address
+                        </Button>
+                        {modal && <Add setmodal={setmodal} modal={modal} />}
                       </Box>
                     </Flex>
                     <Flex direction={"column"} align={"center"} gap={"5"}>
-                      <Heading>Addresses</Heading>
+                      <Heading size={"md"}>Addresses</Heading>
                       {/* {data.map((el) => {
                         return ( */}
                       <Flex

@@ -35,31 +35,57 @@ export default function DrawerExample() {
     onOpen();
   };
   const toast = useToast();
-  const { Category } = useSelector((state: any) => state.Category);
+  // const { Category } = useSelector((state: any) => state.Category);
 
   let [data, setdata] = useState<any>([]);
   let [cartdata, setcartdata] = useState<any>([]);
-
+  const [carttot, setcarttot] = useState<number>(0);
   const dispatch = useDispatch<any>();
-  var title = "chicken";
-  useEffect(() => {
-    dispatch(ItemCategoryfun(title));
-  }, []);
-
-  useEffect(() => {
-    setdata(Category);
-  }, [Category]);
+  // var title = "chicken";
+  // useEffect(() => {
+  //   dispatch(ItemCategoryfun(title));
+  // }, []);
+  const updateProd = async (type: String, id: string) => {
+    try {
+      let data = await axios.post("http://localhost:8080/cart/update", {
+        type: type,
+        product: id,
+      });
+      getCart();
+      toast({
+        title: "Cart updated",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // useEffect(() => {
+  //   setdata(Category);
+  // }, [Category]);
   const getCart = async () => {
     try {
       const res = await axios.get(`http://localhost:8080/cart`);
       const { data } = res;
-      setcartdata(data);
       toast({
         title: "Item added successfully",
         status: "success",
         duration: 1000,
         isClosable: true,
       });
+      setcartdata(data);
+      const FullPrice = cartdata.reduce((acc: number, el: any) => {
+        const {
+          product: { price },
+          quantity,
+        } = el;
+
+        return acc + Number(price) * quantity;
+      }, 0);
+
+      setcarttot(FullPrice);
     } catch (error) {
       toast({
         title: "Something went wrong",
@@ -72,6 +98,8 @@ export default function DrawerExample() {
   useEffect(() => {
     getCart();
   }, [cartcono]);
+  console.log('cartcono:', cartcono)
+  
 
   return (
     <Box>
@@ -116,19 +144,19 @@ export default function DrawerExample() {
             <DrawerBody>
               <Box bg={"#fff5f5"}>
                 <Flex
+                  w={"100%"}
                   direction={"column"}
                   gap={"20px"}
                   alignItems="center"
                   justifyContent="space-between"
-                  mx={2}
                   borderWidth={0}
                   overflowX="auto"
                 >
                   {cartdata.map((e: any) => (
-                    <Box key={e.product._id}>
+                    <Box w={"100%"} key={e.product._id}>
                       <Box
                         // h={"83px"}
-                        minW={"288px"}
+                        w={"100%"}
                         bg={"#ffffff"}
                         boxShadow={"rgb(170, 170, 170) 0px 1px 5px 0.25px"}
                         borderRadius={"9.6px"}
@@ -165,7 +193,50 @@ export default function DrawerExample() {
                                   ₹{e.product.price}
                                 </Text>
                               </Box>
-                              <Box
+                              <Flex
+                                align={"center"}
+                                w={"32"}
+                                justify={"space-around"}
+                              >
+                                <Button
+                                  onClick={() =>
+                                    updateProd("asc", e.product._id)
+                                  }
+                                  color={"#ffffff"}
+                                  fontWeight={"bold"}
+                                  float={"right"}
+                                  boxShadow={
+                                    "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
+                                  }
+                                  bg={"#b71c1c"}
+                                  borderRadius={"2px"}
+                                  fontSize={"14px"}
+                                  lineHeight={"30px"}
+                                  textAlign={"center"}
+                                >
+                                  +
+                                </Button>
+                                <Heading size={"md"}>{e.quantity}</Heading>
+                                <Button
+                                  onClick={() =>
+                                    updateProd("desc", e.product._id)
+                                  }
+                                  color={"#ffffff"}
+                                  fontWeight={"bold"}
+                                  float={"right"}
+                                  boxShadow={
+                                    "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
+                                  }
+                                  bg={"#b71c1c"}
+                                  borderRadius={"2px"}
+                                  fontSize={"14px"}
+                                  lineHeight={"30px"}
+                                  textAlign={"center"}
+                                >
+                                  -
+                                </Button>
+                              </Flex>
+                              {/* <Box
                                 color={"#ffffff"}
                                 fontWeight={"bold"}
                                 float={"right"}
@@ -181,7 +252,7 @@ export default function DrawerExample() {
                                 w={"88px"}
                               >
                                 ADD
-                              </Box>
+                              </Box> */}
                             </Flex>
                           </Box>
                         </Flex>
@@ -205,13 +276,17 @@ export default function DrawerExample() {
                 TenderCuts Elite Plan has been added to your cart, now enjoy
                 Free delivery + product discounts.
               </Box>
+              <Flex justify={"space-between"}>
+                <Heading size={"md"}>Your Cart Total is</Heading>
+                <Heading size={"md"}> INR {carttot}</Heading>
+              </Flex>
             </DrawerBody>
 
             <DrawerFooter>
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="blue">Save</Button>
+              <Button colorScheme="blue">Proceed to checkout</Button>
             </DrawerFooter>
           </DrawerContent>
         </Container>
