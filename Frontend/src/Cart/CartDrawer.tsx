@@ -27,7 +27,7 @@ import { ItemCategoryfun } from "../Store/ItemCategory/ItemCategory.Module";
 const cart = require("./cart.png");
 
 export default function DrawerExample() {
-  const { cartcono } = useContext(CartContext);
+  const { cartcono, setcartcono } = useContext(CartContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<any>();
@@ -51,7 +51,7 @@ export default function DrawerExample() {
         type: type,
         product: id,
       });
-      getCart();
+      setcartcono(!cartcono);
       toast({
         title: "Cart updated",
         status: "success",
@@ -98,9 +98,23 @@ export default function DrawerExample() {
   useEffect(() => {
     getCart();
   }, [cartcono]);
-  console.log('cartcono:', cartcono)
-  
 
+  const deleteItem = async (id: string) => {
+    try {
+      let data = await axios.post("http://localhost:8080/cart/remove", {
+        product: id,
+      });
+      setcartcono(!cartcono);
+      toast({
+        title: "Cart updated",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Box>
       <Button
@@ -195,7 +209,7 @@ export default function DrawerExample() {
                               </Box>
                               <Flex
                                 align={"center"}
-                                w={"32"}
+                                w={"44"}
                                 justify={"space-around"}
                               >
                                 <Button
@@ -234,6 +248,22 @@ export default function DrawerExample() {
                                   textAlign={"center"}
                                 >
                                   -
+                                </Button>
+                                <Button
+                                  onClick={() => deleteItem(e.product._id)}
+                                  color={"#ffffff"}
+                                  fontWeight={"bold"}
+                                  float={"right"}
+                                  boxShadow={
+                                    "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
+                                  }
+                                  bg={"#b71c1c"}
+                                  borderRadius={"2px"}
+                                  fontSize={"14px"}
+                                  lineHeight={"30px"}
+                                  textAlign={"center"}
+                                >
+                                  Remove
                                 </Button>
                               </Flex>
                               {/* <Box

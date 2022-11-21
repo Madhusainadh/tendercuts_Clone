@@ -72,7 +72,9 @@ app.post("/update", async (req, res) => {
 
 app.post("/remove", async (req, res) => {
   const { product } = req.body;
+  console.log('product:', product)
   const user = req.userID;
+  console.log('user:', user)
   const existingProduct = await CartModel.findOne({ user, product });
   if (existingProduct) {
     try {
