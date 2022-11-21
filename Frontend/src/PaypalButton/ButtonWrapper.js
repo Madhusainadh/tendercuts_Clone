@@ -1,25 +1,27 @@
 import { useContext, useEffect } from "react";
-import {
-  PayPalScriptProvider,
-  PayPalButtons,
-  usePayPalScriptReducer,
-} from "@paypal/react-paypal-js";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useConst, useToast } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../Store/AuthContext";
 
-
-
-const currency = "INR";
-const style = { layout: "vertical", color: "black", width: "100%" };
+const style = {
+  shape: "pill",
+  color: "blue",
+  layout: "horizontal",
+  label: "pay",
+};
 
 // Custom component to wrap the PayPalButtons and handle currency changes
 export const ButtonWrapper = ({ currency, showSpinner }) => {
   const navigate = useNavigate();
   const toast = useToast();
-
-  const  amount  = "1"
+  const { totalw } = useContext(CartContext);
+  let huru=(totalw/84).toFixed(0)
   
+  
+  const amount = `${huru}`;
+
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   useEffect(() => {
     dispatch({
@@ -59,7 +61,7 @@ export const ButtonWrapper = ({ currency, showSpinner }) => {
         onApprove={function (data, actions) {
           return actions.order.capture().then(function () {
             // Your code here after capture the order
-            navigate("/ordersummary");
+            navigate("/");
             toast({
               title: "Payment successfull !",
 

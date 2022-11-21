@@ -34,33 +34,39 @@ function Add({ setmodal, modal }) {
   });
   const handleAddAddress = async () => {
     try {
-      let res = await axios.post(
-        "http://localhost:8080/address/create/multiple",
-        SignupformData
-      );
-      const { data } = res;
-      const { _id } = data;
-      localStorage.setItem("email", _id);
-      setfetch(_id);
-      setsignupformData({
-        name: "",
-        email: "",
-        password: "",
-        address: "",
-        flatNumber: "",
-        landmark: "",
-        pincode: "",
-        number: "",
-      });
+      // let res = await axios.post(
+      //   "http://localhost:8080/address/create/multiple",
+      //   SignupformData
+      // );
+      // const { data } = res;
+      // const { _id } = data;
+      // localStorage.setItem("email", _id);
+      // setfetch(_id);
+      // setsignupformData({
+      //   name: "",
+      //   email: "",
+      //   password: "",
+      //   address: "",
+      //   flatNumber: "",
+      //   landmark: "",
+      //   pincode: "",
+      //   number: "",
+      // });
       toast({
-        title: "Signup successfull",
-
-        status: "success",
+        title: "Oops",
+        description: "sorry this feature is currently unavailable",
+        status: "error",
         duration: 2000,
         isClosable: true,
       });
     } catch (error) {
-      alert(error.message);
+      toast({
+        title: "Oops",
+        status: "error",
+        description: "sorry this feature is currently unavailable",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
   //   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -80,7 +86,7 @@ function Add({ setmodal, modal }) {
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Flex direction={"column"} align={"flex-start"} gap={"3"}>
+            <Flex direction={"column"} align={"flex-start"} gap={"1"}>
               <Text>Address</Text>
               <Input
                 placeholder="Enter your Area"
@@ -194,10 +200,10 @@ function Add({ setmodal, modal }) {
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={setmodal}>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
+          
           </ModalFooter>
         </ModalContent>
       </Modal>

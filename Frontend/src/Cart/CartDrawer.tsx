@@ -22,12 +22,13 @@ import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import PayButton from "../PaypalButton/PayButton";
 import { CartContext } from "../Store/AuthContext";
 import { ItemCategoryfun } from "../Store/ItemCategory/ItemCategory.Module";
 const cart = require("./cart.png");
 
 export default function DrawerExample() {
-  const { cartcono, setcartcono } = useContext(CartContext);
+  const { cartcono, setcartcono, totalw, settotalw } = useContext(CartContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<any>();
@@ -75,6 +76,8 @@ export default function DrawerExample() {
         duration: 1000,
         isClosable: true,
       });
+      
+      
       setcartdata(data);
       const FullPrice = cartdata.reduce((acc: number, el: any) => {
         const {
@@ -86,6 +89,8 @@ export default function DrawerExample() {
       }, 0);
 
       setcarttot(FullPrice);
+
+      settotalw(FullPrice);
     } catch (error) {
       toast({
         title: "Something went wrong",
@@ -176,9 +181,9 @@ export default function DrawerExample() {
                         borderRadius={"9.6px"}
                       >
                         <Flex>
-                          <Image h={"70px"} w={"70px"} src={e.product.image} />
+                          <Image w={"25%"} src={e.product.image} />
 
-                          <Box pl={"20px"}>
+                          <Flex w={"75%"} direction={"column"}>
                             <Text
                               fontSize={"14.4px"}
                               lineHeight={"21.6px"}
@@ -196,77 +201,69 @@ export default function DrawerExample() {
                             >
                               {e.product.weight}
                             </Text>
-                            <Flex justifyContent={"space-between"}>
-                              <Box>
-                                <Text
-                                  fontSize={"17.6px"}
-                                  lineHeight={"26.4px"}
-                                  textAlign={"left"}
-                                  color={"#000000"}
-                                >
-                                  ₹{e.product.price}
-                                </Text>
-                              </Box>
-                              <Flex
-                                align={"center"}
-                                w={"44"}
-                                justify={"space-around"}
+
+                            <Box>
+                              <Text
+                                fontSize={"17.6px"}
+                                lineHeight={"26.4px"}
+                                textAlign={"left"}
+                                color={"#000000"}
                               >
-                                <Button
-                                  onClick={() =>
-                                    updateProd("asc", e.product._id)
-                                  }
-                                  color={"#ffffff"}
-                                  fontWeight={"bold"}
-                                  float={"right"}
-                                  boxShadow={
-                                    "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
-                                  }
-                                  bg={"#b71c1c"}
-                                  borderRadius={"2px"}
-                                  fontSize={"14px"}
-                                  lineHeight={"30px"}
-                                  textAlign={"center"}
-                                >
-                                  +
-                                </Button>
-                                <Heading size={"md"}>{e.quantity}</Heading>
-                                <Button
-                                  onClick={() =>
-                                    updateProd("desc", e.product._id)
-                                  }
-                                  color={"#ffffff"}
-                                  fontWeight={"bold"}
-                                  float={"right"}
-                                  boxShadow={
-                                    "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
-                                  }
-                                  bg={"#b71c1c"}
-                                  borderRadius={"2px"}
-                                  fontSize={"14px"}
-                                  lineHeight={"30px"}
-                                  textAlign={"center"}
-                                >
-                                  -
-                                </Button>
-                                <Button
-                                  onClick={() => deleteItem(e.product._id)}
-                                  color={"#ffffff"}
-                                  fontWeight={"bold"}
-                                  float={"right"}
-                                  boxShadow={
-                                    "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
-                                  }
-                                  bg={"#b71c1c"}
-                                  borderRadius={"2px"}
-                                  fontSize={"14px"}
-                                  lineHeight={"30px"}
-                                  textAlign={"center"}
-                                >
-                                  Remove
-                                </Button>
-                              </Flex>
-                              {/* <Box
+                                ₹{e.product.price}
+                              </Text>
+                            </Box>
+                            <Flex
+                              gap={"4"}
+                              align={"center"}
+                              justify={"space-around"}
+                            >
+                              <Button
+                                onClick={() => updateProd("asc", e.product._id)}
+                                color={"#ffffff"}
+                                fontWeight={"bold"}
+                                float={"right"}
+                                boxShadow={
+                                  "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
+                                }
+                                bg={"#b71c1c"}
+                                borderRadius={"2px"}
+                                fontSize={"14px"}
+                                lineHeight={"30px"}
+                                textAlign={"center"}
+                              >
+                                +
+                              </Button>
+                              <Heading size={"md"}>{e.quantity}</Heading>
+                              <Button
+                                onClick={() =>
+                                  updateProd("desc", e.product._id)
+                                }
+                                color={"#ffffff"}
+                                fontWeight={"bold"}
+                                float={"right"}
+                                boxShadow={
+                                  "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
+                                }
+                                bg={"#b71c1c"}
+                                borderRadius={"2px"}
+                                fontSize={"14px"}
+                                lineHeight={"30px"}
+                                textAlign={"center"}
+                              >
+                                -
+                              </Button>
+                              <Button
+                                onClick={() => deleteItem(e.product._id)}
+                                color={"#ffffff"}
+                                boxShadow={
+                                  "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px"
+                                }
+                                bg={"#b71c1c"}
+                              >
+                                Remove
+                              </Button>
+                            </Flex>
+                            {/* <Box
                                 color={"#ffffff"}
                                 fontWeight={"bold"}
                                 float={"right"}
@@ -283,8 +280,7 @@ export default function DrawerExample() {
                               >
                                 ADD
                               </Box> */}
-                            </Flex>
-                          </Box>
+                          </Flex>
                         </Flex>
                       </Box>
                     </Box>
@@ -316,7 +312,9 @@ export default function DrawerExample() {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="blue">Proceed to checkout</Button>
+              <Button colorScheme="blue">
+                <PayButton />
+              </Button>
             </DrawerFooter>
           </DrawerContent>
         </Container>
