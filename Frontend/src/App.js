@@ -7,6 +7,7 @@ import { Topfooter } from "./Footer/Topfooter";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import PayButton from "./PaypalButton/PayButton";
 function App() {
   const [userdata, setuserdata] = useState([]);
   let str = useSelector((store) => store.Auth);
@@ -41,7 +42,7 @@ function App() {
   return (
     <div className="App">
       <UserAuthContextProvider>
-       
+        {/* <PayButton /> */}
         <NavBar1 />
         <Navbar2 />
         <AllRoutes />
