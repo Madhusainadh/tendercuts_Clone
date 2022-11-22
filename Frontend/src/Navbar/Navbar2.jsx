@@ -64,7 +64,7 @@ export const Navbar2 = () => {
   const handleAddAddress = async () => {
     try {
       let res = await axios.post(
-        "http://localhost:8080/address/create",
+        "https://backend-tendercut-production.up.railway.app/address/create",
         SignupformData
       );
       const { data } = res;
@@ -113,7 +113,7 @@ export const Navbar2 = () => {
       });
     }
     try {
-      const res = await axios.post("http://localhost:8080/login", {
+      const res = await axios.post("https://backend-tendercut-production.up.railway.app/login", {
         email: email,
         password: password,
         number: phonenumber,

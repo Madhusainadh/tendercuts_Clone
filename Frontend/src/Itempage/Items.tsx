@@ -50,7 +50,7 @@ export const Item = ({
   };
   const handleGetId = async () => {
     try {
-      let data = await axios.post("http://localhost:8080/cart/create", {
+      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/create", {
         product: id,
       });
       setcartcono(!cartcono);

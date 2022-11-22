@@ -28,7 +28,7 @@ const SingleItem = () => {
     // console.log(num);
     try {
       axios
-        .get(`http://localhost:8080/products/${num}`)
+        .get(`https://backend-tendercut-production.up.railway.app/products/${num}`)
         .then((res) => setdata(res.data));
     } catch (err: any) {
       console.log(err.message);
@@ -54,7 +54,7 @@ const SingleItem = () => {
 
   const Addtocart = async (id: String) => {
     try {
-      let data = await axios.post("http://localhost:8080/cart/create", {
+      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/create", {
         product: num,
       });
       setcartcono(!cartcono);
@@ -65,7 +65,7 @@ const SingleItem = () => {
 
   const updateProd = async (type: String) => {
     try {
-      let data = await axios.post("http://localhost:8080/cart/update", {
+      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/update", {
         type: type,
         product: num,
       });

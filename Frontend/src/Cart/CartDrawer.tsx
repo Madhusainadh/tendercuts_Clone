@@ -48,7 +48,7 @@ export default function DrawerExample() {
   // }, []);
   const updateProd = async (type: String, id: string) => {
     try {
-      let data = await axios.post("http://localhost:8080/cart/update", {
+      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/update", {
         type: type,
         product: id,
       });
@@ -68,7 +68,7 @@ export default function DrawerExample() {
   // }, [Category]);
   const getCart = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/cart`);
+      const res = await axios.get(`https://backend-tendercut-production.up.railway.app/cart`);
       const { data } = res;
       toast({
         title: "Item added successfully",
@@ -106,7 +106,7 @@ export default function DrawerExample() {
 
   const deleteItem = async (id: string) => {
     try {
-      let data = await axios.post("http://localhost:8080/cart/remove", {
+      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/remove", {
         product: id,
       });
       setcartcono(!cartcono);
