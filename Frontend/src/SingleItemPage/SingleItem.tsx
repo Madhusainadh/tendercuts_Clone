@@ -53,6 +53,7 @@ const SingleItem = () => {
   // console.log(arr);
 
   const Addtocart = async (id: String) => {
+
     try {
       let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/create", {
         product: num,
@@ -61,6 +62,13 @@ const SingleItem = () => {
     } catch (error) {
       console.log(error);
     }
+
+    let gt = await axios.post("http://localhost:8080/cart", {
+      user: "6373173c25b2bb95b32bfd6f",
+      product: num,
+    });
+    console.log(gt);
+
   };
 
   const updateProd = async (type: String) => {

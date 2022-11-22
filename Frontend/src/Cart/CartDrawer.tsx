@@ -25,6 +25,7 @@ import { useParams } from "react-router-dom";
 import PayButton from "../PaypalButton/PayButton";
 import { CartContext } from "../Store/AuthContext";
 import { ItemCategoryfun } from "../Store/ItemCategory/ItemCategory.Module";
+import AllcartItems from "./AllcartItems";
 const cart = require("./cart.png");
 
 export default function DrawerExample() {
@@ -39,8 +40,11 @@ export default function DrawerExample() {
   // const { Category } = useSelector((state: any) => state.Category);
 
   let [data, setdata] = useState<any>([]);
+
   let [cartdata, setcartdata] = useState<any>([]);
   const [carttot, setcarttot] = useState<number>(0);
+=======
+
   const dispatch = useDispatch<any>();
   // var title = "chicken";
   // useEffect(() => {
@@ -88,6 +92,7 @@ export default function DrawerExample() {
         return acc + Number(price) * quantity;
       }, 0);
 
+
       setcarttot(FullPrice);
 
       settotalw(FullPrice);
@@ -120,6 +125,7 @@ export default function DrawerExample() {
       console.log(error);
     }
   };
+
   return (
     <Box>
       <Button
@@ -302,10 +308,16 @@ export default function DrawerExample() {
                 TenderCuts Elite Plan has been added to your cart, now enjoy
                 Free delivery + product discounts.
               </Box>
+
               <Flex justify={"space-between"}>
                 <Heading size={"md"}>Your Cart Total is</Heading>
                 <Heading size={"md"}> INR {carttot}</Heading>
               </Flex>
+
+              <Box>
+              <AllcartItems/>
+              </Box>
+
             </DrawerBody>
 
             <DrawerFooter>
