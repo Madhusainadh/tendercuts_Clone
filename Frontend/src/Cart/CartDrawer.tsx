@@ -43,7 +43,7 @@ export default function DrawerExample() {
 
   let [cartdata, setcartdata] = useState<any>([]);
   const [carttot, setcarttot] = useState<number>(0);
-=======
+
 
   const dispatch = useDispatch<any>();
   // var title = "chicken";
@@ -242,7 +242,9 @@ export default function DrawerExample() {
                               <Heading size={"md"}>{e.quantity}</Heading>
                               <Button
                                 onClick={() =>
-                                  updateProd("desc", e.product._id)
+                                 
+                                    updateProd("desc", e.product._id)
+                                
                                 }
                                 color={"#ffffff"}
                                 fontWeight={"bold"}
@@ -255,6 +257,7 @@ export default function DrawerExample() {
                                 fontSize={"14px"}
                                 lineHeight={"30px"}
                                 textAlign={"center"}
+                                disabled={e.quantity===1}
                               >
                                 -
                               </Button>

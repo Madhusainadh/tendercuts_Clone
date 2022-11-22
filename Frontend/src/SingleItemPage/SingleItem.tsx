@@ -213,7 +213,7 @@ const SingleItem = () => {
                 >
                   ADD TO CART
                 </Button>
-                <Flex w={"170px"} justifyContent="space-around">
+              {/**   <Flex w={"170px"} justifyContent="space-around">
                   <Button
                     onClick={() => updateProd("asc")}
                     alignSelf={"center"}
@@ -245,7 +245,7 @@ const SingleItem = () => {
                   >
                     +
                   </Button>
-                </Flex>
+                </Flex>*/}
               </SimpleGrid>
             </Container>
           </Box>
