@@ -187,26 +187,33 @@ export default function DrawerExample() {
                         borderRadius={"9.6px"}
                       >
                         <Flex>
-                          <Image w={"25%"} src={e.product.image} />
-
-                          <Flex w={"75%"} direction={"column"}>
+                         
+                          <Image  w={"25%"} src={e.product.image} />
+                          
+                          <Flex  paddingLeft={"5px"} w={"75%"} direction={"column"}>
                             <Text
-                              fontSize={"14.4px"}
-                              lineHeight={"21.6px"}
-                              textAlign={"left"}
-                              color={"#000000"}
-                              noOfLines={1}
+                             color={"#000000"}
+                             fontSize={"16px"}
+                             lineHeight={"19.2px"}
+                             textAlign={"left"}
                             >
                               {e.product.title}
                             </Text>
-                            <Text
-                              fontSize={"16px"}
-                              lineHeight={"24px"}
-                              textAlign={"left"}
-                              color={"#000000"}
+                            <Box
+                               display={"flex"}
+                               alignItems={"center"}
+                               fontSize={"12px"}
+                               lineHeight={"18px"}
+                               bg={"#e9e3e3"}
+                               p={["6px", "10px"]}
+                               color={"#414b4e"}
+                               mr={"8px"}
+                               h={"32px"}
+                               w={"141px"}
                             >
-                              {e.product.weight}
-                            </Text>
+                              <Text>Weight :{e.product.weight}</Text>
+                              
+                            </Box>
 
                             <Box>
                               <Text
