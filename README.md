@@ -66,6 +66,7 @@ This is the project we tried to clone the website Time camp (https://www.tenderc
 - React
 - React Redux
 - ChakraUI
+- Paypal Payment Gateway
 
 # Teach Stacks for backend
 
