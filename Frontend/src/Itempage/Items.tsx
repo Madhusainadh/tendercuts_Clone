@@ -40,19 +40,19 @@ export const Item = ({
     mrp,
     price,
   }: any) => {
-    console.log(id, image, title, details, weight, mrp, price);
+   
     await dispatch(sendItemfun(id));
 
-    // setTimeout(() => {
     navigate(`/Item/${id}`);
-
-    // }, 0);
   };
   const handleGetId = async () => {
     try {
-      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/create", {
-        product: id,
-      });
+      let data = await axios.post(
+        "https://backend-tendercut-production.up.railway.app/cart/create",
+        {
+          product: id,
+        }
+      );
       setcartcono(!cartcono);
     } catch (error) {
       console.log(error);

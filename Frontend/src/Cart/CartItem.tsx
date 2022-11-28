@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 const CartItem = ({ obj }: any) => {
   const [data, setdata] = useState<any>({});
-  console.log(obj);
+
   useEffect(() => {
     try {
       axios

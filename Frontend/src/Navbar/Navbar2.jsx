@@ -113,11 +113,14 @@ export const Navbar2 = () => {
       });
     }
     try {
-      const res = await axios.post("https://backend-tendercut-production.up.railway.app/login", {
-        email: email,
-        password: password,
-        number: phonenumber,
-      });
+      const res = await axios.post(
+        "https://backend-tendercut-production.up.railway.app/login",
+        {
+          email: email,
+          password: password,
+          number: phonenumber,
+        }
+      );
 
       const { data } = res;
       const { _id } = data;
@@ -143,7 +146,7 @@ export const Navbar2 = () => {
   };
   useEffect(() => {
     dispatch(Loginactions());
-  }, [fetch]);
+  }, []);
 
   const getOtp = async () => {
     try {
@@ -182,11 +185,9 @@ export const Navbar2 = () => {
   const handleLogout = async () => {
     try {
       localStorage.removeItem("email");
-
       window.location.reload();
       toast({
         title: "Logout successfull",
-
         status: "success",
         duration: 2000,
         isClosable: true,
@@ -271,7 +272,12 @@ export const Navbar2 = () => {
                         />
                       </Flex>
                       <Box w={"80%"}>
-                        <Button onClick={()=>setmodal(true)} variant={"outline"} w={"90%"} size={"lg"}>
+                        <Button
+                          onClick={() => setmodal(true)}
+                          variant={"outline"}
+                          w={"90%"}
+                          size={"lg"}
+                        >
                           Add New Address
                         </Button>
                         {modal && <Add setmodal={setmodal} modal={modal} />}
@@ -454,9 +460,10 @@ export const Navbar2 = () => {
                     <DrawerCloseButton />
                   </Flex>
                   <DrawerBody>
-                    <Heading fontSize={"lg"}>Sigup form</Heading>
-                    <Flex direction={"column"} align={"flex-start"} gap={"3"}>
-                      <Text>Address</Text>
+                    <Flex direction={"column"} align={"flex-start"} gap={"2"}>
+                    <Heading fontSize={"3xl"} textAlign={"center"}>
+                      Sign up
+                    </Heading>
                       <Input
                         placeholder="Enter your Area"
                         onChange={(e) =>
@@ -466,7 +473,7 @@ export const Navbar2 = () => {
                           }))
                         }
                       />
-                      <Text>Name</Text>
+                      <Text fontSize={"md"}>Name</Text>
                       <Input
                         placeholder=" Please enter your Name"
                         onChange={(e) =>
@@ -476,11 +483,11 @@ export const Navbar2 = () => {
                           }))
                         }
                         size={"md"}
-                        border="none"
                         width={"99%"}
                       />
-                      <Text>Email</Text>
+                      <Text fontSize={"md"}>Email</Text>
                       <Input
+                        type={"email"}
                         placeholder="Please enter you email"
                         onChange={(e) =>
                           setsignupformData((prev) => ({
@@ -489,7 +496,7 @@ export const Navbar2 = () => {
                           }))
                         }
                       ></Input>
-                      <Text>Password</Text>
+                      <Text fontSize={"md"}>Password</Text>
                       <Input
                         placeholder="Please enter your password"
                         onChange={(e) =>
@@ -500,7 +507,7 @@ export const Navbar2 = () => {
                         }
                       ></Input>
 
-                      <Text>Flat Number</Text>
+                      <Text fontSize={"md"}>Flat Number</Text>
                       <Input
                         placeholder={"Enter your flat Number (Optional)"}
                         onChange={(e) =>
@@ -514,7 +521,7 @@ export const Navbar2 = () => {
                         border="none"
                         width={"99%"}
                       />
-                      <Text>Landmark</Text>
+                      <Text fontSize={"md"}>Landmark</Text>
                       <Input
                         placeholder={"Enter your landmark"}
                         onChange={(e) =>
@@ -527,7 +534,7 @@ export const Navbar2 = () => {
                         border="none"
                         width={"99%"}
                       />
-                      <Text>Pincode</Text>
+                      <Text fontSize={"md"}>Pincode</Text>
 
                       <Input
                         placeholder=" Enter your Pincode"
@@ -542,7 +549,7 @@ export const Navbar2 = () => {
                         border="none"
                         width={"99%"}
                       />
-                      <Text>Number</Text>
+                      <Text fontSize={"md"}>Number</Text>
                       <Input
                         placeholder="Enter your phone number"
                         onChange={(e) =>
@@ -566,6 +573,13 @@ export const Navbar2 = () => {
                       >
                         Save Address
                       </Button>
+                      <Text
+                        cursor={"pointer"}
+                        onClick={() => setsignup(!signup)}
+                        color={"red"}
+                      >
+                        Back to Login
+                      </Text>
                     </Flex>
                   </DrawerBody>
                 </DrawerContent>

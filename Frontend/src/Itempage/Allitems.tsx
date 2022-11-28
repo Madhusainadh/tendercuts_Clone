@@ -6,7 +6,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+
 import { Item } from "./Items";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -19,21 +19,22 @@ const Allitems = () => {
 
   const { Category } = useSelector((state: any) => state.Category);
 
+
   let [data, setdata] = useState<any>([]);
   const dispatch = useDispatch<any>();
   var urltitle = useParams();
   var title = urltitle.type;
   useEffect(() => {
-    // console.log(title)
+
     dispatch(ItemCategoryfun(title));
   }, []);
 
   useEffect(() => {
-    // console.log(Category)
+
     setdata(Category);
   }, [Category]);
 
-  // console.log(data)
+
 
   return (
     <Container maxW={"90%"}>

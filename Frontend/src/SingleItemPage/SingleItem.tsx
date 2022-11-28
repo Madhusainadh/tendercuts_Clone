@@ -12,10 +12,10 @@ import {
 import { async } from "@firebase/util";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+
 import { useParams } from "react-router-dom";
 import { CartContext } from "../Store/AuthContext";
-// import { sendItemfun } from "../Store/SinglePage/Singleitem.Module";
+
 const SingleItem = () => {
   const [data, setdata] = useState<any>({});
   const [arr, setarr] = useState<any>([]);
@@ -25,10 +25,12 @@ const SingleItem = () => {
   let num = id.id;
 
   useEffect(() => {
-    // console.log(num);
+ 
     try {
       axios
-        .get(`https://backend-tendercut-production.up.railway.app/products/${num}`)
+        .get(
+          `https://backend-tendercut-production.up.railway.app/products/${num}`
+        )
         .then((res) => setdata(res.data));
     } catch (err: any) {
       console.log(err.message);
@@ -37,7 +39,7 @@ const SingleItem = () => {
 
   useEffect(() => {
     try {
-      // console.log(data);
+      
 
       let { dis } = data;
       let temp = dis.split("&");
@@ -48,36 +50,32 @@ const SingleItem = () => {
     }
   }, [data]);
 
-  // console.log(data);
 
-  // console.log(arr);
 
   const Addtocart = async (id: String) => {
-
     try {
-      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/create", {
-        product: num,
-      });
+      let data = await axios.post(
+        "https://backend-tendercut-production.up.railway.app/cart/create",
+        {
+          product: num,
+        }
+      );
       setcartcono(!cartcono);
     } catch (error) {
       console.log(error);
     }
-
-    let gt = await axios.post("http://localhost:8080/cart", {
-      user: "6373173c25b2bb95b32bfd6f",
-      product: num,
-    });
-    console.log(gt);
-
   };
 
   const updateProd = async (type: String) => {
     try {
-      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/update", {
-        type: type,
-        product: num,
-      });
-      console.log("data:", data);
+      let data = await axios.post(
+        "https://backend-tendercut-production.up.railway.app/cart/update",
+        {
+          type: type,
+          product: num,
+        }
+      );
+    
     } catch (error) {
       console.log(error);
     }
@@ -213,7 +211,7 @@ const SingleItem = () => {
                 >
                   ADD TO CART
                 </Button>
-              {/**   <Flex w={"170px"} justifyContent="space-around">
+                {/**   <Flex w={"170px"} justifyContent="space-around">
                   <Button
                     onClick={() => updateProd("asc")}
                     alignSelf={"center"}

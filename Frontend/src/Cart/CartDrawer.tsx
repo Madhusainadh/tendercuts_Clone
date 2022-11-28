@@ -44,7 +44,6 @@ export default function DrawerExample() {
   let [cartdata, setcartdata] = useState<any>([]);
   const [carttot, setcarttot] = useState<number>(0);
 
-
   const dispatch = useDispatch<any>();
   // var title = "chicken";
   // useEffect(() => {
@@ -52,10 +51,13 @@ export default function DrawerExample() {
   // }, []);
   const updateProd = async (type: String, id: string) => {
     try {
-      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/update", {
-        type: type,
-        product: id,
-      });
+      let data = await axios.post(
+        "https://backend-tendercut-production.up.railway.app/cart/update",
+        {
+          type: type,
+          product: id,
+        }
+      );
       setcartcono(!cartcono);
       toast({
         title: "Cart updated",
@@ -72,7 +74,9 @@ export default function DrawerExample() {
   // }, [Category]);
   const getCart = async () => {
     try {
-      const res = await axios.get(`https://backend-tendercut-production.up.railway.app/cart`);
+      const res = await axios.get(
+        `https://backend-tendercut-production.up.railway.app/cart`
+      );
       const { data } = res;
       toast({
         title: "Item added successfully",
@@ -80,8 +84,7 @@ export default function DrawerExample() {
         duration: 1000,
         isClosable: true,
       });
-      
-      
+
       setcartdata(data);
       const FullPrice = cartdata.reduce((acc: number, el: any) => {
         const {
@@ -92,28 +95,35 @@ export default function DrawerExample() {
         return acc + Number(price) * quantity;
       }, 0);
 
-
       setcarttot(FullPrice);
 
       settotalw(FullPrice);
-    } catch (error) {
-      toast({
-        title: "Something went wrong",
-        status: "error",
-        duration: 1000,
-        isClosable: true,
-      });
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     getCart();
+    const FullPrice = cartdata.reduce((acc: number, el: any) => {
+      const {
+        product: { price },
+        quantity,
+      } = el;
+
+      return acc + Number(price) * quantity;
+    }, 0);
+
+    setcarttot(FullPrice);
+
+    settotalw(FullPrice);
   }, [cartcono]);
 
   const deleteItem = async (id: string) => {
     try {
-      let data = await axios.post("https://backend-tendercut-production.up.railway.app/cart/remove", {
-        product: id,
-      });
+      let data = await axios.post(
+        "https://backend-tendercut-production.up.railway.app/cart/remove",
+        {
+          product: id,
+        }
+      );
       setcartcono(!cartcono);
       toast({
         title: "Cart updated",
@@ -187,32 +197,34 @@ export default function DrawerExample() {
                         borderRadius={"9.6px"}
                       >
                         <Flex>
-                         
-                          <Image  w={"25%"} src={e.product.image} />
-                          
-                          <Flex  paddingLeft={"5px"} w={"75%"} direction={"column"}>
+                          <Image w={"25%"} src={e.product.image} />
+
+                          <Flex
+                            paddingLeft={"5px"}
+                            w={"75%"}
+                            direction={"column"}
+                          >
                             <Text
-                             color={"#000000"}
-                             fontSize={"16px"}
-                             lineHeight={"19.2px"}
-                             textAlign={"left"}
+                              color={"#000000"}
+                              fontSize={"16px"}
+                              lineHeight={"19.2px"}
+                              textAlign={"left"}
                             >
                               {e.product.title}
                             </Text>
                             <Box
-                               display={"flex"}
-                               alignItems={"center"}
-                               fontSize={"12px"}
-                               lineHeight={"18px"}
-                               bg={"#e9e3e3"}
-                               p={["6px", "10px"]}
-                               color={"#414b4e"}
-                               mr={"8px"}
-                               h={"32px"}
-                               w={"141px"}
+                              display={"flex"}
+                              alignItems={"center"}
+                              fontSize={"12px"}
+                              lineHeight={"18px"}
+                              bg={"#e9e3e3"}
+                              p={["6px", "10px"]}
+                              color={"#414b4e"}
+                              mr={"8px"}
+                              h={"32px"}
+                              w={"141px"}
                             >
                               <Text>Weight :{e.product.weight}</Text>
-                              
                             </Box>
 
                             <Box>
@@ -249,9 +261,7 @@ export default function DrawerExample() {
                               <Heading size={"md"}>{e.quantity}</Heading>
                               <Button
                                 onClick={() =>
-                                 
-                                    updateProd("desc", e.product._id)
-                                
+                                  updateProd("desc", e.product._id)
                                 }
                                 color={"#ffffff"}
                                 fontWeight={"bold"}
@@ -264,7 +274,7 @@ export default function DrawerExample() {
                                 fontSize={"14px"}
                                 lineHeight={"30px"}
                                 textAlign={"center"}
-                                disabled={e.quantity===1}
+                                disabled={e.quantity === 1}
                               >
                                 -
                               </Button>
@@ -325,9 +335,8 @@ export default function DrawerExample() {
               </Flex>
 
               <Box>
-              <AllcartItems/>
+                <AllcartItems />
               </Box>
-
             </DrawerBody>
 
             <DrawerFooter>
