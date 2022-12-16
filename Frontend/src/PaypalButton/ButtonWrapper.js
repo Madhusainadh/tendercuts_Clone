@@ -17,9 +17,8 @@ export const ButtonWrapper = ({ currency, showSpinner }) => {
   const navigate = useNavigate();
   const toast = useToast();
   const { totalw } = useContext(CartContext);
-  let huru=(totalw/84).toFixed(0)
-  
-  
+  let huru = (totalw / 84).toFixed(0);
+
   const amount = `${huru}`;
 
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();

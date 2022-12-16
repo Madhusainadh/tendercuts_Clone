@@ -19,12 +19,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import PayButton from "../PaypalButton/PayButton";
 import { CartContext } from "../Store/AuthContext";
-import { ItemCategoryfun } from "../Store/ItemCategory/ItemCategory.Module";
+
 import AllcartItems from "./AllcartItems";
 const cart = require("./cart.png");
 

@@ -4,7 +4,7 @@ import { ButtonWrapper } from "./ButtonWrapper";
 import { Box } from "@chakra-ui/react";
 export default function PayButton() {
   return (
-    <Box >
+    <Box>
       <PayPalScriptProvider
         options={{
           "client-id":
