@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import {
   Drawer,
@@ -7,13 +7,10 @@ import {
   useDisclosure,
   DrawerCloseButton,
   Text,
-  DrawerFooter,
   Box,
-  PinInput,
-  PinInputField,
   useToast,
 } from "@chakra-ui/react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   Button,
   Container,
@@ -24,10 +21,9 @@ import {
 } from "@chakra-ui/react";
 import TenderSVG from "./TenderSVG";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+
 import { useUserAuth } from "../Home/UserAuthContext";
 
-import OtpModal from "./Modal";
 import axios from "axios";
 import DrawerExample from "../Cart/CartDrawer";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,13 +36,11 @@ const loc = require("./loc.png");
 
 export const Navbar2 = () => {
   const { data } = useSelector((store) => store.Auth);
-  console.log("data:", data);
+;
 
   const dispatch = useDispatch();
   const [modal, setmodal] = useState(false);
-  const modo = () => {
-    setmodal(!modal);
-  };
+ 
   const [Loginformdata, setLoginformdata] = useState({
     email: "",
     password: "",

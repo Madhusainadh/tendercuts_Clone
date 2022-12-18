@@ -1,4 +1,4 @@
-import React from "react";
+
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { ButtonWrapper } from "./ButtonWrapper";
 import { Box } from "@chakra-ui/react";

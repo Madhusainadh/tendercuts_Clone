@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import { useConst, useToast } from "@chakra-ui/react";
+import {  useToast } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../Store/AuthContext";

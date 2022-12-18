@@ -6,18 +6,18 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
+
   Button,
-  Container,
+
   Flex,
-  Heading,
-  Image,
+
+ 
   Input,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import axios from "axios";
+import  { useState } from "react";
+
 function Add({ setmodal, modal }) {
   const [phnumber, setphnumber] = useState("");
   const [fetch, setfetch] = useState("");

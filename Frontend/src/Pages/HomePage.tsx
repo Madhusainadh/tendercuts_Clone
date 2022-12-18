@@ -1,5 +1,5 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
-import React from "react";
+
+
 import CheckoutOurBlog from "../Home/CheckoutOurBlog/CheckoutOurBlog";
 import TenderCutsAccordion from "../Home/HomePageAccordion/TenderCutsAccordion";
 import HomeSlider from "../Home/HomeSlider/HomeSlider";

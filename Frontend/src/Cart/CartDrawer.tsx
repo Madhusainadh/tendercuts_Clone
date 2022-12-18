@@ -12,8 +12,7 @@ import {
   Flex,
   Heading,
   Image,
-  Input,
-  Stack,
+  
   Text,
   useDisclosure,
   useToast,

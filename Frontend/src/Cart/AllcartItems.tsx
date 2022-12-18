@@ -1,6 +1,6 @@
 import { Box, Container } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CartItem from "./CartItem";
 
 const AllcartItems = () => {

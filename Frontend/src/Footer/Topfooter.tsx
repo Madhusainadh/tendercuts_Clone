@@ -1,6 +1,6 @@
-import { Box, Heading, Image, Progress, SimpleGrid, Text } from "@chakra-ui/react";
-import { randomFillSync } from "crypto";
-import React, { useState } from "react";
+import { Box, Heading, Image, Progress, SimpleGrid } from "@chakra-ui/react";
+
+import  { useState } from "react";
 
 export const Topfooter = () => {
 

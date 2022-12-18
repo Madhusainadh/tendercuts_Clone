@@ -1,5 +1,5 @@
-import { Box, Container, Flex, Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Container,  Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+
 import call from "./call.png"
 import mail from "./mail.png";
 import facebook from "./facebook.png";

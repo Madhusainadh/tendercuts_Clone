@@ -1,5 +1,5 @@
-import { Flex, Heading, Image, Text } from "@chakra-ui/react";
-import React from "react";
+import { Flex, Heading, Image } from "@chakra-ui/react";
+
 type prop = {
   src: string;
   text: string;

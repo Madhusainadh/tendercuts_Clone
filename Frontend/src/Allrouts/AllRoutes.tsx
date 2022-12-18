@@ -2,7 +2,7 @@ import React from "react";
 
 import Allitems from "../Itempage/Allitems";
 import SingleItem from "../SingleItemPage/SingleItem";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
 import HomePage from "../Pages/HomePage";
 import PhoneSignup from "../Home/PhoneSignup";
 
@@ -14,7 +14,7 @@ const AllRoutes = ()=> {
       <Route path="/phone" element={<PhoneSignup />} />
       <Route path={"/Allitems/:type"} element={<Allitems />} /> 
     </Routes>
-    //madhu
+  
   );
 };
 

@@ -1,6 +1,6 @@
 import { Button, Input } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import{ useState } from "react";
 type prop = {
   name: string;
   phoneNumber: string;

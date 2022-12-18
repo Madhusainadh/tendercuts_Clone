@@ -1,14 +1,14 @@
 import {
   Box,
-  Center,
+
   Flex,
   Heading,
   Image,
   SimpleGrid,
-  Stack,
+
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+
 import TPFYButton from "./TPFYButton";
 type TPFYO = {
   image: string;

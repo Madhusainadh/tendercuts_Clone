@@ -3,15 +3,15 @@ import {
   Button,
   Container,
   Flex,
-  Heading,
+
   Image,
   SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { async } from "@firebase/util";
+
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import  { useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 import { CartContext } from "../Store/AuthContext";

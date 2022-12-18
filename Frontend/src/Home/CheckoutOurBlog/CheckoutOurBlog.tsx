@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, SimpleGrid } from "@chakra-ui/react";
+import {  Flex, Heading, SimpleGrid } from "@chakra-ui/react";
 
 import CheckoutOurBlogIndiCompo from "./CheckoutOurBlogIndiCompo";
 

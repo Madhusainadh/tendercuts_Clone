@@ -3,7 +3,7 @@ import {
   Container,
   Image,
   SimpleGrid,
-  useDisclosure,
+
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
