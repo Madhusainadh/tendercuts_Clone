@@ -40,6 +40,7 @@ const loc = require("./loc.png");
 
 export const Navbar2 = () => {
   const { data } = useSelector((store) => store.Auth);
+  console.log("data:", data);
 
   const dispatch = useDispatch();
   const [modal, setmodal] = useState(false);
@@ -70,7 +71,7 @@ export const Navbar2 = () => {
       const { data } = res;
       const { _id } = data;
       localStorage.setItem("email", _id);
-      setfetch(_id);
+
       setsignupformData({
         name: "",
         email: "",
@@ -88,6 +89,7 @@ export const Navbar2 = () => {
         duration: 2000,
         isClosable: true,
       });
+      setsignup(false);
     } catch (error) {
       alert(error.message);
     }
@@ -100,7 +102,7 @@ export const Navbar2 = () => {
   const [modalBool, setmodalBool] = useState(false);
   const [result, setresult] = useState("");
   const { setupRecaptcha, name } = useUserAuth();
-  const [otp, setotp] = useState("");
+
   const postuser = async () => {
     const { email, password, phonenumber } = Loginformdata;
     if (!email || !password || !phonenumber) {
@@ -133,8 +135,8 @@ export const Navbar2 = () => {
         duration: 2000,
         isClosable: true,
       });
+      onClose();
     } catch (error) {
-      console.log(error.message);
       toast({
         title: "User not found",
         description: "please try again with valid credentials",
@@ -146,7 +148,7 @@ export const Navbar2 = () => {
   };
   useEffect(() => {
     dispatch(Loginactions());
-  }, []);
+  }, [fetch]);
 
   const getOtp = async () => {
     try {
@@ -314,8 +316,7 @@ export const Navbar2 = () => {
                           <Text size={"lg"}>{data.pincode}</Text>
                         </Flex>
                       </Flex>
-                      {/* );
-                      })} */}
+
                       <Button
                         bg={"red.600"}
                         color={"white"}
@@ -461,9 +462,9 @@ export const Navbar2 = () => {
                   </Flex>
                   <DrawerBody>
                     <Flex direction={"column"} align={"flex-start"} gap={"2"}>
-                    <Heading fontSize={"3xl"} textAlign={"center"}>
-                      Sign up
-                    </Heading>
+                      <Heading fontSize={"3xl"} textAlign={"center"}>
+                        Sign up
+                      </Heading>
                       <Input
                         placeholder="Enter your Area"
                         onChange={(e) =>
