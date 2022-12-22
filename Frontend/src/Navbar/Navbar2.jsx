@@ -59,7 +59,7 @@ export const Navbar2 = () => {
   const handleAddAddress = async () => {
     try {
       let res = await axios.post(
-        "https://backend-tendercut-production.up.railway.app/address/create",
+        "https://naughty-underclothes-hare.cyclic.app/address/create",
         SignupformData
       );
       const { data } = res;
@@ -110,7 +110,7 @@ export const Navbar2 = () => {
     }
     try {
       const res = await axios.post(
-        "https://backend-tendercut-production.up.railway.app/login",
+        "https://naughty-underclothes-hare.cyclic.app/login",
         {
           email: email,
           password: password,

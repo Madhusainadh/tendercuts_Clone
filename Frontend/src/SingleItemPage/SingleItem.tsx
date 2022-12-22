@@ -29,7 +29,7 @@ const SingleItem = () => {
     try {
       axios
         .get(
-          `https://backend-tendercut-production.up.railway.app/products/${num}`
+          `https://naughty-underclothes-hare.cyclic.app/products/${num}`
         )
         .then((res) => setdata(res.data));
     } catch (err: any) {

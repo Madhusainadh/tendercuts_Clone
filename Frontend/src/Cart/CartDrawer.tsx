@@ -51,7 +51,7 @@ export default function DrawerExample() {
   const updateProd = async (type: String, id: string) => {
     try {
       let data = await axios.post(
-        "https://backend-tendercut-production.up.railway.app/cart/update",
+        "https://naughty-underclothes-hare.cyclic.app/cart/update",
         {
           type: type,
           product: id,

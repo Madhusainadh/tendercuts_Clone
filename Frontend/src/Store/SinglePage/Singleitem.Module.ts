@@ -6,7 +6,7 @@ export const sendItemfun = (id: Number) => async (dispatch: any) => {
   console.log(id);
 
   let { data } = await axios.get(
-    `https://backend-tendercut-production.up.railway.app/products/63562c2220326b47884660db`
+    `https://naughty-underclothes-hare.cyclic.app/products/63562c2220326b47884660db`
   );
   dispatch({ type: Send_item, payload: data }); //);
   console.log(data);
