@@ -112,6 +112,7 @@ export const Navbar2 = () => {
       const res = await axios.post(
         "https://naughty-underclothes-hare.cyclic.app/login",
         {
+          
           email: email,
           password: password,
           number: phonenumber,

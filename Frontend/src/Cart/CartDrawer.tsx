@@ -36,18 +36,13 @@ export default function DrawerExample() {
     onOpen();
   };
   const toast = useToast();
-  // const { Category } = useSelector((state: any) => state.Category);
 
-  let [data, setdata] = useState<any>([]);
 
   let [cartdata, setcartdata] = useState<any>([]);
   const [carttot, setcarttot] = useState<number>(0);
 
-  const dispatch = useDispatch<any>();
-  // var title = "chicken";
-  // useEffect(() => {
-  //   dispatch(ItemCategoryfun(title));
-  // }, []);
+
+ 
   const updateProd = async (type: String, id: string) => {
     try {
       let data = await axios.post(
@@ -68,9 +63,7 @@ export default function DrawerExample() {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   setdata(Category);
-  // }, [Category]);
+
   const getCart = async () => {
     try {
       const res = await axios.get(

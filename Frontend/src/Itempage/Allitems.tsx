@@ -1,10 +1,4 @@
-import {
-  Box,
-  Container,
-  Image,
-  SimpleGrid,
-
-} from "@chakra-ui/react";
+import { Box, Container, Image, SimpleGrid } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 import { Item } from "./Items";
@@ -19,22 +13,17 @@ const Allitems = () => {
 
   const { Category } = useSelector((state: any) => state.Category);
 
-
   let [data, setdata] = useState<any>([]);
   const dispatch = useDispatch<any>();
   var urltitle = useParams();
   var title = urltitle.type;
   useEffect(() => {
-
     dispatch(ItemCategoryfun(title));
   }, []);
 
   useEffect(() => {
-
     setdata(Category);
   }, [Category]);
-
-
 
   return (
     <Container maxW={"90%"}>
