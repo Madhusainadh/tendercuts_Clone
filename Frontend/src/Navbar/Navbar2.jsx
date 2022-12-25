@@ -36,11 +36,9 @@ const loc = require("./loc.png");
 
 export const Navbar2 = () => {
   const { data } = useSelector((store) => store.Auth);
-;
-
   const dispatch = useDispatch();
   const [modal, setmodal] = useState(false);
- 
+
   const [Loginformdata, setLoginformdata] = useState({
     email: "",
     password: "",
@@ -60,6 +58,8 @@ export const Navbar2 = () => {
     try {
       let res = await axios.post(
         "https://naughty-underclothes-hare.cyclic.app/address/create",
+        // "http://localhost:8080/address/create",
+
         SignupformData
       );
       const { data } = res;
@@ -85,6 +85,8 @@ export const Navbar2 = () => {
       });
       setsignup(false);
     } catch (error) {
+      console.log("error:", error);
+
       alert(error.message);
     }
   };
@@ -112,7 +114,6 @@ export const Navbar2 = () => {
       const res = await axios.post(
         "https://naughty-underclothes-hare.cyclic.app/login",
         {
-          
           email: email,
           password: password,
           number: phonenumber,
